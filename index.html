@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MathFlux — Math Battles. Any Level.</title>
+  <meta name="description" content="Real-time competitive math for every level. Support, FAQ, and privacy policy for MathFlux on iOS." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #04080f;
+      --bg-1:      #070e1c;
+      --bg-2:      #0a1628;
+      --cyan:      #22d3ee;
+      --cyan-dim:  #0e7490;
+      --cyan-glow: rgba(34,211,238,.15);
+      --white:     #f0f6ff;
+      --muted:     #64748b;
+      --border:    rgba(34,211,238,.12);
+      --glass:     rgba(10,22,40,.6);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── GRID BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── FLOATING MATH SYMBOLS ── */
+    .symbols {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .sym {
+      position: absolute;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(1rem, 2vw, 1.6rem);
+      color: var(--cyan);
+      opacity: 0;
+      animation: drift linear infinite;
+      will-change: transform, opacity;
+    }
+    @keyframes drift {
+      0%   { opacity: 0;    transform: translateY(110vh) rotate(0deg); }
+      10%  { opacity: .07; }
+      90%  { opacity: .07; }
+      100% { opacity: 0;    transform: translateY(-10vh) rotate(20deg); }
+    }
+
+    /* ── LAYOUT ── */
+    main { position: relative; z-index: 1; }
+    section { padding: 100px 24px; }
+    .container { max-width: 860px; margin: 0 auto; }
+    .wide     { max-width: 1100px; margin: 0 auto; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 36px;
+      background: rgba(4,8,15,.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: -.02em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--cyan); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .875rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: 120px;
+      padding-bottom: 80px;
+    }
+    .hero-inner { text-align: center; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .75rem;
+      color: var(--cyan);
+      background: var(--cyan-glow);
+      margin-bottom: 36px;
+      letter-spacing: .08em;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .4; transform: scale(.7); }
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      line-height: .95;
+      letter-spacing: -.04em;
+      margin-bottom: 28px;
+    }
+    h1 .accent { color: var(--cyan); }
+    h1 .dim    { color: var(--muted); }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto 52px;
+      font-weight: 300;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: .9rem;
+      letter-spacing: .04em;
+      text-decoration: none;
+      transition: all .25s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--cyan);
+      color: var(--bg);
+      box-shadow: 0 0 40px rgba(34,211,238,.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 60px rgba(34,211,238,.5);
+    }
+    .btn-ghost {
+      border: 1px solid var(--border);
+      color: var(--white);
+      background: var(--glass);
+    }
+    .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    .hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* hero stat strip */
+    .stat-strip {
+      display: flex; gap: 48px; justify-content: center; flex-wrap: wrap;
+      margin-top: 80px;
+      padding-top: 48px;
+      border-top: 1px solid var(--border);
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 500;
+      color: var(--cyan);
+      display: block;
+    }
+    .stat-label {
+      font-size: .8rem;
+      color: var(--muted);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    /* ── SECTION HEADERS ── */
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .72rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 16px;
+    }
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      letter-spacing: -.03em;
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+    .section-desc {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 520px;
+      margin-bottom: 56px;
+      font-weight: 300;
+    }
+
+    /* ── FEATURES GRID ── */
+    #features { background: var(--bg-1); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .feat-card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 28px;
+      backdrop-filter: blur(10px);
+      transition: border-color .25s, transform .25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .feat-card::after {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: var(--cyan-glow);
+      filter: blur(30px);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .feat-card:hover { border-color: var(--cyan-dim); transform: translateY(-4px); }
+    .feat-card:hover::after { opacity: 1; }
+    .feat-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .feat-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+      color: var(--white);
+    }
+    .feat-desc { font-size: .9rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── FAQ ── */
+    #support { background: var(--bg); }
+    .faq-list { display: flex; flex-direction: column; gap: 2px; }
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color .2s;
+    }
+    .faq-item:has(.faq-body:not([hidden])) { border-color: var(--cyan-dim); }
+
+    .faq-q {
+      width: 100%;
+      background: var(--glass);
+      border: none;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: left;
+      padding: 22px 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      transition: background .2s;
+    }
+    .faq-q:hover { background: rgba(34,211,238,.05); }
+    .faq-arrow {
+      width: 20px; height: 20px;
+      flex-shrink: 0;
+      color: var(--cyan);
+      transition: transform .25s;
+    }
+    .faq-item.open .faq-arrow { transform: rotate(45deg); }
+    .faq-body {
+      padding: 0 24px 22px;
+      color: var(--muted);
+      font-size: .95rem;
+      line-height: 1.7;
+      background: var(--glass);
+    }
+    .faq-body a { color: var(--cyan); text-decoration: none; }
+    .faq-body a:hover { text-decoration: underline; }
+
+    /* ── PRIVACY ── */
+    #privacy { background: var(--bg-1); }
+    .privacy-card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 52px;
+      backdrop-filter: blur(10px);
+    }
+    .privacy-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--cyan);
+      margin: 32px 0 10px;
+    }
+    .privacy-card h3:first-child { margin-top: 0; }
+    .privacy-card p { color: var(--muted); font-size: .95rem; margin-bottom: 12px; }
+    .privacy-card ul {
+      color: var(--muted);
+      font-size: .95rem;
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+    .privacy-card li { margin-bottom: 6px; }
+    .privacy-card strong { color: var(--white); font-weight: 500; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg); text-align: center; }
+    .contact-card {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-top: 40px;
+    }
+    .contact-email {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem;
+      color: var(--cyan);
+      text-decoration: none;
+      border-bottom: 1px solid var(--cyan-dim);
+      padding-bottom: 2px;
+      transition: border-color .2s;
+    }
+    .contact-email:hover { border-color: var(--cyan); }
+    .contact-note { color: var(--muted); font-size: .85rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 36px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .8rem;
+      font-family: 'JetBrains Mono', monospace;
+      position: relative; z-index: 1;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--cyan); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      section { padding: 72px 20px; }
+      .privacy-card { padding: 28px 20px; }
+      .stat-strip { gap: 28px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Floating math symbols -->
+<div class="symbols" aria-hidden="true"></div>
+
+<nav>
+  <a href="#" class="nav-logo">Math<span>Flux</span></a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#support">Support</a></li>
+    <li><a href="#privacy">Privacy</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <div class="container hero-inner">
+      <div class="hero-badge">iOS 26 · Available Now</div>
+
+      <h1>
+        Math<span class="accent">Flux</span><br>
+        <span class="dim">Any Level.</span>
+      </h1>
+
+      <p class="hero-sub">
+        Real-time competitive math from kindergarten to calculus.
+        Race the clock. Challenge real players. Master every operation.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="https://apps.apple.com" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          Download on App Store
+        </a>
+        <a href="#support" class="btn btn-ghost">Get Support</a>
+      </div>
+
+      <div class="stat-strip">
+        <div class="stat">
+          <span class="stat-num">5</span>
+          <span class="stat-label">Difficulty Modes</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">9</span>
+          <span class="stat-label">Math Operations</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">∞</span>
+          <span class="stat-label">Live Matches</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">4+</span>
+          <span class="stat-label">Age Rating</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FEATURES ── -->
+  <section id="features">
+    <div class="wide">
+      <p class="section-label">What's Inside</p>
+      <h2>Built for Serious<br>Math Players</h2>
+      <p class="section-desc">From kindergarten arithmetic to college-level calculus — every feature is designed around speed, precision, and competition.</p>
+
+      <div class="features-grid">
+        <div class="feat-card">
+          <span class="feat-icon">⚡</span>
+          <div class="feat-title">Live Competition</div>
+          <div class="feat-desc">Create a room, share your code, and challenge any player in real time via Firebase-powered matchmaking.</div>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon">🧠</span>
+          <div class="feat-title">Adaptive Difficulty</div>
+          <div class="feat-desc">The engine tracks your mastery per operation type and adjusts in real time — no two sessions are the same.</div>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon">🎓</span>
+          <div class="feat-title">5 Difficulty Modes</div>
+          <div class="feat-desc">Kindergarten, General, Middle School, High School, and College — spanning addition to derivatives and factorials.</div>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon">💀</span>
+          <div class="feat-title">Sudden Death</div>
+          <div class="feat-desc">One wrong answer and it's over. Sudden Death mode is the ultimate test of accuracy under pressure.</div>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon">📅</span>
+          <div class="feat-title">Daily Challenge</div>
+          <div class="feat-desc">A new target score every day across rotating modes. Chase the leaderboard or just beat your personal best.</div>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon">🏆</span>
+          <div class="feat-title">Game Center</div>
+          <div class="feat-desc">Leaderboards and achievements synced across your devices via Apple Game Center.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SUPPORT ── -->
+  <section id="support">
+    <div class="container">
+      <p class="section-label">Help & Support</p>
+      <h2>Frequently Asked<br>Questions</h2>
+      <p class="section-desc">Can't find your answer here? Email us directly — we respond within 24 hours.</p>
+
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-q">
+            Why can't I join a multiplayer room?
+            <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-body" hidden>
+            Make sure you and your opponent are both on an active internet connection. Room codes expire if the host waits more than a few minutes before a guest joins — ask the host to create a new room and share the fresh code. If problems persist, toggle Airplane Mode off and on to reset your connection.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            I ran out of tokens — how do I get more?
+            <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-body" hidden>
+            Free players receive a daily token allowance that resets each calendar day. You can also earn bonus tokens by hitting streak milestones during gameplay. For unlimited competitive play, the Premium upgrade removes token limits entirely. Token packs are also available as one-time in-app purchases.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            I purchased Premium but the app still shows it as locked.
+            <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-body" hidden>
+            First, try the <strong>Restore Purchases</strong> button found on the upgrade screen. If that doesn't work, force-quit the app and reopen it. Make sure you're signed into the same Apple ID used for the original purchase. Still stuck? <a href="mailto:samuelfalade@gmail.com">Email us</a> with your Apple receipt and we'll sort it out.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            My game score didn't save after a match.
+            <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-body" hidden>
+            Scores are saved locally and synced to Game Center at the end of each complete session. If the app was force-closed mid-game, that session won't count. Make sure you reach the game-over screen for your score to register and sync.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            How do I sign in or create an account?
+            <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-body" hidden>
+            MathFlux requires no account creation. Multiplayer uses anonymous authentication automatically — your identity is managed by your device. Game Center handles leaderboards using your existing Apple ID. Just open the app and play.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            Is the app available on Android or iPad?
+            <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-body" hidden>
+            MathFlux is currently available on iPhone (iOS 26 or later). iPad and Android versions are under consideration for a future update.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            How do I request a refund?
+            <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-body" hidden>
+            All purchases are processed by Apple. To request a refund, visit <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener">reportaproblem.apple.com</a> and select the relevant transaction. You can also <a href="mailto:samuelfalade@gmail.com">contact us</a> and we'll assist you through the process.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRIVACY POLICY ── -->
+  <section id="privacy">
+    <div class="container">
+      <p class="section-label">Legal</p>
+      <h2>Privacy Policy</h2>
+      <p class="section-desc">Last updated: May 2026</p>
+
+      <div class="privacy-card">
+
+        <h3>Overview</h3>
+        <p>MathFlux ("the app") is developed and operated by Samuel Falade. This policy explains what data is collected, why, and how it is used. We are committed to minimizing data collection and never selling your personal information.</p>
+
+        <h3>Data We Collect</h3>
+        <p>MathFlux collects only what is necessary to operate the game:</p>
+        <ul>
+          <li><strong>Anonymous authentication identifier</strong> — generated automatically by Firebase Auth when you use multiplayer features. This is a random device-scoped ID, not tied to your name or email.</li>
+          <li><strong>Gameplay data</strong> — scores, difficulty levels, and session statistics stored locally on your device and optionally synced to Apple Game Center under your Apple ID.</li>
+          <li><strong>Purchase receipts</strong> — verified locally via StoreKit 2 to unlock Premium features. We do not store or transmit payment information.</li>
+        </ul>
+
+        <h3>Firebase</h3>
+        <p>MathFlux uses <strong>Firebase Realtime Database</strong> (Google) to power live multiplayer rooms. Room data (room code, scores, anonymous UID) is stored temporarily during a match and removed automatically when the session ends or either player disconnects. Firebase may collect device-level diagnostic information as described in <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Google's Firebase Privacy Policy</a>.</p>
+
+        <h3>Apple Game Center</h3>
+        <p>Leaderboard scores and achievements are submitted to Apple Game Center using your existing Apple ID. This data is governed by <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple's Privacy Policy</a>. MathFlux does not have access to your Apple ID or personal Apple account details.</p>
+
+        <h3>What We Do Not Collect</h3>
+        <ul>
+          <li>Your name, email address, or any contact information</li>
+          <li>Location data</li>
+          <li>Camera, microphone, or contacts access</li>
+          <li>Advertising identifiers or tracking data</li>
+          <li>Any data sold or shared with third-party advertisers</li>
+        </ul>
+
+        <h3>Children's Privacy</h3>
+        <p>MathFlux is rated 4+ and is designed to be safe for all ages. We do not knowingly collect personal information from children. Because we use anonymous authentication only, no personal identifiers are required to play.</p>
+
+        <h3>Data Retention</h3>
+        <p>Multiplayer room data is deleted from Firebase servers automatically at the end of each session. Local gameplay statistics remain on your device and can be cleared by deleting the app. Game Center data is managed through your Apple account settings.</p>
+
+        <h3>Your Rights</h3>
+        <p>Since we do not collect personal information tied to your identity, there is no user account to delete. To remove all local data, simply delete the app from your device. For any privacy-related questions, contact us at <a href="mailto:samuelfalade@gmail.com">samuelfalade@gmail.com</a>.</p>
+
+        <h3>Changes to This Policy</h3>
+        <p>We may update this policy as the app evolves. The "last updated" date at the top of this section will reflect any changes. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
+
+        <h3>Contact</h3>
+        <p>For any privacy concerns or questions, email <a href="mailto:samuelfalade@gmail.com">samuelfalade@gmail.com</a>.</p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section id="contact">
+    <div class="container">
+      <p class="section-label">Get In Touch</p>
+      <h2>We're Here to Help</h2>
+      <p class="section-desc" style="margin: 0 auto;">Bug report, feature request, or just a question — reach out and we'll get back to you within 24 hours.</p>
+
+      <div class="contact-card">
+        <a href="mailto:samuelfalade@gmail.com" class="contact-email">samuelfalade@gmail.com</a>
+        <span class="contact-note">Response within 24 hours · Mon – Fri</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>
+    © 2026 Samuel Falade &nbsp;·&nbsp;
+    <a href="#privacy">Privacy Policy</a> &nbsp;·&nbsp;
+    <a href="https://apps.apple.com" target="_blank" rel="noopener">App Store</a>
+  </p>
+</footer>
+
+<script>
+  // ── Floating math symbols
+  const SYMS = ['+','-','×','÷','=','∑','∫','√','π','∞','≠','≤','!','^','%','∂','∇'];
+  const container = document.querySelector('.symbols');
+  for (let i = 0; i < 28; i++) {
+    const el = document.createElement('span');
+    el.className = 'sym';
+    el.textContent = SYMS[Math.floor(Math.random() * SYMS.length)];
+    el.style.left     = Math.random() * 100 + 'vw';
+    el.style.animationDuration  = (18 + Math.random() * 22) + 's';
+    el.style.animationDelay     = -(Math.random() * 30) + 's';
+    el.style.fontSize = (0.8 + Math.random() * 1.4) + 'rem';
+    container.appendChild(el);
+  }
+
+  // ── FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const body = item.querySelector('.faq-body');
+      const isOpen = item.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-body').hidden = true;
+      });
+
+      // Toggle clicked
+      if (!isOpen) {
+        item.classList.add('open');
+        body.hidden = false;
+      }
+    });
+  });
+</script>
+</body>
+</html>
