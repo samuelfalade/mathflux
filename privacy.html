@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MathFlux — Privacy Policy</title>
+  <meta name="description" content="MathFlux privacy policy — iOS and Android. Anonymous authentication, no personal data collection."/>
+  <link rel="icon" type="image/svg+xml" href="https://samuelfalade.github.io/MathFlux-Flutter/brand/icon/icon.svg"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --navy:#04080F;--dark:#0B1520;--panel:#0F1B2A;--border:#1C2D42;
+      --cyan:#22D3EE;--muted:#5C7794;--text:#C8D8E8;--white:#FFFFFF;
+    }
+    body{
+      font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+      background:var(--navy);color:var(--text);line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+    }
+    body::before{
+      content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+      background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+      background-size:80px 80px;opacity:.18;
+    }
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      background:rgba(4,8,15,.88);backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border);padding:0 32px;height:60px;
+      display:flex;align-items:center;gap:28px;
+    }
+    .nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .nav-mark{width:30px;height:30px;border-radius:7px;overflow:hidden;flex-shrink:0}
+    .nav-mark img{width:100%;height:100%;display:block}
+    .nav-name{font-size:16px;font-weight:900;color:var(--white);letter-spacing:-.4px}
+    .nav-name span{color:var(--cyan)}
+    .nav-links{display:flex;gap:24px;margin-left:auto}
+    nav a.nl{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .15s}
+    nav a.nl:hover{color:var(--white)}
+
+    main{
+      position:relative;z-index:1;max-width:780px;margin:0 auto;
+      padding:130px 32px 80px;
+    }
+    .eyebrow{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--cyan);margin-bottom:14px;display:block}
+    h1{font-size:clamp(36px,5vw,52px);font-weight:900;color:var(--white);letter-spacing:-1px;line-height:1.05;margin-bottom:16px}
+    .meta{font-size:13px;color:var(--muted);margin-bottom:48px}
+    .meta strong{color:var(--text);font-weight:500}
+
+    .card{
+      background:var(--panel);border:1px solid var(--border);border-radius:18px;
+      padding:36px 32px;margin-bottom:24px;
+    }
+    h2{
+      font-size:22px;font-weight:900;color:var(--white);letter-spacing:-.4px;
+      margin:24px 0 12px;
+    }
+    h2:first-child{margin-top:0}
+    p{margin-bottom:14px;color:var(--text);font-size:15px}
+    ul{margin:0 0 14px 20px;padding:0}
+    li{margin-bottom:8px;color:var(--text);font-size:15px}
+    strong{color:var(--white);font-weight:500}
+    a{color:var(--cyan);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    footer{
+      position:relative;z-index:1;border-top:1px solid var(--border);
+      padding:32px;max-width:780px;margin:0 auto;
+      display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
+      font-size:12px;color:var(--muted);
+    }
+    footer a{color:var(--cyan);text-decoration:none}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <span class="nav-mark"><img src="https://samuelfalade.github.io/MathFlux-Flutter/brand/icon/icon.svg" alt="MathFlux"/></span>
+    <span class="nav-name">Math<span>Flux</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="nl">← Home</a>
+    <a href="https://samuelfalade.github.io/MathFlux-Flutter/brand/brand-showcase.html" class="nl">Brand</a>
+  </div>
+</nav>
+
+<main>
+  <span class="eyebrow">Privacy Policy</span>
+  <h1>How MathFlux handles your data.</h1>
+  <p class="meta"><strong>Effective:</strong> May 19, 2026 · <strong>Applies to:</strong> iOS and Android</p>
+
+  <div class="card">
+
+    <h2>Overview</h2>
+    <p>MathFlux ("the app") is developed and operated by Samuel Falade. This policy explains what data is collected, why, and how it is used across both the iOS and Android versions. We are committed to minimizing data collection and we never sell your personal information.</p>
+
+    <h2>Data we collect</h2>
+    <p>MathFlux collects only what is necessary to operate the game:</p>
+    <ul>
+      <li><strong>Anonymous authentication identifier</strong> — generated automatically by Firebase Auth when you use multiplayer features. This is a random device-scoped ID, not tied to your name or email.</li>
+      <li><strong>Gameplay data</strong> — scores, difficulty levels, and session statistics stored locally on your device and optionally synced to Apple Game Center (iOS) or Google Play Games Services (Android).</li>
+      <li><strong>Purchase receipts</strong> — verified locally via StoreKit 2 (iOS) or Google Play Billing (Android) to unlock token packs. We do not store or transmit payment information.</li>
+    </ul>
+
+    <h2>Firebase</h2>
+    <p>MathFlux uses <strong>Firebase Realtime Database</strong> (Google) to power live multiplayer rooms. Room data (room code, scores, anonymous UID, question indices) is stored temporarily during a match and removed automatically when the session ends or any player disconnects. Firebase may collect device-level diagnostic information as described in <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Google's Firebase Privacy Policy</a>.</p>
+
+    <h2>Game Services (Game Center &amp; Google Play Games)</h2>
+    <p>Leaderboard scores and achievements are submitted to <strong>Apple Game Center</strong> (iOS) using your existing Apple ID, or to <strong>Google Play Games Services</strong> (Android) using your Google Play Games profile. This data is governed by <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple's Privacy Policy</a> and <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a> respectively. MathFlux does not have access to your platform account details beyond the anonymous Game Services player ID.</p>
+
+    <h2>What we do not collect</h2>
+    <ul>
+      <li>Your name, email address, or any contact information</li>
+      <li>Location data</li>
+      <li>Camera, microphone, or contacts access</li>
+      <li>Advertising identifiers or tracking data</li>
+      <li>Any data sold or shared with third-party advertisers</li>
+    </ul>
+
+    <h2>No ads, no third-party tracking</h2>
+    <p>MathFlux contains no advertising and integrates no third-party analytics SDKs. The only external services we communicate with are Firebase (for multiplayer matchmaking) and the platform's native services (Game Center / Game Services and the App Store / Play Store billing pipelines).</p>
+
+    <h2>Children's privacy</h2>
+    <p>MathFlux is rated for Everyone (Apple 4+, Google Play Everyone, PEGI 3) and is designed to be safe for all ages. We do not knowingly collect personal information from children. Because we use anonymous authentication only, no personal identifiers are required to play.</p>
+
+    <h2>Data retention</h2>
+    <p>Multiplayer room data is deleted from Firebase servers automatically at the end of each session. Local gameplay statistics remain on your device and can be cleared by deleting the app. Game Services data is managed through your Apple or Google account settings.</p>
+
+    <h2>Your rights</h2>
+    <p>Since we do not collect personal information tied to your identity, there is no user account to delete. To remove all local data, simply delete the app from your device. For any privacy-related questions, contact us at <a href="mailto:samuelfalade@gmail.com">samuelfalade@gmail.com</a>.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>We may update this policy as the app evolves. The effective date at the top will reflect any changes. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
+
+    <h2>Contact</h2>
+    <p>Questions or requests? Email <a href="mailto:samuelfalade@gmail.com">samuelfalade@gmail.com</a>.</p>
+
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 Samuel Falade · <a href="index.html">Back to MathFlux</a></p>
+  <p>Effective May 19, 2026</p>
+</footer>
+
+</body>
+</html>
