@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1584 396" width="1584" height="396">
+  <defs>
+    <radialGradient id="bg-deep" cx="22%" cy="100%" r="120%">
+      <stop offset="0%"  stop-color="#091628"/>
+      <stop offset="55%" stop-color="#050C18"/>
+      <stop offset="100%" stop-color="#04080F"/>
+    </radialGradient>
+    <radialGradient id="bloom-tr" cx="92%" cy="20%" r="55%">
+      <stop offset="0%"  stop-color="#22D3EE" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bloom-bl" cx="8%" cy="92%" r="40%">
+      <stop offset="0%"  stop-color="#FFBB3C" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#FFBB3C" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="wm-glow" x="-3%" y="-30%" width="106%" height="160%">
+      <feGaussianBlur stdDeviation="7"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+      <feComposite in2="SourceGraphic" operator="over"/>
+    </filter>
+    <filter id="badge-shadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="16"/>
+      <feOffset dx="0" dy="14"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.6"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M 56 0 L 0 0 0 56" fill="none" stroke="#1C2D42" stroke-width="0.5" opacity="0.5"/>
+    </pattern>
+    <clipPath id="badge-clip">
+      <rect x="92" y="96" width="200" height="200" rx="42" ry="42"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1584" height="396" fill="url(#bg-deep)"/>
+  <rect width="1584" height="396" fill="url(#grid)"/>
+  <rect width="1584" height="396" fill="url(#bloom-tr)"/>
+  <rect width="1584" height="396" fill="url(#bloom-bl)"/>
+
+  <!-- Corner crosshairs -->
+  <g stroke="#22D3EE" stroke-width="1" opacity="0.35">
+    <line x1="40" y1="40" x2="56" y2="40"/><line x1="40" y1="40" x2="40" y2="56"/>
+    <line x1="1528" y1="40" x2="1544" y2="40"/><line x1="1544" y1="40" x2="1544" y2="56"/>
+    <line x1="40" y1="340" x2="40" y2="356"/><line x1="40" y1="356" x2="56" y2="356"/>
+    <line x1="1544" y1="340" x2="1544" y2="356"/><line x1="1528" y1="356" x2="1544" y2="356"/>
+  </g>
+
+  <!-- Spec strip -->
+  <text x="80" y="46"
+    font-family="'JetBrains Mono','SF Mono',Menlo,monospace"
+    font-size="11" letter-spacing="3" fill="#22D3EE" opacity="0.65">MATHFLUX_v1.0 · iOS · ANDROID</text>
+  <text x="1504" y="46"
+    font-family="'JetBrains Mono','SF Mono',Menlo,monospace"
+    font-size="11" letter-spacing="3" fill="#5C7794" opacity="0.6"
+    text-anchor="end">SAMUEL FALADE</text>
+
+  <!-- Badge -->
+  <g filter="url(#badge-shadow)">
+    <rect x="92" y="96" width="200" height="200" rx="42" ry="42" fill="#04080F"/>
+    <g clip-path="url(#badge-clip)">
+      <g transform="translate(92,96) scale(0.02)">
+        <path d="M5402.85 3860.72L5402.85 7125.35L4673.61 9370.36L3178.27 9370.36L5402.85 3860.72Z" fill="white"/>
+        <path d="M5402.86 3860.79L5401.09 7125.35L6293.55 9370.36L7788.89 9370.36L5402.86 3860.79Z" fill="white"/>
+        <path d="M3957.09 731.785L4704.76 2364.27L1901.01 9370.36L405.675 9370.36L3957.09 731.785Z" fill="white"/>
+        <path d="M7103.53 3860.72L5608.19 3860.72L8038.11 9370.36L9533.44 9370.36L7103.53 3860.72Z" fill="#1565C0"/>
+        <path d="M4175.16 731.786L9533.44 731.786L9533.44 2364.27L4922.83 2364.27L4175.16 731.786Z" fill="#22D3EE"/>
+        <path d="M5608.68 3861.03L9541.65 3863.8L9533.44 5493.22L6328.36 5493.22L5608.68 3861.03Z" fill="#22D3EE"/>
+        <path d="M4704.56 2363.97H4922.85L5608.92 3861.03L5402.86 3860.79L4704.56 2363.97Z" fill="#FFBB3C"/>
+      </g>
+    </g>
+    <rect x="92" y="96" width="200" height="200" rx="42" ry="42" fill="none"
+      stroke="#22D3EE" stroke-width="1" opacity="0.20"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="340" y="220"
+    font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+    font-size="108" font-weight="900" letter-spacing="-3"
+    opacity="0.4" filter="url(#wm-glow)">
+    <tspan fill="#FFFFFF">Math</tspan><tspan fill="#22D3EE">Flux</tspan>
+  </text>
+  <text x="340" y="220"
+    font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+    font-size="108" font-weight="900" letter-spacing="-3">
+    <tspan fill="#FFFFFF">Math</tspan><tspan fill="#22D3EE">Flux</tspan>
+  </text>
+
+  <!-- Tagline -->
+  <line x1="340" y1="256" x2="370" y2="256" stroke="#FFBB3C" stroke-width="2"/>
+  <text x="382" y="262"
+    font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+    font-size="13" font-weight="600" letter-spacing="5" fill="#C8D8E8">MATH BATTLES · ANY LEVEL</text>
+
+  <!-- Subtitle -->
+  <text x="340" y="304"
+    font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+    font-size="22" font-weight="500" fill="#C8D8E8" letter-spacing="-.3">Real-time competitive math game · iOS &amp; Android · <tspan fill="#FFBB3C" font-weight="700">15 players</tspan></text>
+
+  <!-- Footer URL on right -->
+  <text x="1504" y="320"
+    font-family="'JetBrains Mono','SF Mono',Menlo,monospace"
+    font-size="13" letter-spacing="3" fill="#22D3EE"
+    text-anchor="end">SAMUELFALADE.GITHUB.IO/MATHFLUX</text>
+</svg>

@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="bg-deep" cx="22%" cy="100%" r="120%">
+      <stop offset="0%"  stop-color="#091628"/>
+      <stop offset="60%" stop-color="#050C18"/>
+      <stop offset="100%" stop-color="#04080F"/>
+    </radialGradient>
+    <radialGradient id="bloom-tr" cx="90%" cy="14%" r="55%">
+      <stop offset="0%"  stop-color="#22D3EE" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bloom-bl" cx="8%" cy="92%" r="40%">
+      <stop offset="0%"  stop-color="#FFBB3C" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#FFBB3C" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="wm-glow" x="-3%" y="-30%" width="106%" height="160%">
+      <feGaussianBlur stdDeviation="9"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+      <feComposite in2="SourceGraphic" operator="over"/>
+    </filter>
+    <filter id="badge-shadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="20"/>
+      <feOffset dx="0" dy="20"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.6"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="halo" cx="50%" cy="50%" r="65%">
+      <stop offset="0%"  stop-color="#22D3EE" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#1C2D42" stroke-width="0.5" opacity="0.5"/>
+    </pattern>
+    <clipPath id="badge-clip">
+      <rect x="80" y="125" width="380" height="380" rx="80" ry="80"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg-deep)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#bloom-tr)"/>
+  <rect width="1200" height="630" fill="url(#bloom-bl)"/>
+
+  <!-- Corner crosshairs -->
+  <g stroke="#22D3EE" stroke-width="1" opacity="0.35">
+    <line x1="32" y1="32" x2="48" y2="32"/><line x1="32" y1="32" x2="32" y2="48"/>
+    <line x1="1152" y1="32" x2="1168" y2="32"/><line x1="1168" y1="32" x2="1168" y2="48"/>
+    <line x1="32" y1="582" x2="32" y2="598"/><line x1="32" y1="598" x2="48" y2="598"/>
+    <line x1="1168" y1="582" x2="1168" y2="598"/><line x1="1152" y1="598" x2="1168" y2="598"/>
+  </g>
+
+  <!-- Spec strip -->
+  <text x="64" y="50"
+    font-family="'JetBrains Mono','SF Mono',Menlo,monospace"
+    font-size="11" letter-spacing="3" fill="#22D3EE" opacity="0.65">MATHFLUX_v1.0</text>
+  <text x="1136" y="50"
+    font-family="'JetBrains Mono','SF Mono',Menlo,monospace"
+    font-size="11" letter-spacing="3" fill="#5C7794" opacity="0.65"
+    text-anchor="end">1200 × 630</text>
+
+  <!-- Badge halo + badge -->
+  <circle cx="270" cy="315" r="270" fill="url(#halo)"/>
+  <g filter="url(#badge-shadow)">
+    <rect x="80" y="125" width="380" height="380" rx="80" ry="80" fill="#04080F"/>
+    <g clip-path="url(#badge-clip)">
+      <g transform="translate(80,125) scale(0.038)">
+        <path d="M5402.85 3860.72L5402.85 7125.35L4673.61 9370.36L3178.27 9370.36L5402.85 3860.72Z" fill="white"/>
+        <path d="M5402.86 3860.79L5401.09 7125.35L6293.55 9370.36L7788.89 9370.36L5402.86 3860.79Z" fill="white"/>
+        <path d="M3957.09 731.785L4704.76 2364.27L1901.01 9370.36L405.675 9370.36L3957.09 731.785Z" fill="white"/>
+        <path d="M7103.53 3860.72L5608.19 3860.72L8038.11 9370.36L9533.44 9370.36L7103.53 3860.72Z" fill="#1565C0"/>
+        <path d="M4175.16 731.786L9533.44 731.786L9533.44 2364.27L4922.83 2364.27L4175.16 731.786Z" fill="#22D3EE"/>
+        <path d="M5608.68 3861.03L9541.65 3863.8L9533.44 5493.22L6328.36 5493.22L5608.68 3861.03Z" fill="#22D3EE"/>
+        <path d="M4704.56 2363.97H4922.85L5608.92 3861.03L5402.86 3860.79L4704.56 2363.97Z" fill="#FFBB3C"/>
+      </g>
+    </g>
+    <rect x="80" y="125" width="380" height="380" rx="80" ry="80" fill="none"
+      stroke="#22D3EE" stroke-width="1" opacity="0.20"/>
+  </g>
+
+  <!-- Eyebrow -->
+  <line x1="510" y1="158" x2="540" y2="158" stroke="#22D3EE" stroke-width="2"/>
+  <text x="552" y="164"
+    font-family="'JetBrains Mono','SF Mono',Menlo,monospace"
+    font-size="12" letter-spacing="4" fill="#22D3EE">iOS · ANDROID</text>
+
+  <!-- Wordmark -->
+  <text x="510" y="290"
+    font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+    font-size="138" font-weight="900" letter-spacing="-3.5"
+    opacity="0.4" filter="url(#wm-glow)">
+    <tspan fill="#FFFFFF">Math</tspan><tspan fill="#22D3EE">Flux</tspan>
+  </text>
+  <text x="510" y="290"
+    font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+    font-size="138" font-weight="900" letter-spacing="-3.5">
+    <tspan fill="#FFFFFF">Math</tspan><tspan fill="#22D3EE">Flux</tspan>
+  </text>
+
+  <!-- Tagline -->
+  <line x1="510" y1="332" x2="540" y2="332" stroke="#FFBB3C" stroke-width="2"/>
+  <text x="552" y="338"
+    font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+    font-size="14" font-weight="600" letter-spacing="6" fill="#C8D8E8">MATH BATTLES · ANY LEVEL</text>
+
+  <!-- Subtitle -->
+  <text x="510" y="408"
+    font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+    font-size="30" font-weight="500" fill="#FFFFFF" letter-spacing="-.4">Real-time competitive math.</text>
+  <text x="510" y="448"
+    font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+    font-size="30" font-weight="500" fill="#5C7794" letter-spacing="-.4">Up to <tspan fill="#FFBB3C" font-weight="700">15 players</tspan>. Any level.</text>
+
+  <!-- Bottom URL -->
+  <line x1="510" y1="510" x2="540" y2="510" stroke="#22D3EE" stroke-width="2"/>
+  <text x="552" y="516"
+    font-family="'JetBrains Mono','SF Mono',Menlo,monospace"
+    font-size="13" letter-spacing="3" fill="#22D3EE">SAMUELFALADE.GITHUB.IO/MATHFLUX</text>
+</svg>
