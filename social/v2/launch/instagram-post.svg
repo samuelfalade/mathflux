@@ -110,9 +110,9 @@
     font-size="32" font-weight="500" fill="#5C7794" letter-spacing="-.4"
     text-anchor="middle">Up to <tspan fill="#FFBB3C" font-weight="700">15 players</tspan>. Any level.</text>
 
-  <!-- Bottom CTA -->
+  <!-- Bottom spec strip -->
   <text x="540" y="1018"
     font-family="'JetBrains Mono','SF Mono',Menlo,monospace"
-    font-size="14" letter-spacing="3" fill="#22D3EE"
-    text-anchor="middle">↳ SAMUELFALADE.GITHUB.IO/MATHFLUX</text>
+    font-size="14" letter-spacing="4" fill="#22D3EE"
+    text-anchor="middle">FREE  ·  NO ADS  ·  iOS  ·  ANDROID</text>
 </svg>

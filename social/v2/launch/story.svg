@@ -152,13 +152,13 @@
   </g>
 
   <!-- Bottom CTA -->
-  <text x="540" y="1780"
+  <text x="540" y="1790"
     font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
-    font-size="32" font-weight="700" fill="#FFFFFF"
-    text-anchor="middle">Download free on iOS &amp; Android</text>
-  <line x1="380" y1="1810" x2="700" y2="1810" stroke="#22D3EE" stroke-width="1.5" opacity="0.5"/>
-  <text x="540" y="1840"
+    font-size="36" font-weight="700" fill="#FFFFFF"
+    text-anchor="middle">Free on iOS &amp; Android</text>
+  <line x1="430" y1="1822" x2="650" y2="1822" stroke="#22D3EE" stroke-width="1.5" opacity="0.45"/>
+  <text x="540" y="1856"
     font-family="'JetBrains Mono','SF Mono',Menlo,monospace"
-    font-size="18" letter-spacing="3" fill="#22D3EE"
-    text-anchor="middle">SAMUELFALADE.GITHUB.IO/MATHFLUX</text>
+    font-size="18" letter-spacing="5" fill="#22D3EE"
+    text-anchor="middle">NO ADS  ·  NO TRACKING</text>
 </svg>

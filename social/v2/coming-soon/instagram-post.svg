@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <defs>
+    <radialGradient id="bg-deep" cx="50%" cy="100%" r="120%">
+      <stop offset="0%"  stop-color="#091628"/>
+      <stop offset="60%" stop-color="#050C18"/>
+      <stop offset="100%" stop-color="#04080F"/>
+    </radialGradient>
+    <radialGradient id="bloom-top" cx="50%" cy="0%" r="60%">
+      <stop offset="0%"  stop-color="#22D3EE" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bloom-bl" cx="10%" cy="90%" r="50%">
+      <stop offset="0%"  stop-color="#FFBB3C" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#FFBB3C" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="wm-glow" x="-3%" y="-30%" width="106%" height="160%">
+      <feGaussianBlur stdDeviation="12"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+      <feComposite in2="SourceGraphic" operator="over"/>
+    </filter>
+    <filter id="badge-shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="30"/>
+      <feOffset dx="0" dy="30"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.65"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="halo" cx="50%" cy="50%" r="65%">
+      <stop offset="0%"  stop-color="#22D3EE" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M 72 0 L 0 0 0 72" fill="none" stroke="#1C2D42" stroke-width="0.5" opacity="0.5"/>
+    </pattern>
+    <clipPath id="badge-clip">
+      <rect x="290" y="180" width="500" height="500" rx="100" ry="100"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1080" height="1080" fill="url(#bg-deep)"/>
+  <rect width="1080" height="1080" fill="url(#grid)"/>
+  <rect width="1080" height="1080" fill="url(#bloom-top)"/>
+  <rect width="1080" height="1080" fill="url(#bloom-bl)"/>
+
+  <!-- Corner crosshairs -->
+  <g stroke="#22D3EE" stroke-width="1.5" opacity="0.35">
+    <line x1="48" y1="48" x2="68" y2="48"/><line x1="48" y1="48" x2="48" y2="68"/>
+    <line x1="1012" y1="48" x2="1032" y2="48"/><line x1="1032" y1="48" x2="1032" y2="68"/>
+    <line x1="48" y1="1012" x2="48" y2="1032"/><line x1="48" y1="1032" x2="68" y2="1032"/>
+    <line x1="1032" y1="1012" x2="1032" y2="1032"/><line x1="1012" y1="1032" x2="1032" y2="1032"/>
+  </g>
+
+  <!-- Top spec strip -->
+  <text x="90" y="86"
+    font-family="'JetBrains Mono','SF Mono',Menlo,monospace"
+    font-size="14" letter-spacing="3" fill="#FFBB3C" opacity="0.75">TEASER · MATHFLUX</text>
+  <text x="990" y="86"
+    font-family="'JetBrains Mono','SF Mono',Menlo,monospace"
+    font-size="14" letter-spacing="3" fill="#5C7794" opacity="0.7"
+    text-anchor="end">COMING SOON</text>
+
+  <!-- Badge halo -->
+  <circle cx="540" cy="430" r="380" fill="url(#halo)"/>
+
+  <!-- Badge -->
+  <g filter="url(#badge-shadow)">
+    <rect x="290" y="180" width="500" height="500" rx="100" ry="100" fill="#04080F"/>
+    <g clip-path="url(#badge-clip)">
+      <g transform="translate(290,180) scale(0.05)">
+        <path d="M5402.85 3860.72L5402.85 7125.35L4673.61 9370.36L3178.27 9370.36L5402.85 3860.72Z" fill="white"/>
+        <path d="M5402.86 3860.79L5401.09 7125.35L6293.55 9370.36L7788.89 9370.36L5402.86 3860.79Z" fill="white"/>
+        <path d="M3957.09 731.785L4704.76 2364.27L1901.01 9370.36L405.675 9370.36L3957.09 731.785Z" fill="white"/>
+        <path d="M7103.53 3860.72L5608.19 3860.72L8038.11 9370.36L9533.44 9370.36L7103.53 3860.72Z" fill="#1565C0"/>
+        <path d="M4175.16 731.786L9533.44 731.786L9533.44 2364.27L4922.83 2364.27L4175.16 731.786Z" fill="#22D3EE"/>
+        <path d="M5608.68 3861.03L9541.65 3863.8L9533.44 5493.22L6328.36 5493.22L5608.68 3861.03Z" fill="#22D3EE"/>
+        <path d="M4704.56 2363.97H4922.85L5608.92 3861.03L5402.86 3860.79L4704.56 2363.97Z" fill="#FFBB3C"/>
+      </g>
+    </g>
+    <rect x="290" y="180" width="500" height="500" rx="100" ry="100" fill="none"
+      stroke="#22D3EE" stroke-width="1.5" opacity="0.20"/>
+  </g>
+
+  <!-- Wordmark glow + solid (centered below badge) -->
+  <text x="540" y="800"
+    font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+    font-size="120" font-weight="900" letter-spacing="-3"
+    text-anchor="middle" opacity="0.4" filter="url(#wm-glow)">
+    <tspan fill="#FFFFFF">Math</tspan><tspan fill="#22D3EE">Flux</tspan>
+  </text>
+  <text x="540" y="800"
+    font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+    font-size="120" font-weight="900" letter-spacing="-3"
+    text-anchor="middle">
+    <tspan fill="#FFFFFF">Math</tspan><tspan fill="#22D3EE">Flux</tspan>
+  </text>
+
+  <!-- Tagline with centered accent dash above -->
+  <line x1="510" y1="828" x2="570" y2="828" stroke="#FFBB3C" stroke-width="2.5"/>
+  <text x="540" y="860"
+    font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+    font-size="18" font-weight="500" letter-spacing="7" fill="#C8D8E8"
+    text-anchor="middle">MATH BATTLES · ANY LEVEL</text>
+
+  <!-- Two-line subtitle -->
+  <text x="540" y="922"
+    font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+    font-size="32" font-weight="500" fill="#FFFFFF" letter-spacing="-.4"
+    text-anchor="middle">Real-time competitive math.</text>
+  <text x="540" y="966"
+    font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+    font-size="32" font-weight="500" fill="#5C7794" letter-spacing="-.4"
+    text-anchor="middle">Up to <tspan fill="#FFBB3C" font-weight="700">15 players</tspan>. Any level.</text>
+
+  <!-- Bottom spec strip -->
+  <text x="540" y="1018"
+    font-family="'JetBrains Mono','SF Mono',Menlo,monospace"
+    font-size="14" letter-spacing="4" fill="#22D3EE"
+    text-anchor="middle">COMING SOON  ·  iOS  ·  ANDROID  ·  2026</text>
+</svg>
