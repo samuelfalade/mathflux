@@ -79,8 +79,10 @@ opponent's score updates as they play.
 
 ═══ FAIR PRICING ═══
 
-MathFlux is free to download and play. Optional token packs unlock cosmetic
-themes and bonus persona unlocks. No ads. No tracking. No accounts to
+MathFlux is free to download and play. Competition tokens are required to
+host or join real-time multiplayer matches — earn them by playing, or top
+up with optional token packs. A one-time Premium unlock removes all token
+gating from competition mode forever. No ads. No tracking. No accounts to
 create. We use anonymous authentication only.
 
 Privacy policy: https://samuelfalade.github.io/mathflux/privacy.html
@@ -109,7 +111,7 @@ Math battles. Any level. Get the app.
 |-------|-------|
 | Target audience | **Ages 5 and up** (Designed for Families) |
 | Contains ads | **No** |
-| Contains in-app purchases | **Yes** — token packs (range: $0.99 – $19.99) |
+| Contains in-app purchases | **Yes** — token packs + one-time Premium (range: $0.99 – $4.99) |
 | Country availability | All countries |
 | Pricing | Free with IAP |
 
@@ -127,12 +129,23 @@ Math battles. Any level. Get the app.
 
 ## In-app product list (for the IAP declaration)
 
-Match these to the StoreKit / Play Billing products configured in code
-(see `MathFlux-Flutter/lib/services/store_service.dart` for exact IDs):
+These IDs must be created in Play Console **exactly** as written — they
+match `ProductID` in `MathFlux-Flutter/lib/models/game_models.dart:143-147`
+and are queried by `lib/services/store_service.dart`. Mismatch ⇒ products
+return in `notFoundIDs` and won't appear in the in-app store.
 
-- `tokens_small`  — $0.99 — 100 tokens
-- `tokens_medium` — $4.99 — 600 tokens
-- `tokens_large`  — $9.99 — 1,500 tokens
-- `tokens_huge`   — $19.99 — 4,000 tokens
+### Consumable — competition tokens
 
-(Update prices and IDs to match the actual `store_service.dart` config before submission.)
+| Product ID | Price | Tokens delivered |
+|------------|-------|------------------|
+| `Samuel.Praxis_Math.tokens.small`  | $0.99 |  5 tokens |
+| `Samuel.Praxis_Math.tokens.medium` | $2.99 | 20 tokens |
+| `Samuel.Praxis_Math.tokens.large`  | $4.99 | 50 tokens |
+
+### Non-consumable — one-time unlock
+
+| Product ID | Price | Effect |
+|------------|-------|--------|
+| `Samuel.Praxis_Math.premium` | $4.99 | Sets `isPremium=true` permanently — removes token gating from competition mode |
+
+**Note on naming:** the IDs use the iOS bundle convention (`Samuel.Praxis_Math.*`) so the same string works on both stores. Android package is `com.samuelfalade.mathflux` — that's fine, Play Billing accepts any product ID string.
