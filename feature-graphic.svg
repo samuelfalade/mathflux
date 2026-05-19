@@ -1,64 +1,97 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 500" width="1024" height="500">
   <defs>
-    <!-- Background gradient — dark navy with cyan bloom upper-right -->
-    <radialGradient id="bg-grad" cx="78%" cy="20%" r="90%">
-      <stop offset="0%"  stop-color="#0F2238"/>
-      <stop offset="35%" stop-color="#091628"/>
+    <!-- Layered backgrounds for depth -->
+    <radialGradient id="bg-deep" cx="20%" cy="100%" r="120%">
+      <stop offset="0%"  stop-color="#091628"/>
+      <stop offset="60%" stop-color="#050C18"/>
       <stop offset="100%" stop-color="#04080F"/>
     </radialGradient>
-
-    <!-- Cyan accent bloom -->
-    <radialGradient id="cyan-bloom" cx="85%" cy="25%" r="40%">
-      <stop offset="0%"  stop-color="#22D3EE" stop-opacity="0.22"/>
-      <stop offset="45%" stop-color="#22D3EE" stop-opacity="0.08"/>
+    <radialGradient id="bg-bloom-tr" cx="92%" cy="12%" r="50%">
+      <stop offset="0%"  stop-color="#22D3EE" stop-opacity="0.20"/>
+      <stop offset="50%" stop-color="#1565C0" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bg-bloom-bl" cx="8%" cy="92%" r="40%">
+      <stop offset="0%"  stop-color="#FFBB3C" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#FFBB3C" stop-opacity="0"/>
     </radialGradient>
 
     <!-- Wordmark glow -->
-    <filter id="flux-glow" x="-3%" y="-30%" width="106%" height="160%">
-      <feGaussianBlur stdDeviation="7" result="b"/>
+    <filter id="wm-glow" x="-3%" y="-30%" width="106%" height="160%">
+      <feGaussianBlur stdDeviation="9" result="b"/>
       <feComposite in="SourceGraphic" in2="b" operator="over"/>
     </filter>
 
-    <!-- Badge drop shadow -->
-    <filter id="badge-shadow" x="-15%" y="-15%" width="130%" height="130%">
-      <feGaussianBlur in="SourceAlpha" stdDeviation="14"/>
-      <feOffset dx="0" dy="14" result="off"/>
-      <feComponentTransfer><feFuncA type="linear" slope="0.55"/></feComponentTransfer>
+    <!-- Badge drop shadow with cyan tint -->
+    <filter id="badge-shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="20"/>
+      <feOffset dx="0" dy="20" result="off1"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.65"/></feComponentTransfer>
       <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
 
+    <!-- Cyan glow halo around badge -->
+    <radialGradient id="badge-halo" cx="50%" cy="50%" r="60%">
+      <stop offset="0%"  stop-color="#22D3EE" stop-opacity="0.18"/>
+      <stop offset="55%" stop-color="#22D3EE" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"/>
+    </radialGradient>
+
     <clipPath id="badge-clip">
-      <rect x="64" y="84" width="332" height="332" rx="68" ry="68"/>
+      <rect x="68" y="80" width="340" height="340" rx="70" ry="70"/>
     </clipPath>
 
-    <!-- Background mark fragment clipper (for atmospheric repeat) -->
-    <clipPath id="fragment-clip">
-      <rect width="1024" height="500"/>
-    </clipPath>
+    <!-- Grid pattern -->
+    <pattern id="grid" x="0" y="0" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M 64 0 L 0 0 0 64" fill="none" stroke="#1C2D42" stroke-width="0.5" opacity="0.5"/>
+    </pattern>
   </defs>
 
-  <!-- BG layers -->
-  <rect width="1024" height="500" fill="url(#bg-grad)"/>
-  <rect width="1024" height="500" fill="url(#cyan-bloom)"/>
+  <!-- ── BACKGROUND LAYERS ── -->
+  <rect width="1024" height="500" fill="url(#bg-deep)"/>
+  <rect width="1024" height="500" fill="url(#grid)"/>
+  <rect width="1024" height="500" fill="url(#bg-bloom-tr)"/>
+  <rect width="1024" height="500" fill="url(#bg-bloom-bl)"/>
 
-  <!-- Faint background mark fragments — echoes of the F-bars (large, faded, off-canvas) -->
-  <g clip-path="url(#fragment-clip)" opacity="0.04">
-    <g transform="translate(720,-80) scale(0.06)">
-      <path d="M4175.16 731.786L9533.44 731.786L9533.44 2364.27L4922.83 2364.27L4175.16 731.786Z" fill="#22D3EE"/>
-      <path d="M5608.68 3861.03L9541.65 3863.8L9533.44 5493.22L6328.36 5493.22L5608.68 3861.03Z" fill="#22D3EE"/>
-      <path d="M7103.53 3860.72L5608.19 3860.72L8038.11 9370.36L9533.44 9370.36L7103.53 3860.72Z" fill="#1565C0"/>
-    </g>
+  <!-- ── DESIGNER-SPEC ALIGNMENT MARKS (corners) ── -->
+  <g stroke="#22D3EE" stroke-width="1" opacity="0.35">
+    <!-- top-left crosshair -->
+    <line x1="32" y1="32" x2="48" y2="32"/>
+    <line x1="32" y1="32" x2="32" y2="48"/>
+    <!-- top-right crosshair -->
+    <line x1="976" y1="32" x2="992" y2="32"/>
+    <line x1="992" y1="32" x2="992" y2="48"/>
+    <!-- bottom-left crosshair -->
+    <line x1="32" y1="452" x2="32" y2="468"/>
+    <line x1="32" y1="468" x2="48" y2="468"/>
+    <!-- bottom-right crosshair -->
+    <line x1="992" y1="452" x2="992" y2="468"/>
+    <line x1="976" y1="468" x2="992" y2="468"/>
   </g>
 
-  <!-- Subtle horizontal accent rule across composition -->
-  <line x1="64" y1="250" x2="960" y2="250" stroke="#1C2D42" stroke-width="1" opacity="0.4"/>
+  <!-- ── EDITORIAL SPEC STRIP (top margin) ── -->
+  <text x="64" y="42"
+    font-family="'JetBrains Mono', 'SF Mono', Menlo, monospace"
+    font-size="10" letter-spacing="2.5" fill="#22D3EE" opacity="0.6">v1.0 · 2026</text>
+  <text x="960" y="42"
+    font-family="'JetBrains Mono', 'SF Mono', Menlo, monospace"
+    font-size="10" letter-spacing="2.5" fill="#5C7794" opacity="0.6"
+    text-anchor="end">1024 × 500</text>
 
-  <!-- ── LOGO BADGE (left, 332×332) ── -->
+  <!-- Decorative section number watermark -->
+  <text x="952" y="180"
+    font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+    font-size="170" font-weight="900" letter-spacing="-6"
+    fill="#22D3EE" opacity="0.04"
+    text-anchor="end">01</text>
+
+  <!-- ── BADGE HALO + BADGE ── -->
+  <circle cx="238" cy="250" r="220" fill="url(#badge-halo)"/>
+
   <g filter="url(#badge-shadow)">
-    <rect x="64" y="84" width="332" height="332" rx="68" ry="68" fill="#04080F"/>
+    <rect x="68" y="80" width="340" height="340" rx="70" ry="70" fill="#04080F"/>
     <g clip-path="url(#badge-clip)">
-      <g transform="translate(64,84) scale(0.0332)">
+      <g transform="translate(68,80) scale(0.034)">
         <path d="M5402.85 3860.72L5402.85 7125.35L4673.61 9370.36L3178.27 9370.36L5402.85 3860.72Z" fill="white"/>
         <path d="M5402.86 3860.79L5401.09 7125.35L6293.55 9370.36L7788.89 9370.36L5402.86 3860.79Z" fill="white"/>
         <path d="M3957.09 731.785L4704.76 2364.27L1901.01 9370.36L405.675 9370.36L3957.09 731.785Z" fill="white"/>
@@ -68,48 +101,89 @@
         <path d="M4704.56 2363.97H4922.85L5608.92 3861.03L5402.86 3860.79L4704.56 2363.97Z" fill="#FFBB3C"/>
       </g>
     </g>
-    <rect x="64" y="84" width="332" height="332" rx="68" ry="68" fill="none"
-      stroke="#22D3EE" stroke-width="1" opacity="0.20"/>
+    <rect x="68" y="80" width="340" height="340" rx="70" ry="70" fill="none"
+      stroke="#22D3EE" stroke-width="1" opacity="0.18"/>
   </g>
 
-  <!-- ── TYPOGRAPHY BLOCK (right of badge) ── -->
+  <!-- Badge spec label (designer-y, below badge) -->
+  <text x="68" y="442"
+    font-family="'JetBrains Mono', 'SF Mono', Menlo, monospace"
+    font-size="9" letter-spacing="2" fill="#5C7794" opacity="0.7">↳ APP ICON · 1024 × 1024 · RX 22.5%</text>
 
-  <!-- Eyebrow label -->
-  <text x="448" y="172"
-    font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
-    font-size="13" font-weight="500" letter-spacing="6" fill="#22D3EE" opacity="0.85">v1.0 — iOS &amp; ANDROID</text>
+  <!-- ── TYPOGRAPHY BLOCK (right side) ── -->
+
+  <!-- Eyebrow row with leading rule -->
+  <line x1="460" y1="118" x2="490" y2="118" stroke="#22D3EE" stroke-width="1.5"/>
+  <text x="502" y="123"
+    font-family="'JetBrains Mono', 'SF Mono', Menlo, monospace"
+    font-size="11" letter-spacing="3.5" fill="#22D3EE">MATHFLUX_v1.0</text>
+  <text x="900" y="123"
+    font-family="'JetBrains Mono', 'SF Mono', Menlo, monospace"
+    font-size="11" letter-spacing="3.5" fill="#5C7794" opacity="0.7"
+    text-anchor="end">iOS · ANDROID</text>
 
   <!-- Wordmark — glow layer -->
-  <text x="448" y="270"
+  <text x="460" y="232"
     font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
-    font-size="118" font-weight="900" letter-spacing="-3"
-    opacity="0.35" filter="url(#flux-glow)">
+    font-size="126" font-weight="900" letter-spacing="-3.5"
+    opacity="0.4" filter="url(#wm-glow)">
     <tspan fill="#FFFFFF">Math</tspan><tspan fill="#22D3EE">Flux</tspan>
   </text>
-  <!-- Wordmark — solid layer -->
-  <text x="448" y="270"
+  <!-- Wordmark — solid -->
+  <text x="460" y="232"
     font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
-    font-size="118" font-weight="900" letter-spacing="-3">
+    font-size="126" font-weight="900" letter-spacing="-3.5">
     <tspan fill="#FFFFFF">Math</tspan><tspan fill="#22D3EE">Flux</tspan>
   </text>
 
-  <!-- Tagline -->
-  <line x1="448" y1="306" x2="492" y2="306" stroke="#22D3EE" stroke-width="1.5" opacity="0.7"/>
-  <text x="504" y="312"
+  <!-- Tagline with editorial leading -->
+  <line x1="460" y1="270" x2="488" y2="270" stroke="#FFBB3C" stroke-width="2"/>
+  <text x="500" y="276"
     font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
-    font-size="13" font-weight="500" letter-spacing="4" fill="#5C7794">MATH BATTLES · ANY LEVEL</text>
+    font-size="13" font-weight="600" letter-spacing="6" fill="#C8D8E8">MATH BATTLES · ANY LEVEL</text>
 
-  <!-- Supporting line -->
-  <text x="448" y="368"
+  <!-- Subtitle — heavy display, two lines -->
+  <text x="460" y="338"
     font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
-    font-size="22" font-weight="500" fill="#C8D8E8" letter-spacing="-.3">Real-time competitive math.</text>
-  <text x="448" y="400"
+    font-size="28" font-weight="500" fill="#FFFFFF" letter-spacing="-.4">Real-time competitive math.</text>
+  <text x="460" y="372"
     font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
-    font-size="22" font-weight="500" fill="#5C7794" letter-spacing="-.3">Up to 15 players. Any level.</text>
+    font-size="28" font-weight="500" fill="#5C7794" letter-spacing="-.4">Up to <tspan fill="#FFBB3C" font-weight="700">15 players</tspan>. Any level.</text>
 
-  <!-- Bottom-right corner mark -->
-  <text x="960" y="468"
-    font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
-    font-size="10" font-weight="500" letter-spacing="3" fill="#5C7794" opacity="0.6"
-    text-anchor="end">SAMUEL FALADE</text>
+  <!-- Editorial footer stats row -->
+  <g transform="translate(460, 420)">
+    <text x="0" y="14"
+      font-family="'JetBrains Mono', 'SF Mono', Menlo, monospace"
+      font-size="10" letter-spacing="2" fill="#5C7794">MODES</text>
+    <text x="0" y="32"
+      font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+      font-size="20" font-weight="700" fill="#FFFFFF">03</text>
+
+    <line x1="74" y1="6" x2="74" y2="38" stroke="#1C2D42" stroke-width="1"/>
+
+    <text x="92" y="14"
+      font-family="'JetBrains Mono', 'SF Mono', Menlo, monospace"
+      font-size="10" letter-spacing="2" fill="#5C7794">SESSION</text>
+    <text x="92" y="32"
+      font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+      font-size="20" font-weight="700" fill="#FFFFFF">60–120<tspan fill="#5C7794" font-size="13" font-weight="500">s</tspan></text>
+
+    <line x1="216" y1="6" x2="216" y2="38" stroke="#1C2D42" stroke-width="1"/>
+
+    <text x="234" y="14"
+      font-family="'JetBrains Mono', 'SF Mono', Menlo, monospace"
+      font-size="10" letter-spacing="2" fill="#5C7794">ROOMS</text>
+    <text x="234" y="32"
+      font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+      font-size="20" font-weight="700" fill="#22D3EE">LIVE</text>
+
+    <line x1="316" y1="6" x2="316" y2="38" stroke="#1C2D42" stroke-width="1"/>
+
+    <text x="334" y="14"
+      font-family="'JetBrains Mono', 'SF Mono', Menlo, monospace"
+      font-size="10" letter-spacing="2" fill="#5C7794">ADS</text>
+    <text x="334" y="32"
+      font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+      font-size="20" font-weight="700" fill="#FFBB3C">ZERO</text>
+  </g>
 </svg>
