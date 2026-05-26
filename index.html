@@ -97,7 +97,7 @@
       color: var(--white);
       text-decoration: none;
     }
-    .nav-logo span { color: var(--cyan); }
+    .nav-logo .nav-accent { color: var(--cyan); }
     .nav-links { display: flex; gap: 32px; list-style: none; }
     .nav-links a {
       color: var(--muted);
@@ -147,10 +147,20 @@
       font-size: clamp(3rem, 8vw, 6.5rem);
       line-height: .95;
       letter-spacing: -.04em;
-      margin-bottom: 28px;
+      margin-bottom: 20px;
     }
     h1 .accent { color: var(--cyan); }
-    h1 .dim    { color: var(--muted); }
+
+    .hero-tagline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(.85rem, 1.8vw, 1.05rem);
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 28px;
+    }
+    .hero-tagline .sep { color: var(--muted); margin: 0 .5em; }
 
     .hero-sub {
       font-size: clamp(1rem, 2.5vw, 1.25rem);
@@ -406,7 +416,7 @@
 <div class="symbols" aria-hidden="true"></div>
 
 <nav>
-  <a href="#" class="nav-logo">Math<span>Flux</span></a>
+  <a href="#" class="nav-logo">Math<span class="nav-accent">Flux</span></a>
   <ul class="nav-links">
     <li><a href="#features">Features</a></li>
     <li><a href="#support">Support</a></li>
@@ -423,9 +433,9 @@
       <div class="hero-badge">iOS 26 · Available Now</div>
 
       <h1>
-        Math<span class="accent">Flux</span><br>
-        <span class="dim">Any Level.</span>
+        Math<span class="accent">Flux</span>
       </h1>
+      <p class="hero-tagline">Math Battles<span class="sep">·</span>Any Level.</p>
 
       <p class="hero-sub">
         Real-time competitive math from kindergarten to calculus.
