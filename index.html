@@ -159,6 +159,7 @@
       text-transform: uppercase;
       color: var(--cyan);
       margin-bottom: 28px;
+      transition: opacity 0.4s ease;
     }
     .hero-tagline .sep { color: var(--muted); margin: 0 .5em; }
 
@@ -435,7 +436,9 @@
       <h1>
         Math<span class="accent">Flux</span>
       </h1>
-      <p class="hero-tagline">Math Battles<span class="sep">·</span>Any Level.</p>
+      <p class="hero-tagline" id="hero-tagline">
+        <span id="tagline-left">Math Battles</span><span class="sep">·</span><span id="tagline-right">Any Level.</span>
+      </p>
 
       <p class="hero-sub">
         Real-time competitive math from kindergarten to calculus.
@@ -516,7 +519,7 @@
   <!-- ── SUPPORT ── -->
   <section id="support">
     <div class="container">
-      <p class="section-label">Help & Support</p>
+      <p class="section-label">Help &amp; Support</p>
       <h2>Frequently Asked<br>Questions</h2>
       <p class="section-desc">Can't find your answer here? Email us directly — we respond within 24 hours.</p>
 
@@ -606,7 +609,7 @@
       <div class="privacy-card">
 
         <h3>Overview</h3>
-        <p>MathFlux ("the app") is developed and operated by Samuel Falade. This policy explains what data is collected, why, and how it is used. We are committed to minimizing data collection and never selling your personal information.</p>
+        <p>MathFlux (“the app”) is developed and operated by Samuel Falade. This policy explains what data is collected, why, and how it is used. We are committed to minimizing data collection and never selling your personal information.</p>
 
         <h3>Data We Collect</h3>
         <p>MathFlux collects only what is necessary to operate the game:</p>
@@ -641,7 +644,7 @@
         <p>Since we do not collect personal information tied to your identity, there is no user account to delete. To remove all local data, simply delete the app from your device. For any privacy-related questions, contact us at <a href="mailto:samuelfalade@gmail.com">samuelfalade@gmail.com</a>.</p>
 
         <h3>Changes to This Policy</h3>
-        <p>We may update this policy as the app evolves. The "last updated" date at the top of this section will reflect any changes. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
+        <p>We may update this policy as the app evolves. The “last updated” date at the top of this section will reflect any changes. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
 
         <h3>Contact</h3>
         <p>For any privacy concerns or questions, email <a href="mailto:samuelfalade@gmail.com">samuelfalade@gmail.com</a>.</p>
@@ -688,6 +691,29 @@
     el.style.fontSize = (0.8 + Math.random() * 1.4) + 'rem';
     container.appendChild(el);
   }
+
+  // ── Rotating hero tagline
+  const TAGLINES = [
+    ['Math Battles',    'Any Level.'],
+    ['Sudden Death',    'One Wrong Move.'],
+    ['Daily Challenge', 'Beat Your Best.'],
+    ['Race the Clock',  'Every Second.'],
+    ['Adaptive Engine', 'No Ceiling.'],
+  ];
+  let tagIdx = 0;
+  const tagEl    = document.getElementById('hero-tagline');
+  const tagLeft  = document.getElementById('tagline-left');
+  const tagRight = document.getElementById('tagline-right');
+
+  setInterval(() => {
+    tagEl.style.opacity = '0';
+    setTimeout(() => {
+      tagIdx = (tagIdx + 1) % TAGLINES.length;
+      tagLeft.textContent  = TAGLINES[tagIdx][0];
+      tagRight.textContent = TAGLINES[tagIdx][1];
+      tagEl.style.opacity  = '1';
+    }, 400);
+  }, 3500);
 
   // ── FAQ accordion
   document.querySelectorAll('.faq-q').forEach(btn => {
