@@ -282,6 +282,27 @@
       font-weight: 300;
     }
 
+    /* ── IN ACTION (video) ── */
+    #in-action { background: var(--bg-1); text-align: center; }
+    .app-video {
+      width: 100%;
+      max-width: 320px;
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 60px rgba(34,211,238,.18), 0 30px 60px rgba(0,0,0,.5);
+      background: #000;
+      display: block;
+      margin: 0 auto;
+    }
+    .video-hint {
+      margin-top: 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
     /* ── FEATURES GRID ── */
     #features { background: var(--bg-1); }
     .features-grid {
@@ -525,6 +546,20 @@
           </span>
         </span>
       </div>
+    </div>
+  </section>
+
+  <!-- ── IN ACTION ── -->
+  <section id="in-action">
+    <div class="container">
+      <p class="section-label">See It In Action</p>
+      <h2>Watch the Flux</h2>
+      <p class="section-desc" style="margin: 0 auto 44px;">Real-time play, adaptive difficulty, and streak-fueled rewards — in one quick run.</p>
+      <video class="app-video" autoplay muted loop playsinline controls preload="metadata">
+        <source src="assets/mathflux_marketing.mp4" type="video/mp4" />
+        Your browser doesn't support embedded video — <a href="assets/mathflux_marketing.mp4">download the clip</a>.
+      </video>
+      <p class="video-hint">Tap the speaker to hear the sound 🔊</p>
     </div>
   </section>
 
