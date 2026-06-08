@@ -282,29 +282,27 @@
       font-weight: 300;
     }
 
-    /* ── IN ACTION (scroll-scaling video, Apple-style) ── */
-    #in-action { background: var(--bg-1); }
-    #in-action .intro { text-align: center; padding-bottom: 8px; }
-    .video-stage { position: relative; height: 250vh; }
-    .video-sticky {
-      position: sticky; top: 0; height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
+    /* ── IN ACTION (scroll-scaling video) ── */
+    #in-action { background: var(--bg-1); overflow: clip; }
+    #in-action .intro { text-align: center; margin-bottom: 6px; }
+    .video-frame {
+      display: flex; justify-content: center; align-items: center;
+      padding: 7vh 24px 15vh;
     }
     .video-wrap {
       position: relative;
-      transform: scale(var(--vs, .55));
+      transform: scale(1);          /* static default; scaled by scroll below */
       will-change: transform;
     }
     .app-video {
-      height: 76vh; width: auto; display: block;
-      border-radius: 32px;
+      height: 56vh; width: auto; display: block;
+      border-radius: 30px;
       border: 1px solid var(--border);
       box-shadow: 0 0 70px rgba(34,211,238,.22), 0 40px 90px rgba(0,0,0,.55);
       background: #000;
     }
     .sound-btn {
-      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
       display: inline-flex; align-items: center; gap: 8px;
       padding: 9px 18px; border-radius: 100px;
       background: rgba(4,8,15,.72); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
@@ -314,16 +312,29 @@
     }
     .sound-btn:hover { background: rgba(34,211,238,.16); }
     .sound-btn.hidden { opacity: 0; pointer-events: none; }
-    @media (max-width: 700px) {
-      .video-stage { height: auto; }
-      .video-sticky { position: static; height: auto; padding: 16px 20px 8px; }
-      .video-wrap { transform: none !important; }
-      .app-video { height: auto; width: 100%; max-width: 300px; margin: 0 auto; }
+
+    /* Smooth, compositor-driven grow → peak → shrink, tied 1:1 to scroll. */
+    @media (min-width: 701px) and (prefers-reduced-motion: no-preference) {
+      @supports (animation-timeline: view()) {
+        .video-frame { padding: 0; }
+        .video-wrap {
+          animation: vidScale linear both;
+          animation-timeline: view();
+          animation-range: cover 0% cover 100%;
+          margin: 7vh 0 15vh;
+        }
+        @keyframes vidScale {
+          0%   { transform: scale(.78); }
+          45%  { transform: scale(1.42); }
+          55%  { transform: scale(1.42); }
+          100% { transform: scale(.78); }
+        }
+      }
     }
-    @media (prefers-reduced-motion: reduce) {
-      .video-wrap { transform: scale(.82) !important; }
-      .video-stage { height: auto; }
-      .video-sticky { position: static; height: auto; padding: 20px 0; }
+    @media (max-width: 700px) {
+      .video-frame { padding: 18px 20px 28px; }
+      .video-wrap { transform: none; }
+      .app-video { height: auto; width: 100%; max-width: 300px; margin: 0 auto; }
     }
 
     /* ── FEATURES GRID ── */
@@ -579,15 +590,13 @@
       <h2>Watch the Flux</h2>
       <p class="section-desc" style="margin: 0 auto;">Real-time play, adaptive difficulty, and streak-fueled rewards — in one quick run.</p>
     </div>
-    <div class="video-stage">
-      <div class="video-sticky">
-        <div class="video-wrap">
-          <video id="appVideo" class="app-video" autoplay muted loop playsinline preload="auto">
-            <source src="assets/mathflux_marketing.mp4" type="video/mp4" />
-            Your browser doesn't support embedded video — <a href="assets/mathflux_marketing.mp4">download the clip</a>.
-          </video>
-          <button class="sound-btn" id="soundBtn" type="button">🔇 Tap for sound</button>
-        </div>
+    <div class="video-frame">
+      <div class="video-wrap">
+        <video id="appVideo" class="app-video" autoplay muted loop playsinline preload="auto">
+          <source src="assets/mathflux_marketing.mp4" type="video/mp4" />
+          Your browser doesn't support embedded video — <a href="assets/mathflux_marketing.mp4">download the clip</a>.
+        </video>
+        <button class="sound-btn" id="soundBtn" type="button">🔇 Tap for sound</button>
       </div>
     </div>
   </section>
@@ -855,51 +864,53 @@
     });
   });
 
-  // ── In-action video: Apple-style scroll-scaling + tap-to-unmute
+  // ── In-action video: scroll-scaling + tap-to-unmute
   (function () {
-    const stage = document.querySelector('.video-stage');
-    const wrap  = document.querySelector('.video-wrap');
-    const vid   = document.getElementById('appVideo');
-    const btn   = document.getElementById('soundBtn');
-    if (!stage || !wrap || !vid) return;
+    const wrap = document.querySelector('.video-wrap');
+    const vid  = document.getElementById('appVideo');
+    const btn  = document.getElementById('soundBtn');
+    if (!wrap || !vid) return;
 
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = () => window.matchMedia('(max-width: 700px)').matches;
     let wantsSound = false;
 
-    // Browsers block autoplay WITH sound, so the clip starts muted and unmutes
-    // on a user gesture (the sound button, a click on the video, or any earlier
-    // interaction with the page).
+    // Browsers block autoplay WITH sound, so the clip starts muted and unmutes on a
+    // user gesture (the sound button, a click on the video, or any earlier page click).
     function enableSound() {
       wantsSound = true;
       vid.muted = false;
       vid.play().catch(function () {});
-      btn.textContent = '🔊 Sound on';
-      btn.classList.add('hidden');
+      if (btn) { btn.textContent = '🔊 Sound on'; btn.classList.add('hidden'); }
     }
-    btn.addEventListener('click', function (e) { e.stopPropagation(); enableSound(); });
+    if (btn) btn.addEventListener('click', function (e) { e.stopPropagation(); enableSound(); });
     vid.addEventListener('click', enableSound);
-    // Once the user has interacted anywhere, the page has audio permission — arm sound.
     document.addEventListener('pointerdown', function armOnce() { wantsSound = true; }, { once: true });
 
-    // Scroll-driven scale: small on entry → fills the viewport at center → small on exit.
-    let ticking = false;
-    function update() {
-      ticking = false;
-      if (reduce || isMobile()) { wrap.style.removeProperty('--vs'); return; }
-      const r = stage.getBoundingClientRect();
-      const total = r.height - window.innerHeight;
-      const p = Math.min(1, Math.max(0, (-r.top) / total));   // 0..1 through the stage
-      const peak = Math.sin(p * Math.PI);                      // 0 → 1 → 0 (smooth)
-      const scale = 0.55 + peak * 0.63;                        // 0.55 .. 1.18 .. 0.55
-      wrap.style.setProperty('--vs', scale.toFixed(3));
-    }
-    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', update);
-    update();
+    // Smoothness: modern browsers run the pure-CSS scroll-driven animation
+    // (animation-timeline: view()) — compositor-driven, no main-thread jank. Only
+    // browsers without it fall back to this rAF version, which maps scale LINEARLY
+    // to how centered the clip is (no easing surprises).
+    const hasSDA = window.CSS && CSS.supports && CSS.supports('animation-timeline: view()');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = function () { return window.matchMedia('(max-width: 700px)').matches; };
 
-    // Only play sound while the clip is actually on screen; mute when scrolled away.
+    if (!hasSDA && !reduce) {
+      let ticking = false;
+      function update() {
+        ticking = false;
+        if (isMobile()) { wrap.style.transform = ''; return; }
+        const r = wrap.getBoundingClientRect();
+        const cmid = r.top + r.height / 2;
+        const dist = Math.min(1, Math.abs(cmid - window.innerHeight / 2) / (window.innerHeight * 0.62));
+        const scale = 0.78 + (1 - dist) * 0.64;        // 1 centered → 0.78 at edges, up to 1.42
+        wrap.style.transform = 'scale(' + scale.toFixed(3) + ')';
+      }
+      function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    }
+
+    // Only play sound while the clip is on screen; mute when scrolled away.
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
