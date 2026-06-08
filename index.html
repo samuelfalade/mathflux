@@ -287,15 +287,17 @@
     #in-action .intro { text-align: center; margin-bottom: 6px; }
     .video-frame {
       display: flex; justify-content: center; align-items: center;
-      padding: 7vh 24px 15vh;
+      padding: 6vh 24px 7vh;
     }
     .video-wrap {
       position: relative;
       transform: scale(1);          /* static default; scaled by scroll below */
       will-change: transform;
     }
+    /* next section sits closer — the video already provides its own breathing room */
+    #in-action + #features { padding-top: 36px; }
     .app-video {
-      height: 56vh; width: auto; display: block;
+      height: 66vh; width: auto; display: block;
       border-radius: 30px;
       border: 1px solid var(--border);
       box-shadow: 0 0 70px rgba(34,211,238,.22), 0 40px 90px rgba(0,0,0,.55);
@@ -321,13 +323,13 @@
           animation: vidScale linear both;
           animation-timeline: view();
           animation-range: cover 0% cover 100%;
-          margin: 7vh 0 15vh;
+          margin: 6vh 0 7vh;
         }
         @keyframes vidScale {
-          0%   { transform: scale(.78); }
-          45%  { transform: scale(1.42); }
-          55%  { transform: scale(1.42); }
-          100% { transform: scale(.78); }
+          0%   { transform: scale(.86); }
+          45%  { transform: scale(1.2); }
+          55%  { transform: scale(1.2); }
+          100% { transform: scale(.86); }
         }
       }
     }
@@ -901,7 +903,7 @@
         const r = wrap.getBoundingClientRect();
         const cmid = r.top + r.height / 2;
         const dist = Math.min(1, Math.abs(cmid - window.innerHeight / 2) / (window.innerHeight * 0.62));
-        const scale = 0.78 + (1 - dist) * 0.64;        // 1 centered → 0.78 at edges, up to 1.42
+        const scale = 0.86 + (1 - dist) * 0.34;        // 0.86 at edges → 1.20 centered
         wrap.style.transform = 'scale(' + scale.toFixed(3) + ')';
       }
       function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
