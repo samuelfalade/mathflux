@@ -282,25 +282,48 @@
       font-weight: 300;
     }
 
-    /* ── IN ACTION (video) ── */
-    #in-action { background: var(--bg-1); text-align: center; }
-    .app-video {
-      width: 100%;
-      max-width: 320px;
-      border-radius: 28px;
-      border: 1px solid var(--border);
-      box-shadow: 0 0 60px rgba(34,211,238,.18), 0 30px 60px rgba(0,0,0,.5);
-      background: #000;
-      display: block;
-      margin: 0 auto;
+    /* ── IN ACTION (scroll-scaling video, Apple-style) ── */
+    #in-action { background: var(--bg-1); }
+    #in-action .intro { text-align: center; padding-bottom: 8px; }
+    .video-stage { position: relative; height: 250vh; }
+    .video-sticky {
+      position: sticky; top: 0; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
     }
-    .video-hint {
-      margin-top: 18px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .72rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--muted);
+    .video-wrap {
+      position: relative;
+      transform: scale(var(--vs, .55));
+      will-change: transform;
+    }
+    .app-video {
+      height: 76vh; width: auto; display: block;
+      border-radius: 32px;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 70px rgba(34,211,238,.22), 0 40px 90px rgba(0,0,0,.55);
+      background: #000;
+    }
+    .sound-btn {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 18px; border-radius: 100px;
+      background: rgba(4,8,15,.72); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+      border: 1px solid var(--cyan); color: var(--cyan);
+      font-family: 'JetBrains Mono', monospace; font-size: .72rem; letter-spacing: .1em;
+      cursor: pointer; transition: opacity .3s, background .2s;
+    }
+    .sound-btn:hover { background: rgba(34,211,238,.16); }
+    .sound-btn.hidden { opacity: 0; pointer-events: none; }
+    @media (max-width: 700px) {
+      .video-stage { height: auto; }
+      .video-sticky { position: static; height: auto; padding: 16px 20px 8px; }
+      .video-wrap { transform: none !important; }
+      .app-video { height: auto; width: 100%; max-width: 300px; margin: 0 auto; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .video-wrap { transform: scale(.82) !important; }
+      .video-stage { height: auto; }
+      .video-sticky { position: static; height: auto; padding: 20px 0; }
     }
 
     /* ── FEATURES GRID ── */
@@ -551,15 +574,21 @@
 
   <!-- ── IN ACTION ── -->
   <section id="in-action">
-    <div class="container">
+    <div class="container intro">
       <p class="section-label">See It In Action</p>
       <h2>Watch the Flux</h2>
-      <p class="section-desc" style="margin: 0 auto 44px;">Real-time play, adaptive difficulty, and streak-fueled rewards — in one quick run.</p>
-      <video class="app-video" autoplay muted loop playsinline controls preload="metadata">
-        <source src="assets/mathflux_marketing.mp4" type="video/mp4" />
-        Your browser doesn't support embedded video — <a href="assets/mathflux_marketing.mp4">download the clip</a>.
-      </video>
-      <p class="video-hint">Tap the speaker to hear the sound 🔊</p>
+      <p class="section-desc" style="margin: 0 auto;">Real-time play, adaptive difficulty, and streak-fueled rewards — in one quick run.</p>
+    </div>
+    <div class="video-stage">
+      <div class="video-sticky">
+        <div class="video-wrap">
+          <video id="appVideo" class="app-video" autoplay muted loop playsinline preload="auto">
+            <source src="assets/mathflux_marketing.mp4" type="video/mp4" />
+            Your browser doesn't support embedded video — <a href="assets/mathflux_marketing.mp4">download the clip</a>.
+          </video>
+          <button class="sound-btn" id="soundBtn" type="button">🔇 Tap for sound</button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -825,6 +854,66 @@
       }
     });
   });
+
+  // ── In-action video: Apple-style scroll-scaling + tap-to-unmute
+  (function () {
+    const stage = document.querySelector('.video-stage');
+    const wrap  = document.querySelector('.video-wrap');
+    const vid   = document.getElementById('appVideo');
+    const btn   = document.getElementById('soundBtn');
+    if (!stage || !wrap || !vid) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = () => window.matchMedia('(max-width: 700px)').matches;
+    let wantsSound = false;
+
+    // Browsers block autoplay WITH sound, so the clip starts muted and unmutes
+    // on a user gesture (the sound button, a click on the video, or any earlier
+    // interaction with the page).
+    function enableSound() {
+      wantsSound = true;
+      vid.muted = false;
+      vid.play().catch(function () {});
+      btn.textContent = '🔊 Sound on';
+      btn.classList.add('hidden');
+    }
+    btn.addEventListener('click', function (e) { e.stopPropagation(); enableSound(); });
+    vid.addEventListener('click', enableSound);
+    // Once the user has interacted anywhere, the page has audio permission — arm sound.
+    document.addEventListener('pointerdown', function armOnce() { wantsSound = true; }, { once: true });
+
+    // Scroll-driven scale: small on entry → fills the viewport at center → small on exit.
+    let ticking = false;
+    function update() {
+      ticking = false;
+      if (reduce || isMobile()) { wrap.style.removeProperty('--vs'); return; }
+      const r = stage.getBoundingClientRect();
+      const total = r.height - window.innerHeight;
+      const p = Math.min(1, Math.max(0, (-r.top) / total));   // 0..1 through the stage
+      const peak = Math.sin(p * Math.PI);                      // 0 → 1 → 0 (smooth)
+      const scale = 0.55 + peak * 0.63;                        // 0.55 .. 1.18 .. 0.55
+      wrap.style.setProperty('--vs', scale.toFixed(3));
+    }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+
+    // Only play sound while the clip is actually on screen; mute when scrolled away.
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting && en.intersectionRatio >= 0.5) {
+            vid.muted = !wantsSound;
+            vid.play().catch(function () {});
+          } else {
+            vid.muted = true;
+          }
+        });
+      }, { threshold: [0, 0.5, 1] });
+      io.observe(vid);
+    }
+  })();
 </script>
 </body>
 </html>
