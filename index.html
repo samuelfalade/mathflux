@@ -202,6 +202,39 @@
 
     .hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
+    /* disabled / coming-soon CTA */
+    .btn-disabled {
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--glass);
+      opacity: .5;
+      cursor: default;
+    }
+    .btn-disabled:hover { transform: none; box-shadow: none; }
+
+    /* ── "AVAILABLE ON" STORE BADGES ── */
+    .available-on {
+      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+      margin-top: 44px;
+    }
+    .store-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 9px 18px;
+      border-radius: 12px;
+      background: #000;
+      border: 1px solid rgba(240,246,255,.18);
+      text-decoration: none;
+      transition: border-color .2s, transform .2s;
+    }
+    .store-badge:hover { border-color: var(--cyan); transform: translateY(-2px); }
+    .store-badge .sb-icon { width: 22px; height: 22px; color: var(--white); flex-shrink: 0; }
+    .store-badge .sb-text { text-align: left; line-height: 1.15; }
+    .store-badge .sb-top  { display: block; font-size: .6rem; color: var(--muted);
+                            text-transform: uppercase; letter-spacing: .08em; }
+    .store-badge .sb-name { display: block; font-family: 'Syne', sans-serif;
+                            font-weight: 700; font-size: .95rem; color: var(--white); }
+    .store-badge.disabled { opacity: .4; cursor: default; pointer-events: none; }
+
     /* hero stat strip */
     .stat-strip {
       display: flex; gap: 48px; justify-content: center; flex-wrap: wrap;
@@ -431,7 +464,7 @@
   <!-- ── HERO ── -->
   <section id="hero">
     <div class="container hero-inner">
-      <div class="hero-badge">iOS 26 · Available Now</div>
+      <div class="hero-badge">iOS 26 · Launching Soon</div>
 
       <h1>
         Math<span class="accent">Flux</span>
@@ -450,7 +483,10 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
           Download on App Store
         </a>
-        <a href="#support" class="btn btn-ghost">Get Support</a>
+        <span class="btn btn-disabled" role="button" aria-disabled="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3a1 1 0 0 0-.6.9v17.6a1 1 0 0 0 .6.9l9.4-9.7L3.6 2.3zm10.8 7.1 2.4 2.5-2.4 2.5-2.7-2.5 2.7-2.5zM4.9 1.8l9 5.2-1.9 2L4.9 1.8zm0 20.4 7.1-7.3 1.9 2-9 5.3z"/></svg>
+          Android — Coming Soon
+        </span>
       </div>
 
       <div class="stat-strip">
@@ -471,6 +507,24 @@
           <span class="stat-label">Age Rating</span>
         </div>
       </div>
+
+      <!-- Available on -->
+      <div class="available-on">
+        <a href="https://apps.apple.com" class="store-badge" aria-label="Download on the App Store">
+          <svg class="sb-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <span class="sb-text">
+            <span class="sb-top">Download on the</span>
+            <span class="sb-name">App Store</span>
+          </span>
+        </a>
+        <span class="store-badge disabled" aria-label="Google Play — Coming Soon">
+          <svg class="sb-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3a1 1 0 0 0-.6.9v17.6a1 1 0 0 0 .6.9l9.4-9.7L3.6 2.3zm10.8 7.1 2.4 2.5-2.4 2.5-2.7-2.5 2.7-2.5zM4.9 1.8l9 5.2-1.9 2L4.9 1.8zm0 20.4 7.1-7.3 1.9 2-9 5.3z"/></svg>
+          <span class="sb-text">
+            <span class="sb-top">Coming Soon</span>
+            <span class="sb-name">Google Play</span>
+          </span>
+        </span>
+      </div>
     </div>
   </section>
 
@@ -479,13 +533,13 @@
     <div class="wide">
       <p class="section-label">What's Inside</p>
       <h2>Built for Serious<br>Math Players</h2>
-      <p class="section-desc">From kindergarten arithmetic to college-level calculus — every feature is designed around speed, precision, and competition.</p>
+      <p class="section-desc">Nine operations — Addition, Subtraction, Multiplication, Division, Algebra, Exponents, Modulo, Derivatives, and Factorials — across four difficulty tiers. Every feature is built around speed, precision, and competition.</p>
 
       <div class="features-grid">
         <div class="feat-card">
           <span class="feat-icon">⚡</span>
           <div class="feat-title">Live Competition</div>
-          <div class="feat-desc">Create a room, share your code, and challenge any player in real time via Firebase-powered matchmaking.</div>
+          <div class="feat-desc">Create a room, share the code, and battle real players in real time. Race for the high score, or play Elimination — one wrong answer knocks you out, last player standing wins.</div>
         </div>
         <div class="feat-card">
           <span class="feat-icon">🧠</span>
@@ -495,7 +549,7 @@
         <div class="feat-card">
           <span class="feat-icon">🎓</span>
           <div class="feat-title">4 Tiers, Endless Levels</div>
-          <div class="feat-desc">Progress through Novice → Adept → Expert → Master. The timer shrinks, number ranges expand, and the adaptive engine keeps pushing your ceiling — no level cap.</div>
+          <div class="feat-desc">Four content tiers, from kindergarten arithmetic to college-level calculus. As you master each operation the adaptive engine raises your level — the timer tightens and number ranges grow, with no level cap.</div>
         </div>
         <div class="feat-card">
           <span class="feat-icon">💀</span>
@@ -541,7 +595,7 @@
             <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </button>
           <div class="faq-body" hidden>
-            Free players receive a daily token allowance that resets each calendar day. You can also earn bonus tokens by hitting streak milestones during gameplay. For unlimited competitive play, the Premium upgrade removes token limits entirely. Token packs are also available as one-time in-app purchases.
+            Every player gets one free competition token each day, and you can earn bonus tokens by hitting 30- and 50-streak milestones in solo mode. Need more right away? Token packs are available as one-time in-app purchases (5, 20, or 50 tokens). The one-time Premium upgrade unlocks the Middle School and College content tiers and includes a one-time token bonus — competitions themselves still use tokens.
           </div>
         </div>
 
@@ -581,7 +635,7 @@
             <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </button>
           <div class="faq-body" hidden>
-            MathFlux is currently available on iPhone (iOS 26 or later). iPad and Android versions are under consideration for a future update.
+            MathFlux launches first on iPhone (iOS 26 or later). An Android version is planned for a later release, and iPad support is under consideration.
           </div>
         </div>
 
@@ -695,6 +749,7 @@
   // ── Rotating hero tagline
   const TAGLINES = [
     ['Math Battles',    'Any Level.'],
+    ['Elimination',     'Last One Standing.'],
     ['Sudden Death',    'One Wrong Move.'],
     ['Daily Challenge', 'Beat Your Best.'],
     ['Race the Clock',  'Every Second.'],
