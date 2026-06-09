@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MathFlux — Math Battles. Any Level.</title>
-  <meta name="description" content="Real-time competitive math for every level. iOS and Android. Support, FAQ, and privacy policy for MathFlux." />
-  
-  
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <meta name="description" content="Real-time competitive math for every level. Support, FAQ, and privacy policy for MathFlux on iOS." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,7 +30,7 @@
     body {
       background: var(--bg);
       color: var(--white);
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: 'DM Sans', sans-serif;
       font-weight: 400;
       line-height: 1.7;
       overflow-x: hidden;
@@ -90,14 +90,14 @@
       border-bottom: 1px solid var(--border);
     }
     .nav-logo {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: 'Syne', sans-serif;
       font-weight: 800;
       font-size: 1.2rem;
       letter-spacing: -.02em;
       color: var(--white);
       text-decoration: none;
     }
-    .nav-logo span { color: var(--cyan); }
+    .nav-logo .nav-accent { color: var(--cyan); }
     .nav-links { display: flex; gap: 32px; list-style: none; }
     .nav-links a {
       color: var(--muted);
@@ -142,15 +142,26 @@
     }
 
     h1 {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: 'Syne', sans-serif;
       font-weight: 800;
       font-size: clamp(3rem, 8vw, 6.5rem);
       line-height: .95;
       letter-spacing: -.04em;
-      margin-bottom: 28px;
+      margin-bottom: 20px;
     }
     h1 .accent { color: var(--cyan); }
-    h1 .dim    { color: var(--muted); }
+
+    .hero-tagline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(.85rem, 1.8vw, 1.05rem);
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 28px;
+      transition: opacity 0.4s ease;
+    }
+    .hero-tagline .sep { color: var(--muted); margin: 0 .5em; }
 
     .hero-sub {
       font-size: clamp(1rem, 2.5vw, 1.25rem);
@@ -164,7 +175,7 @@
       display: inline-flex; align-items: center; gap: 10px;
       padding: 14px 32px;
       border-radius: 100px;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: 'Syne', sans-serif;
       font-weight: 700;
       font-size: .9rem;
       letter-spacing: .04em;
@@ -190,6 +201,39 @@
     .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
 
     .hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* disabled / coming-soon CTA */
+    .btn-disabled {
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--glass);
+      opacity: .5;
+      cursor: default;
+    }
+    .btn-disabled:hover { transform: none; box-shadow: none; }
+
+    /* ── "AVAILABLE ON" STORE BADGES ── */
+    .available-on {
+      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+      margin-top: 44px;
+    }
+    .store-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 9px 18px;
+      border-radius: 12px;
+      background: #000;
+      border: 1px solid rgba(240,246,255,.18);
+      text-decoration: none;
+      transition: border-color .2s, transform .2s;
+    }
+    .store-badge:hover { border-color: var(--cyan); transform: translateY(-2px); }
+    .store-badge .sb-icon { width: 22px; height: 22px; color: var(--white); flex-shrink: 0; }
+    .store-badge .sb-text { text-align: left; line-height: 1.15; }
+    .store-badge .sb-top  { display: block; font-size: .6rem; color: var(--muted);
+                            text-transform: uppercase; letter-spacing: .08em; }
+    .store-badge .sb-name { display: block; font-family: 'Syne', sans-serif;
+                            font-weight: 700; font-size: .95rem; color: var(--white); }
+    .store-badge.disabled { opacity: .4; cursor: default; pointer-events: none; }
 
     /* hero stat strip */
     .stat-strip {
@@ -223,7 +267,7 @@
       margin-bottom: 16px;
     }
     h2 {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: 'Syne', sans-serif;
       font-weight: 800;
       font-size: clamp(2rem, 5vw, 3.2rem);
       letter-spacing: -.03em;
@@ -236,6 +280,63 @@
       max-width: 520px;
       margin-bottom: 56px;
       font-weight: 300;
+    }
+
+    /* ── IN ACTION (scroll-scaling video) ── */
+    #in-action { background: var(--bg-1); overflow: clip; }
+    #in-action .intro { text-align: center; margin-bottom: 6px; }
+    .video-frame {
+      display: flex; justify-content: center; align-items: center;
+      padding: 6vh 24px 7vh;
+    }
+    .video-wrap {
+      position: relative;
+      transform: scale(1);          /* static default; scaled by scroll below */
+      will-change: transform;
+    }
+    /* next section sits closer — the video already provides its own breathing room */
+    #in-action + #features { padding-top: 36px; }
+    .app-video {
+      height: 66vh; width: auto; display: block;
+      border-radius: 30px;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 70px rgba(34,211,238,.22), 0 40px 90px rgba(0,0,0,.55);
+      background: #000;
+    }
+    .sound-btn {
+      position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 18px; border-radius: 100px;
+      background: rgba(4,8,15,.72); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+      border: 1px solid var(--cyan); color: var(--cyan);
+      font-family: 'JetBrains Mono', monospace; font-size: .72rem; letter-spacing: .1em;
+      cursor: pointer; transition: opacity .3s, background .2s;
+    }
+    .sound-btn:hover { background: rgba(34,211,238,.16); }
+    .sound-btn.hidden { opacity: 0; pointer-events: none; }
+
+    /* Smooth, compositor-driven grow → peak → shrink, tied 1:1 to scroll. */
+    @media (min-width: 701px) and (prefers-reduced-motion: no-preference) {
+      @supports (animation-timeline: view()) {
+        .video-frame { padding: 0; }
+        .video-wrap {
+          animation: vidScale linear both;
+          animation-timeline: view();
+          animation-range: cover 0% cover 100%;
+          margin: 6vh 0 7vh;
+        }
+        @keyframes vidScale {
+          0%   { transform: scale(.86); }
+          45%  { transform: scale(1.2); }
+          55%  { transform: scale(1.2); }
+          100% { transform: scale(.86); }
+        }
+      }
+    }
+    @media (max-width: 700px) {
+      .video-frame { padding: 18px 20px 28px; }
+      .video-wrap { transform: none; }
+      .app-video { height: auto; width: 100%; max-width: 300px; margin: 0 auto; }
     }
 
     /* ── FEATURES GRID ── */
@@ -274,7 +375,7 @@
       display: block;
     }
     .feat-title {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: 'Syne', sans-serif;
       font-weight: 700;
       font-size: 1.05rem;
       margin-bottom: 8px;
@@ -298,7 +399,7 @@
       background: var(--glass);
       border: none;
       color: var(--white);
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: 'DM Sans', sans-serif;
       font-size: 1rem;
       font-weight: 500;
       text-align: left;
@@ -338,7 +439,7 @@
       backdrop-filter: blur(10px);
     }
     .privacy-card h3 {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: 'Syne', sans-serif;
       font-weight: 700;
       font-size: 1.15rem;
       color: var(--cyan);
@@ -406,7 +507,7 @@
 <div class="symbols" aria-hidden="true"></div>
 
 <nav>
-  <a href="#" class="nav-logo">Math<span>Flux</span></a>
+  <a href="#" class="nav-logo">Math<span class="nav-accent">Flux</span></a>
   <ul class="nav-links">
     <li><a href="#features">Features</a></li>
     <li><a href="#support">Support</a></li>
@@ -420,16 +521,18 @@
   <!-- ── HERO ── -->
   <section id="hero">
     <div class="container hero-inner">
-      <div class="hero-badge">iOS · Android · Available Now</div>
+      <div class="hero-badge">iOS 26 · Launching Soon</div>
 
       <h1>
-        Math<span class="accent">Flux</span><br>
-        <span class="dim">Any Level.</span>
+        Math<span class="accent">Flux</span>
       </h1>
+      <p class="hero-tagline" id="hero-tagline">
+        <span id="tagline-left">Math Battles</span><span class="sep">·</span><span id="tagline-right">Any Level.</span>
+      </p>
 
       <p class="hero-sub">
         Real-time competitive math from kindergarten to calculus.
-        Race the clock. Challenge real players. Master every operation. iOS &amp; Android.
+        Race the clock. Challenge real players. Master every operation.
       </p>
 
       <div class="hero-ctas">
@@ -437,11 +540,10 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
           Download on App Store
         </a>
-        <a href="https://play.google.com/store/apps/details?id=com.samuelfalade.mathflux" class="btn btn-primary">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.27 5.844 7.968-8.146zm3.434-3.448l2.55 1.45c.713.406.713 1.434 0 1.84l-2.55 1.45-2.605-2.61 2.605-2.13zM5.039 1.385l10.27 5.844-2.301 2.302-7.969-8.146z"/></svg>
-          Get it on Google Play
-        </a>
-        <a href="#support" class="btn btn-ghost">Get Support</a>
+        <span class="btn btn-disabled" role="button" aria-disabled="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3a1 1 0 0 0-.6.9v17.6a1 1 0 0 0 .6.9l9.4-9.7L3.6 2.3zm10.8 7.1 2.4 2.5-2.4 2.5-2.7-2.5 2.7-2.5zM4.9 1.8l9 5.2-1.9 2L4.9 1.8zm0 20.4 7.1-7.3 1.9 2-9 5.3z"/></svg>
+          Android — Coming Soon
+        </span>
       </div>
 
       <div class="stat-strip">
@@ -462,6 +564,42 @@
           <span class="stat-label">Age Rating</span>
         </div>
       </div>
+
+      <!-- Available on -->
+      <div class="available-on">
+        <a href="https://apps.apple.com" class="store-badge" aria-label="Download on the App Store">
+          <svg class="sb-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <span class="sb-text">
+            <span class="sb-top">Download on the</span>
+            <span class="sb-name">App Store</span>
+          </span>
+        </a>
+        <span class="store-badge disabled" aria-label="Google Play — Coming Soon">
+          <svg class="sb-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3a1 1 0 0 0-.6.9v17.6a1 1 0 0 0 .6.9l9.4-9.7L3.6 2.3zm10.8 7.1 2.4 2.5-2.4 2.5-2.7-2.5 2.7-2.5zM4.9 1.8l9 5.2-1.9 2L4.9 1.8zm0 20.4 7.1-7.3 1.9 2-9 5.3z"/></svg>
+          <span class="sb-text">
+            <span class="sb-top">Coming Soon</span>
+            <span class="sb-name">Google Play</span>
+          </span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── IN ACTION ── -->
+  <section id="in-action">
+    <div class="container intro">
+      <p class="section-label">See It In Action</p>
+      <h2>Watch the Flux</h2>
+      <p class="section-desc" style="margin: 0 auto;">Real-time play, adaptive difficulty, and streak-fueled rewards — in one quick run.</p>
+    </div>
+    <div class="video-frame">
+      <div class="video-wrap">
+        <video id="appVideo" class="app-video" autoplay muted loop playsinline preload="auto">
+          <source src="assets/mathflux_marketing.mp4" type="video/mp4" />
+          Your browser doesn't support embedded video — <a href="assets/mathflux_marketing.mp4">download the clip</a>.
+        </video>
+        <button class="sound-btn" id="soundBtn" type="button">🔇 Tap for sound</button>
+      </div>
     </div>
   </section>
 
@@ -470,13 +608,13 @@
     <div class="wide">
       <p class="section-label">What's Inside</p>
       <h2>Built for Serious<br>Math Players</h2>
-      <p class="section-desc">From kindergarten arithmetic to college-level calculus — every feature is designed around speed, precision, and competition.</p>
+      <p class="section-desc">Nine operations — Addition, Subtraction, Multiplication, Division, Algebra, Exponents, Modulo, Derivatives, and Factorials — across four difficulty tiers. Every feature is built around speed, precision, and competition.</p>
 
       <div class="features-grid">
         <div class="feat-card">
           <span class="feat-icon">⚡</span>
           <div class="feat-title">Live Competition</div>
-          <div class="feat-desc">Create a room, share your code, and challenge any player in real time via Firebase-powered matchmaking.</div>
+          <div class="feat-desc">Create a room, share the code, and battle real players in real time. Race for the high score, or play Elimination — one wrong answer knocks you out, last player standing wins.</div>
         </div>
         <div class="feat-card">
           <span class="feat-icon">🧠</span>
@@ -486,7 +624,7 @@
         <div class="feat-card">
           <span class="feat-icon">🎓</span>
           <div class="feat-title">4 Tiers, Endless Levels</div>
-          <div class="feat-desc">Progress through Novice → Adept → Expert → Master. The timer shrinks, number ranges expand, and the adaptive engine keeps pushing your ceiling — no level cap.</div>
+          <div class="feat-desc">Climb four skill ranks — Novice → Adept → Expert → Master — as you level up. The timer shrinks, number ranges expand, and the adaptive engine keeps pushing your ceiling, with no level cap.</div>
         </div>
         <div class="feat-card">
           <span class="feat-icon">💀</span>
@@ -500,8 +638,8 @@
         </div>
         <div class="feat-card">
           <span class="feat-icon">🏆</span>
-          <div class="feat-title">Game Services</div>
-          <div class="feat-desc">Leaderboards and achievements via Apple Game Center on iOS and Google Play Games Services on Android.</div>
+          <div class="feat-title">Game Center</div>
+          <div class="feat-desc">Leaderboards and achievements synced across your devices via Apple Game Center.</div>
         </div>
       </div>
     </div>
@@ -510,7 +648,7 @@
   <!-- ── SUPPORT ── -->
   <section id="support">
     <div class="container">
-      <p class="section-label">Help & Support</p>
+      <p class="section-label">Help &amp; Support</p>
       <h2>Frequently Asked<br>Questions</h2>
       <p class="section-desc">Can't find your answer here? Email us directly — we respond within 24 hours.</p>
 
@@ -532,7 +670,7 @@
             <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </button>
           <div class="faq-body" hidden>
-            Free players receive a daily token allowance that resets each calendar day. You can also earn bonus tokens by hitting streak milestones during gameplay. For unlimited competitive play, the Premium upgrade removes token limits entirely. Token packs are also available as one-time in-app purchases.
+            Every player gets one free competition token each day, and you can earn bonus tokens by hitting 30- and 50-streak milestones in solo mode. Need more right away? Token packs are available as one-time in-app purchases (5, 20, or 50 tokens). The one-time Premium upgrade unlocks the Middle School and College content tiers and includes a one-time token bonus — competitions themselves still use tokens.
           </div>
         </div>
 
@@ -542,7 +680,7 @@
             <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </button>
           <div class="faq-body" hidden>
-            First, try the <strong>Restore Purchases</strong> button found on the upgrade screen. If that doesn't work, force-quit the app and reopen it. Make sure you're signed into the same Apple ID (iOS) or Google account (Android) used for the original purchase. Still stuck? <a href="mailto:samuelfalade@gmail.com">Email us</a> with your receipt and we'll sort it out.
+            First, try the <strong>Restore Purchases</strong> button found on the upgrade screen. If that doesn't work, force-quit the app and reopen it. Make sure you're signed into the same Apple ID used for the original purchase. Still stuck? <a href="mailto:samuelfalade@gmail.com">Email us</a> with your Apple receipt and we'll sort it out.
           </div>
         </div>
 
@@ -552,7 +690,7 @@
             <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </button>
           <div class="faq-body" hidden>
-            Scores are saved locally and synced to Game Services (Apple Game Center on iOS, Google Play Games on Android) at the end of each complete session. If the app was force-closed mid-game, that session won't count. Make sure you reach the game-over screen for your score to register and sync.
+            Scores are saved locally and synced to Game Center at the end of each complete session. If the app was force-closed mid-game, that session won't count. Make sure you reach the game-over screen for your score to register and sync.
           </div>
         </div>
 
@@ -562,17 +700,17 @@
             <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </button>
           <div class="faq-body" hidden>
-            MathFlux requires no account creation. Multiplayer uses anonymous authentication automatically — your identity is managed by your device. Leaderboards use your existing Apple Game Center (iOS) or Google Play Games (Android) account. Just open the app and play.
+            MathFlux requires no account creation. Multiplayer uses anonymous authentication automatically — your identity is managed by your device. Game Center handles leaderboards using your existing Apple ID. Just open the app and play.
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-q">
-            Is the app available on iPad?
+            Is the app available on Android or iPad?
             <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </button>
           <div class="faq-body" hidden>
-            MathFlux is available on iPhone (iOS 26 or later) and Android (8.0+). A dedicated iPad experience is in consideration for a future update.
+            MathFlux launches first on iPhone (iOS 26 or later). An Android version is planned for a later release, and iPad support is under consideration.
           </div>
         </div>
 
@@ -600,21 +738,21 @@
       <div class="privacy-card">
 
         <h3>Overview</h3>
-        <p>MathFlux ("the app") is developed and operated by Samuel Falade. This policy explains what data is collected, why, and how it is used. We are committed to minimizing data collection and never selling your personal information.</p>
+        <p>MathFlux (“the app”) is developed and operated by Samuel Falade. This policy explains what data is collected, why, and how it is used. We are committed to minimizing data collection and never selling your personal information.</p>
 
         <h3>Data We Collect</h3>
         <p>MathFlux collects only what is necessary to operate the game:</p>
         <ul>
           <li><strong>Anonymous authentication identifier</strong> — generated automatically by Firebase Auth when you use multiplayer features. This is a random device-scoped ID, not tied to your name or email.</li>
-          <li><strong>Gameplay data</strong> — scores, difficulty levels, and session statistics stored locally on your device and optionally synced to Apple Game Center (iOS) or Google Play Games Services (Android).</li>
-          <li><strong>Purchase receipts</strong> — verified locally via StoreKit 2 (iOS) or Google Play Billing (Android) to unlock Premium features. We do not store or transmit payment information.</li>
+          <li><strong>Gameplay data</strong> — scores, difficulty levels, and session statistics stored locally on your device and optionally synced to Apple Game Center under your Apple ID.</li>
+          <li><strong>Purchase receipts</strong> — verified locally via StoreKit 2 to unlock Premium features. We do not store or transmit payment information.</li>
         </ul>
 
         <h3>Firebase</h3>
         <p>MathFlux uses <strong>Firebase Realtime Database</strong> (Google) to power live multiplayer rooms. Room data (room code, scores, anonymous UID) is stored temporarily during a match and removed automatically when the session ends or either player disconnects. Firebase may collect device-level diagnostic information as described in <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Google's Firebase Privacy Policy</a>.</p>
 
-        <h3>Game Services (Game Center &amp; Google Play Games)</h3>
-        <p>Leaderboard scores and achievements are submitted to <strong>Apple Game Center</strong> (iOS) using your existing Apple ID, or to <strong>Google Play Games Services</strong> (Android) using your Google Play Games profile. This data is governed by <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple's Privacy Policy</a> and <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a> respectively. MathFlux does not have access to your platform account details beyond your anonymous Game Services player ID.</p>
+        <h3>Apple Game Center</h3>
+        <p>Leaderboard scores and achievements are submitted to Apple Game Center using your existing Apple ID. This data is governed by <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple's Privacy Policy</a>. MathFlux does not have access to your Apple ID or personal Apple account details.</p>
 
         <h3>What We Do Not Collect</h3>
         <ul>
@@ -629,13 +767,13 @@
         <p>MathFlux is rated 4+ and is designed to be safe for all ages. We do not knowingly collect personal information from children. Because we use anonymous authentication only, no personal identifiers are required to play.</p>
 
         <h3>Data Retention</h3>
-        <p>Multiplayer room data is deleted from Firebase servers automatically at the end of each session. Local gameplay statistics remain on your device and can be cleared by deleting the app. Game Services data (Game Center / Google Play Games) is managed through your Apple or Google account settings.</p>
+        <p>Multiplayer room data is deleted from Firebase servers automatically at the end of each session. Local gameplay statistics remain on your device and can be cleared by deleting the app. Game Center data is managed through your Apple account settings.</p>
 
         <h3>Your Rights</h3>
         <p>Since we do not collect personal information tied to your identity, there is no user account to delete. To remove all local data, simply delete the app from your device. For any privacy-related questions, contact us at <a href="mailto:samuelfalade@gmail.com">samuelfalade@gmail.com</a>.</p>
 
         <h3>Changes to This Policy</h3>
-        <p>We may update this policy as the app evolves. The "last updated" date at the top of this section will reflect any changes. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
+        <p>We may update this policy as the app evolves. The “last updated” date at the top of this section will reflect any changes. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
 
         <h3>Contact</h3>
         <p>For any privacy concerns or questions, email <a href="mailto:samuelfalade@gmail.com">samuelfalade@gmail.com</a>.</p>
@@ -663,10 +801,8 @@
 <footer>
   <p>
     © 2026 Samuel Falade &nbsp;·&nbsp;
-    <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp;
-    <a href="https://apps.apple.com" target="_blank" rel="noopener">App Store</a> &nbsp;·&nbsp;
-    <a href="https://play.google.com/store/apps/details?id=com.samuelfalade.mathflux" target="_blank" rel="noopener">Google Play</a> &nbsp;·&nbsp;
-    <a href="https://samuelfalade.github.io/MathFlux-Flutter/brand/brand-showcase.html" target="_blank" rel="noopener">Brand Guide</a>
+    <a href="#privacy">Privacy Policy</a> &nbsp;·&nbsp;
+    <a href="https://apps.apple.com" target="_blank" rel="noopener">App Store</a>
   </p>
 </footer>
 
@@ -684,6 +820,30 @@
     el.style.fontSize = (0.8 + Math.random() * 1.4) + 'rem';
     container.appendChild(el);
   }
+
+  // ── Rotating hero tagline
+  const TAGLINES = [
+    ['Math Battles',    'Any Level.'],
+    ['Elimination',     'Last One Standing.'],
+    ['Sudden Death',    'One Wrong Move.'],
+    ['Daily Challenge', 'Beat Your Best.'],
+    ['Race the Clock',  'Every Second.'],
+    ['Adaptive Engine', 'No Ceiling.'],
+  ];
+  let tagIdx = 0;
+  const tagEl    = document.getElementById('hero-tagline');
+  const tagLeft  = document.getElementById('tagline-left');
+  const tagRight = document.getElementById('tagline-right');
+
+  setInterval(() => {
+    tagEl.style.opacity = '0';
+    setTimeout(() => {
+      tagIdx = (tagIdx + 1) % TAGLINES.length;
+      tagLeft.textContent  = TAGLINES[tagIdx][0];
+      tagRight.textContent = TAGLINES[tagIdx][1];
+      tagEl.style.opacity  = '1';
+    }, 400);
+  }, 3500);
 
   // ── FAQ accordion
   document.querySelectorAll('.faq-q').forEach(btn => {
@@ -705,6 +865,68 @@
       }
     });
   });
+
+  // ── In-action video: scroll-scaling + tap-to-unmute
+  (function () {
+    const wrap = document.querySelector('.video-wrap');
+    const vid  = document.getElementById('appVideo');
+    const btn  = document.getElementById('soundBtn');
+    if (!wrap || !vid) return;
+
+    let wantsSound = false;
+
+    // Browsers block autoplay WITH sound, so the clip starts muted and unmutes on a
+    // user gesture (the sound button, a click on the video, or any earlier page click).
+    function enableSound() {
+      wantsSound = true;
+      vid.muted = false;
+      vid.play().catch(function () {});
+      if (btn) { btn.textContent = '🔊 Sound on'; btn.classList.add('hidden'); }
+    }
+    if (btn) btn.addEventListener('click', function (e) { e.stopPropagation(); enableSound(); });
+    vid.addEventListener('click', enableSound);
+    document.addEventListener('pointerdown', function armOnce() { wantsSound = true; }, { once: true });
+
+    // Smoothness: modern browsers run the pure-CSS scroll-driven animation
+    // (animation-timeline: view()) — compositor-driven, no main-thread jank. Only
+    // browsers without it fall back to this rAF version, which maps scale LINEARLY
+    // to how centered the clip is (no easing surprises).
+    const hasSDA = window.CSS && CSS.supports && CSS.supports('animation-timeline: view()');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = function () { return window.matchMedia('(max-width: 700px)').matches; };
+
+    if (!hasSDA && !reduce) {
+      let ticking = false;
+      function update() {
+        ticking = false;
+        if (isMobile()) { wrap.style.transform = ''; return; }
+        const r = wrap.getBoundingClientRect();
+        const cmid = r.top + r.height / 2;
+        const dist = Math.min(1, Math.abs(cmid - window.innerHeight / 2) / (window.innerHeight * 0.62));
+        const scale = 0.86 + (1 - dist) * 0.34;        // 0.86 at edges → 1.20 centered
+        wrap.style.transform = 'scale(' + scale.toFixed(3) + ')';
+      }
+      function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    }
+
+    // Only play sound while the clip is on screen; mute when scrolled away.
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting && en.intersectionRatio >= 0.5) {
+            vid.muted = !wantsSound;
+            vid.play().catch(function () {});
+          } else {
+            vid.muted = true;
+          }
+        });
+      }, { threshold: [0, 0.5, 1] });
+      io.observe(vid);
+    }
+  })();
 </script>
 </body>
 </html>
