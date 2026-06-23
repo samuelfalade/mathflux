@@ -235,6 +235,17 @@
                             font-weight: 700; font-size: .95rem; color: var(--white); }
     .store-badge.disabled { opacity: .4; cursor: default; pointer-events: none; }
 
+    .qr-wrap {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+    }
+    .qr-wrap canvas, .qr-wrap img { border-radius: 8px; border: 2px solid var(--cyan); display: block; }
+    .qr-caption {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .6rem; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    @media (max-width: 600px) { .qr-wrap { display: none; } }
+
     /* hero stat strip */
     .stat-strip {
       display: flex; gap: 48px; justify-content: center; flex-wrap: wrap;
@@ -565,7 +576,7 @@
       </p>
 
       <div class="hero-ctas">
-        <a href="https://apps.apple.com/us/app/mathflux/id6762221667" class="btn btn-primary">
+        <a href="https://apps.apple.com/us/app/mathflux/id6762221667" class="btn btn-primary" target="_blank" rel="noopener">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
           Download on App Store
         </a>
@@ -598,7 +609,7 @@
 
       <!-- Available on -->
       <div class="available-on">
-        <a href="https://apps.apple.com/us/app/mathflux/id6762221667" class="store-badge" aria-label="Download on the App Store">
+        <a href="https://apps.apple.com/us/app/mathflux/id6762221667" class="store-badge" aria-label="Download on the App Store" target="_blank" rel="noopener">
           <svg class="sb-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
           <span class="sb-text">
             <span class="sb-top">Download on the</span>
@@ -954,15 +965,14 @@
 </script>
 
 <!-- App Store QR code (renders into #app-qr; desktop only via CSS) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSOfQ786569sIDs02mkJI/GqKmS+eZPL/eFtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
   (function () {
     var el = document.getElementById('app-qr');
     if (!el || typeof QRCode === 'undefined') return;
     new QRCode(el, {
       text: 'https://apps.apple.com/us/app/mathflux/id6762221667',
-      width: 120,
-      height: 120,
+      width: 120, height: 120,
       colorDark: '#04080f',
       colorLight: '#ffffff',
       correctLevel: QRCode.CorrectLevel.M
