@@ -134,9 +134,41 @@
     .btn-fb { background: #1877f2; color: #fff; box-shadow: 0 0 30px rgba(24,119,242,.25); }
     .btn-fb:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(24,119,242,.45); }
 
+    /* ── TRY IT (playable hero demo) ── */
+    .try-flux {
+      margin-top: 30px; max-width: 430px;
+      background: var(--glass); border: 1px solid var(--border);
+      border-radius: 16px; padding: 18px 20px 20px;
+      backdrop-filter: blur(10px);
+    }
+    .tf-head {
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: 'JetBrains Mono', monospace; font-size: .68rem;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--cyan);
+    }
+    .tf-streak b { color: var(--white); font-size: .85rem; }
+    .tf-problem {
+      font-family: 'JetBrains Mono', monospace; font-size: 2.1rem; font-weight: 500;
+      text-align: center; margin: 12px 0 10px; color: var(--white); letter-spacing: .04em;
+    }
+    .tf-timer { height: 3px; background: rgba(34,211,238,.15); border-radius: 2px; overflow: hidden; margin-bottom: 14px; }
+    .tf-timer span { display: block; height: 100%; background: var(--cyan); width: 100%; transition: width .1s linear; }
+    .tf-answers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .tf-answers button {
+      font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; padding: 12px 0;
+      border-radius: 10px; border: 1px solid var(--border);
+      background: rgba(10,22,40,.8); color: var(--white); cursor: pointer;
+      transition: border-color .15s, background .15s, transform .1s;
+    }
+    @media (hover: hover) { .tf-answers button:hover { border-color: var(--cyan); } }
+    .tf-answers button:active { transform: scale(.97); }
+    .tf-answers button.good { background: rgba(34,197,94,.25); border-color: var(--green); }
+    .tf-answers button.bad  { background: rgba(255,77,77,.25); border-color: var(--red); }
+    @media (max-width: 900px) { .try-flux { margin-left: auto; margin-right: auto; } }
+
     /* ── HERO ── */
     #hero {
-      min-height: 100vh; display: flex; align-items: center;
+      min-height: 100vh; min-height: 100dvh; display: flex; align-items: center;
       padding-top: 120px; padding-bottom: 60px;
       position: relative; overflow: clip;
     }
@@ -394,6 +426,7 @@
       .cta-card { padding: 44px 24px; }
     }
   </style>
+  <link rel="stylesheet" href="immersive.css" />
 </head>
 
 <body>
@@ -412,7 +445,7 @@
     <li><a href="#modes">Modes</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="index.html#support">Support</a></li>
-    <li class="nav-cta-li"><a href="https://apps.apple.com" class="nav-cta">Download</a></li>
+    <li class="nav-cta-li"><a href="https://apps.apple.com/app/id6762221667" target="_blank" rel="noopener" class="nav-cta">Download</a></li>
   </ul>
 </nav>
 
@@ -437,7 +470,7 @@
           <span class="pill">Ages 5+</span>
         </div>
         <div class="hero-ctas">
-          <a href="https://apps.apple.com" class="btn btn-primary">
+          <a href="https://apps.apple.com/app/id6762221667" target="_blank" rel="noopener" class="btn btn-primary">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
             Download Free
           </a>
@@ -447,6 +480,16 @@
           </a>
         </div>
         <p class="hero-note">Free to download · <b>+1 free token every day</b> · No ads, no tracking</p>
+
+        <div class="try-flux" id="tryFlux">
+          <div class="tf-head">
+            <span>Try it — live</span>
+            <span class="tf-streak">Streak <b id="tfStreak">0</b></span>
+          </div>
+          <div class="tf-problem" id="tfProblem">&nbsp;</div>
+          <div class="tf-timer"><span id="tfBar"></span></div>
+          <div class="tf-answers" id="tfAnswers"></div>
+        </div>
       </div>
 
       <div class="hero-art">
@@ -653,13 +696,13 @@
       <h2>Think you're fast enough?</h2>
       <p>Download MathFlux free, claim your daily token, and find out. Kindergarten to calculus — the clock is waiting.</p>
       <div class="hero-ctas">
-        <a href="https://apps.apple.com" class="btn btn-primary">
+        <a href="https://apps.apple.com/app/id6762221667" target="_blank" rel="noopener" class="btn btn-primary">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
           Download on App Store
         </a>
       </div>
       <div class="available-on" style="margin-top:26px">
-        <a href="https://apps.apple.com" class="store-badge" aria-label="Download on the App Store">
+        <a href="https://apps.apple.com/app/id6762221667" target="_blank" rel="noopener" class="store-badge" aria-label="Download on the App Store">
           <svg class="sb-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
           <span class="sb-text"><span class="sb-top">Download on the</span><span class="sb-name">App Store</span></span>
         </a>
@@ -678,9 +721,9 @@
     <a href="index.html#support">Support &amp; FAQ</a>
     <a href="index.html#privacy">Privacy</a>
     <a href="https://www.facebook.com/profile.php?id=61589786084012" target="_blank" rel="noopener">Facebook</a>
-    <a href="https://apps.apple.com" target="_blank" rel="noopener">App Store</a>
+    <a href="https://apps.apple.com/app/id6762221667" target="_blank" rel="noopener">App Store</a>
   </div>
-  <p>© 2026 Samuel Falade · MathFlux · Math battles, any level.</p>
+  <p>© 2026 <a href="https://samuelfalade.github.io" target="_blank" rel="noopener">Samuel Falade</a> · MathFlux · Math battles, any level.</p>
 </footer>
 
 <script>
@@ -722,5 +765,97 @@
     }
   })();
 </script>
+<script>
+  // ── "Try it" playable demo: real problems, shrinking timer, streak-scaled difficulty
+  (function () {
+    var box = document.getElementById('tryFlux');
+    if (!box) return;
+    var probEl = document.getElementById('tfProblem'),
+        ansEl = document.getElementById('tfAnswers'),
+        streakEl = document.getElementById('tfStreak'),
+        bar = document.getElementById('tfBar');
+    var streak = 0, timer = null, t0 = 0, answer = 0, locked = false;
+    var DUR = 8000;
+
+    function rnd(n) { return Math.floor(Math.random() * n); }
+
+    function gen() {
+      var lvl = Math.min(4, 1 + Math.floor(streak / 3)), a, b, op;
+      if (lvl === 1)      { a = rnd(20) + 5;  b = rnd(15) + 2;  op = Math.random() < .5 ? '+' : '−'; }
+      else if (lvl === 2) { a = rnd(60) + 15; b = rnd(45) + 8;  op = Math.random() < .5 ? '+' : '−'; }
+      else if (lvl === 3) { a = rnd(12) + 2;  b = rnd(12) + 2;  op = '×'; }
+      else                { b = rnd(9) + 2;   a = (rnd(12) + 2) * b; op = '÷'; }
+      if (op === '−' && b > a) { var t = a; a = b; b = t; }
+      answer = op === '+' ? a + b : op === '−' ? a - b : op === '×' ? a * b : a / b;
+      probEl.textContent = a + ' ' + op + ' ' + b;
+
+      var opts = [answer];
+      while (opts.length < 4) {
+        var d = answer + (rnd(11) - 5);
+        if (d === answer) d = answer + 6 + rnd(4);
+        if (d >= 0 && opts.indexOf(d) < 0) opts.push(d);
+      }
+      opts.sort(function () { return Math.random() - .5; });
+      ansEl.innerHTML = '';
+      opts.forEach(function (v) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = v;
+        btn.addEventListener('click', function () { pick(btn, v); });
+        ansEl.appendChild(btn);
+      });
+
+      locked = false;
+      t0 = Date.now();
+      if (timer) clearInterval(timer);
+      timer = setInterval(tick, 100);
+      bar.style.width = '100%';
+    }
+
+    function tick() {
+      var p = 1 - (Date.now() - t0) / DUR;
+      if (p <= 0) { miss(); return; }
+      bar.style.width = (p * 100).toFixed(1) + '%';
+    }
+
+    function pick(btn, v) {
+      if (locked) return;
+      locked = true;
+      clearInterval(timer);
+      if (v === answer) {
+        btn.classList.add('good');
+        streak++;
+        streakEl.textContent = streak;
+        setTimeout(gen, 420);
+      } else {
+        btn.classList.add('bad');
+        miss(true);
+      }
+    }
+
+    function miss(keepLock) {
+      clearInterval(timer);
+      locked = true;
+      streak = 0;
+      streakEl.textContent = '0';
+      bar.style.width = '0%';
+      Array.prototype.forEach.call(ansEl.children, function (b) {
+        if (+b.textContent === answer) b.classList.add('good');
+      });
+      setTimeout(gen, 950);
+    }
+
+    // start when the widget scrolls into view, pause the clock when it leaves
+    if ('IntersectionObserver' in window) {
+      var started = false;
+      new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (e.isIntersecting && !started) { started = true; gen(); }
+        });
+      }).observe(box);
+    } else { gen(); }
+  })();
+</script>
+<script src="immersive.js" defer></script>
 </body>
 </html>

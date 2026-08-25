@@ -1,0 +1,49 @@
+/* MathFlux — immersive layer: cursor aura, grid spotlight, scroll reveals, card tilt */
+
+/* soft cyan light that follows the cursor */
+.cursor-aura{
+  position:fixed;left:0;top:0;width:560px;height:560px;margin:-280px 0 0 -280px;
+  border-radius:50%;pointer-events:none;z-index:2;
+  background:radial-gradient(circle,rgba(34,211,238,.09),rgba(34,211,238,.035) 42%,transparent 70%);
+  mix-blend-mode:screen;transform:translate(-2000px,-2000px);will-change:transform;
+}
+
+/* the background grid brightens in a circle around the cursor */
+.grid-spot{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(rgba(34,211,238,.34) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(34,211,238,.34) 1px,transparent 1px);
+  background-size:60px 60px;
+  -webkit-mask:radial-gradient(260px circle at var(--mx,-999px) var(--my,-999px),rgba(0,0,0,.85),transparent 72%);
+          mask:radial-gradient(260px circle at var(--mx,-999px) var(--my,-999px),rgba(0,0,0,.85),transparent 72%);
+}
+
+/* staggered scroll reveal */
+.irv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1);}
+.irv.in{opacity:1;transform:none;}
+
+/* 3D tilt targets */
+.tiltable{transition:transform .18s ease,border-color .25s,box-shadow .25s;will-change:transform;transform-style:preserve-3d;}
+
+/* iOS motion-permission chip (gyroscope parallax) */
+.motion-chip{
+  position:fixed;right:16px;bottom:16px;z-index:120;
+  padding:10px 18px;border:1px solid var(--cyan-dim);border-radius:100px;
+  background:rgba(4,8,15,.82);color:var(--cyan);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.1em;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  box-shadow:0 0 24px rgba(34,211,238,.25);
+}
+.motion-chip:active{transform:scale(.96);}
+
+@media (pointer:coarse){
+  .cursor-aura{display:none;}
+  .grid-spot{display:none;}
+  body.gyro-on .grid-spot{display:block;}
+  .phone,.hero-glow{transition:transform .25s cubic-bezier(.2,.7,.2,1);will-change:transform;}
+}
+@media (prefers-reduced-motion:reduce){
+  .cursor-aura,.grid-spot,.motion-chip{display:none;}
+  .irv{opacity:1;transform:none;transition:none;}
+}
