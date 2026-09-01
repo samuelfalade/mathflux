@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1200px;height:675px;overflow:hidden;background:#04080f;font-family:'Arial',sans-serif;}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(34,211,238,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.05) 1px,transparent 1px);background-size:40px 40px;}
+.glow-l{position:absolute;left:-60px;top:50%;transform:translateY(-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(34,211,238,.1) 0%,transparent 65%);}
+.glow-r{position:absolute;right:-60px;top:50%;transform:translateY(-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(167,139,250,.08) 0%,transparent 65%);}
+.content{position:absolute;inset:0;display:flex;align-items:center;padding:0 80px;gap:60px;}
+.left{display:flex;flex-direction:column;gap:16px;flex-shrink:0;}
+.label{font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:#22d3ee;}
+.headline{font-size:68px;font-weight:900;letter-spacing:-.04em;color:#f0f6ff;line-height:.95;}
+.headline span{color:#22d3ee;}
+.sub{font-size:15px;color:#475569;letter-spacing:.1em;text-transform:uppercase;}
+.players{display:flex;align-items:center;flex:1;gap:0;}
+.player{flex:1;display:flex;flex-direction:column;align-items:center;gap:14px;padding:34px 24px;background:rgba(10,22,40,.8);border-radius:18px;border:1px solid rgba(34,211,238,.12);}
+.player.winning{border-color:rgba(34,211,238,.4);}
+.player-icon{font-size:40px;}
+.player-name{font-size:17px;font-weight:700;color:#64748b;}
+.player-score{font-family:'Courier New',monospace;font-size:46px;font-weight:700;color:#22d3ee;}
+.player-score.losing{color:#1e293b;}
+.vs-badge{width:60px;height:60px;border-radius:50%;background:#04080f;border:2px solid rgba(34,211,238,.3);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#22d3ee;flex-shrink:0;}
+</style>
+</head>
+<body>
+<div class="grid"></div>
+<div class="glow-l"></div>
+<div class="glow-r"></div>
+<div class="content">
+  <div class="left">
+    <div class="label">Real players · Real stakes</div>
+    <div class="headline">Real<br><span>Competition.</span><br>No Bots.</div>
+    <div class="sub">MathFlux · App Store</div>
+  </div>
+  <div class="players">
+    <div class="player winning">
+      <div class="player-icon">🧠</div>
+      <div class="player-name">Samuel</div>
+      <div class="player-score">2,840</div>
+    </div>
+    <div class="vs-badge">VS</div>
+    <div class="player">
+      <div class="player-icon">🎒</div>
+      <div class="player-name">Alex</div>
+      <div class="player-score losing">2,210</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

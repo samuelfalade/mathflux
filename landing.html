@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MathFlux — Real-Time Math Battles. Any Level.</title>
-  <meta name="description" content="MathFlux is a real-time competitive math game for iPhone — from kindergarten arithmetic to college calculus. Race the clock, challenge real players, climb the tiers. Free to play, with a free token every day." />
+  <title>MathFlux: Real-Time Math Battles, Any Level</title>
+  <meta name="description" content="MathFlux is a real-time competitive math game for iPhone, from kindergarten arithmetic to college calculus. Race the clock, challenge real players, climb the tiers. Free to play, with a free token every day." />
 
   <!-- Open Graph / social -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="MathFlux — Real-Time Math Battles. Any Level." />
-  <meta property="og:description" content="Race the clock. Challenge real players. Master every operation — kindergarten to calculus. Free to play on iPhone." />
+  <meta property="og:title" content="MathFlux: Real-Time Math Battles, Any Level" />
+  <meta property="og:description" content="Race the clock against real players, kindergarten to calculus. Free to play on iPhone." />
   <meta property="og:image" content="social/covers/facebook-cover.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -112,7 +112,7 @@
     .nav-links a { color: var(--muted); text-decoration: none; font-size: .875rem; font-weight: 500; transition: color .2s; }
     .nav-links a:hover { color: var(--cyan); }
     .nav-cta {
-      padding: 9px 20px; border-radius: 100px;
+      padding: 9px 20px; border-radius: 10px;
       background: var(--cyan); color: var(--bg) !important;
       font-family: 'Syne', sans-serif; font-weight: 700; font-size: .82rem;
       letter-spacing: .03em;
@@ -122,7 +122,7 @@
     /* ── BUTTONS ── */
     .btn {
       display: inline-flex; align-items: center; gap: 10px;
-      padding: 15px 32px; border-radius: 100px;
+      padding: 15px 32px; border-radius: 12px;
       font-family: 'Syne', sans-serif; font-weight: 700; font-size: .92rem;
       letter-spacing: .03em; text-decoration: none; cursor: pointer;
       border: none; transition: all .25s;
@@ -137,14 +137,12 @@
     /* ── TRY IT (playable hero demo) ── */
     .try-flux {
       margin-top: 30px; max-width: 430px;
-      background: var(--glass); border: 1px solid var(--border);
+      background: var(--bg-2); border: 1px solid var(--border);
       border-radius: 16px; padding: 18px 20px 20px;
-      backdrop-filter: blur(10px);
     }
     .tf-head {
       display: flex; justify-content: space-between; align-items: center;
-      font-family: 'JetBrains Mono', monospace; font-size: .68rem;
-      letter-spacing: .12em; text-transform: uppercase; color: var(--cyan);
+      font-family: 'DM Sans', sans-serif; font-size: .78rem; font-weight: 500; color: var(--cyan);
     }
     .tf-streak b { color: var(--white); font-size: .85rem; }
     .tf-problem {
@@ -172,12 +170,6 @@
       padding-top: 120px; padding-bottom: 60px;
       position: relative; overflow: clip;
     }
-    .hero-glow {
-      position: absolute; top: 8%; left: 50%; transform: translateX(-50%);
-      width: 720px; height: 720px; max-width: 120vw;
-      background: radial-gradient(circle, rgba(34,211,238,.16), transparent 62%);
-      filter: blur(20px); pointer-events: none; z-index: 0;
-    }
     .hero-grid {
       display: grid; grid-template-columns: 1.05fr .95fr;
       gap: 48px; align-items: center; position: relative; z-index: 1;
@@ -185,10 +177,10 @@
     .hero-copy { text-align: left; }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 6px 16px; border: 1px solid var(--border); border-radius: 100px;
-      font-family: 'JetBrains Mono', monospace; font-size: .72rem;
+      padding: 6px 16px; border: 1px solid var(--border); border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: .8rem; font-weight: 500;
       color: var(--cyan); background: var(--cyan-glow);
-      margin-bottom: 28px; letter-spacing: .08em;
+      margin-bottom: 28px;
     }
     .hero-badge::before {
       content: ''; width: 6px; height: 6px; border-radius: 50%;
@@ -210,13 +202,12 @@
     }
     .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 34px; }
     .pill {
-      font-family: 'JetBrains Mono', monospace; font-size: .68rem; letter-spacing: .06em;
-      text-transform: uppercase; color: var(--cyan);
-      padding: 5px 12px; border: 1px solid var(--border); border-radius: 100px;
+      font-family: 'DM Sans', sans-serif; font-size: .78rem; font-weight: 500; color: var(--cyan);
+      padding: 5px 12px; border: 1px solid var(--border); border-radius: 6px;
       background: rgba(34,211,238,.05);
     }
     .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
-    .hero-note { font-family: 'JetBrains Mono', monospace; font-size: .72rem; color: var(--muted); letter-spacing: .04em; }
+    .hero-note { font-size: .82rem; color: var(--muted); }
     .hero-note b { color: var(--amber); font-weight: 500; }
 
     /* ── PHONE MOCKUP ── */
@@ -229,6 +220,9 @@
       animation: floaty 6s ease-in-out infinite;
     }
     @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+    @media (min-width: 861px) {
+      .hero-art { margin-right: -46px; transform: rotate(2.5deg); }
+    }
     .phone::before {
       content: ''; position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
       width: 92px; height: 22px; background: #05080e; border-radius: 0 0 16px 16px; z-index: 2;
@@ -237,8 +231,8 @@
 
     /* ── SECTION HEADERS ── */
     .section-label {
-      font-family: 'JetBrains Mono', monospace; font-size: .72rem; letter-spacing: .15em;
-      text-transform: uppercase; color: var(--cyan); margin-bottom: 16px;
+      font-family: 'DM Sans', sans-serif; font-size: .88rem; font-weight: 600;
+      color: var(--cyan); margin-bottom: 16px;
     }
     h2 {
       font-family: 'Syne', sans-serif; font-weight: 800;
@@ -251,13 +245,17 @@
     /* ── STEPS ── */
     #steps { background: var(--bg-1); }
     .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
+    .steps-grid { align-items: start; }
     .step {
-      background: var(--glass); border: 1px solid var(--border); border-radius: 18px;
+      background: var(--bg-2); border: 1px solid var(--border); border-radius: 18px;
       padding: 34px 28px; position: relative;
+    }
+    @media (min-width: 861px) {
+      .step:nth-child(2) { transform: translateY(22px); }
     }
     .step-num {
       font-family: 'JetBrains Mono', monospace; font-size: .78rem; color: var(--cyan);
-      border: 1px solid var(--cyan-dim); border-radius: 100px; padding: 3px 11px; display: inline-block; margin-bottom: 18px;
+      border: 1px solid var(--cyan-dim); border-radius: 6px; padding: 3px 11px; display: inline-block; margin-bottom: 18px;
     }
     .step h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.15rem; margin-bottom: 8px; }
     .step p { color: var(--muted); font-size: .92rem; }
@@ -296,10 +294,10 @@
     }
     .sound-btn {
       position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
-      display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: 100px;
+      display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: 10px;
       background: rgba(4,8,15,.72); backdrop-filter: blur(8px);
       border: 1px solid var(--cyan); color: var(--cyan);
-      font-family: 'JetBrains Mono', monospace; font-size: .72rem; letter-spacing: .1em;
+      font-family: 'DM Sans', sans-serif; font-size: .78rem; font-weight: 500;
       cursor: pointer; transition: opacity .3s, background .2s;
     }
     .sound-btn:hover { background: rgba(34,211,238,.16); }
@@ -310,13 +308,13 @@
     #modes { background: var(--bg); }
     .modes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
     .mode {
-      border: 1px solid var(--border); border-radius: 16px; padding: 28px 26px; background: var(--glass);
+      border: 1px solid var(--border); border-radius: 16px; padding: 28px 26px; background: var(--bg-2);
       transition: border-color .25s, transform .25s; position: relative; overflow: hidden;
     }
     .mode:hover { transform: translateY(-4px); }
     .mode .tag {
-      font-family: 'JetBrains Mono', monospace; font-size: .64rem; letter-spacing: .12em; text-transform: uppercase;
-      padding: 3px 10px; border-radius: 100px; display: inline-block; margin-bottom: 14px;
+      font-family: 'DM Sans', sans-serif; font-size: .74rem; font-weight: 600;
+      padding: 3px 10px; border-radius: 6px; display: inline-block; margin-bottom: 14px;
     }
     .mode.compete { border-color: rgba(255,77,77,.3); }   .mode.compete .tag { color: var(--red);   background: rgba(255,77,77,.1); }
     .mode.sudden  { border-color: rgba(250,204,21,.3); }   .mode.sudden  .tag { color: var(--amber); background: rgba(250,204,21,.1); }
@@ -329,17 +327,21 @@
     #features { background: var(--bg-1); }
     .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
     .feat-card {
-      background: var(--glass); border: 1px solid var(--border); border-radius: 16px;
-      padding: 30px 28px; backdrop-filter: blur(10px);
+      background: var(--bg-2); border: 1px solid var(--border); border-radius: 16px;
+      padding: 30px 28px;
       transition: border-color .25s, transform .25s; position: relative; overflow: hidden;
     }
-    .feat-card::after {
-      content: ''; position: absolute; top: -40px; right: -40px; width: 100px; height: 100px;
-      border-radius: 50%; background: var(--cyan-glow); filter: blur(30px); opacity: 0; transition: opacity .3s;
-    }
     .feat-card:hover { border-color: var(--cyan-dim); transform: translateY(-4px); }
-    .feat-card:hover::after { opacity: 1; }
-    .feat-icon { font-size: 1.9rem; margin-bottom: 14px; display: block; }
+    @media (min-width: 640px) {
+      .features-grid .feat-card:first-child { grid-column: span 2; }
+    }
+    .feat-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 40px; height: 40px; padding: 0 10px; margin-bottom: 14px;
+      border: 1px solid var(--cyan-dim); border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace; font-size: 1rem;
+      color: var(--cyan); background: rgba(34,211,238,.07);
+    }
     .feat-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; }
     .feat-desc { font-size: .9rem; color: var(--muted); line-height: 1.6; }
 
@@ -365,8 +367,8 @@
     #community { background: var(--bg-1); }
     .community-card {
       display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center;
-      background: var(--glass); border: 1px solid var(--border); border-radius: 24px;
-      padding: 48px; backdrop-filter: blur(10px);
+      background: var(--bg-2); border: 1px solid var(--border); border-radius: 24px;
+      padding: 48px;
     }
     .community-card img { width: 100%; border-radius: 14px; border: 1px solid var(--border); display: block; }
     .community-card h2 { margin-bottom: 14px; }
@@ -376,9 +378,8 @@
     #cta { background: var(--bg); text-align: center; }
     .cta-card {
       max-width: 760px; margin: 0 auto; border-radius: 28px; padding: 64px 40px;
-      background: radial-gradient(circle at 50% 0%, rgba(34,211,238,.12), var(--glass) 60%);
+      background: var(--bg-2);
       border: 1px solid var(--cyan-dim);
-      box-shadow: 0 0 80px rgba(34,211,238,.12);
     }
     .cta-card h2 { margin-bottom: 16px; }
     .cta-card p { color: var(--muted); max-width: 480px; margin: 0 auto 36px; }
@@ -402,7 +403,7 @@
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border); padding: 40px 24px; text-align: center;
-      color: var(--muted); font-size: .8rem; font-family: 'JetBrains Mono', monospace;
+      color: var(--muted); font-size: .8rem;
       position: relative; z-index: 1;
     }
     footer a { color: var(--muted); text-decoration: none; }
@@ -453,15 +454,14 @@
 
   <!-- ── HERO ── -->
   <section id="hero">
-    <div class="hero-glow" aria-hidden="true"></div>
     <div class="wide hero-grid">
       <div class="hero-copy">
-        <div class="hero-badge">iOS 26 · Free to Play</div>
+        <div class="hero-badge">Free to play on iOS 26</div>
         <h1>Math battles.<br><span class="accent">Any level.</span></h1>
         <p class="hero-sub">
-          Real-time competitive math from kindergarten to calculus.
-          Race the clock, challenge real players, and master every operation —
-          one problem at a time.
+          Real-time competitive math, kindergarten to calculus.
+          Race a clock that shrinks as you improve, then take your streak
+          into a live room against real players.
         </p>
         <div class="hero-pills">
           <span class="pill">9 Operations</span>
@@ -479,11 +479,11 @@
             Follow on Facebook
           </a>
         </div>
-        <p class="hero-note">Free to download · <b>+1 free token every day</b> · No ads, no tracking</p>
+        <p class="hero-note">Free to download, with <b>a free token every day</b>. No ads, no tracking.</p>
 
         <div class="try-flux" id="tryFlux">
           <div class="tf-head">
-            <span>Try it — live</span>
+            <span>Try it, live</span>
             <span class="tf-streak">Streak <b id="tfStreak">0</b></span>
           </div>
           <div class="tf-problem" id="tfProblem">&nbsp;</div>
@@ -494,7 +494,7 @@
 
       <div class="hero-art">
         <div class="phone">
-          <img src="screenshots/shot-gameplay.png" alt="MathFlux live gameplay — solving 27 minus 19 against the clock with multiple-choice answers and power-ups" loading="eager" />
+          <img src="screenshots/shot-gameplay.png" alt="MathFlux live gameplay: solving 27 minus 19 against the clock with multiple-choice answers and power-ups" loading="eager" />
         </div>
       </div>
     </div>
@@ -510,12 +510,12 @@
         <div class="step">
           <span class="step-num">01</span>
           <h3>Choose your arena</h3>
-          <p>Pick a module — from Kindergarten counting to College calculus — or jump into adaptive General mode.</p>
+          <p>Pick a module, anywhere from Kindergarten counting to College calculus, or jump into adaptive General mode.</p>
         </div>
         <div class="step">
           <span class="step-num">02</span>
           <h3>Beat the clock</h3>
-          <p>Answer fast for speed bonuses. Build streaks. The timer shrinks as you climb — every second counts.</p>
+          <p>Answer fast for speed bonuses and build streaks. The timer shrinks as you climb, so every second counts.</p>
         </div>
         <div class="step">
           <span class="step-num">03</span>
@@ -531,7 +531,7 @@
     <div class="wide center">
       <p class="section-label">A Look Inside</p>
       <h2>Built to be played fast</h2>
-      <p class="section-desc">A focused, distraction-free interface engineered for speed, precision, and competition.</p>
+      <p class="section-desc">One problem, four answers, a clock. The interface stays out of the way.</p>
       <div class="shots">
         <div class="shot">
           <div class="frame"><img src="screenshots/shot-onboarding.png" alt="MathFlux onboarding screen" loading="lazy" /></div>
@@ -541,12 +541,12 @@
         <div class="shot">
           <div class="frame"><img src="screenshots/shot-home.png" alt="MathFlux module selection home screen" loading="lazy" /></div>
           <div class="cap a">Math that <span class="hl">levels up</span></div>
-          <p class="sub">Solo modules, Daily Challenge, Sudden Death, and live Compete — all from one home.</p>
+          <p class="sub">Solo modules, Daily Challenge, Sudden Death, and live Compete, all from one home.</p>
         </div>
         <div class="shot">
           <div class="frame"><img src="screenshots/shot-gameplay.png" alt="MathFlux gameplay with multiple-choice answers" loading="lazy" /></div>
           <div class="cap g">Answer fast. <span class="hl">Score big.</span></div>
-          <p class="sub">Streaks, shields, freezes and hints — the clock never stops ticking.</p>
+          <p class="sub">Streaks, shields, freezes and hints. The clock never stops ticking.</p>
         </div>
         <div class="shot">
           <div class="frame"><img src="screenshots/shot-results.png" alt="MathFlux results screen showing grade, accuracy and per-operation breakdown" loading="lazy" /></div>
@@ -562,15 +562,15 @@
     <div class="container center">
       <p class="section-label">See It In Action</p>
       <h2>Watch the Flux</h2>
-      <p class="section-desc">Real-time play, adaptive difficulty, and streak-fueled rewards — in one quick run.</p>
+      <p class="section-desc">One quick run, recorded straight from the app.</p>
     </div>
     <div class="video-frame">
       <div class="video-wrap">
         <video id="appVideo" class="app-video" autoplay muted loop playsinline preload="auto">
           <source src="assets/mathflux_marketing.mp4" type="video/mp4" />
-          Your browser doesn't support embedded video — <a href="assets/mathflux_marketing.mp4">download the clip</a>.
+          Your browser doesn't support embedded video. <a href="assets/mathflux_marketing.mp4">Download the clip</a>.
         </video>
-        <button class="sound-btn" id="soundBtn" type="button">🔇 Tap for sound</button>
+        <button class="sound-btn" id="soundBtn" type="button">Tap for sound</button>
       </div>
     </div>
   </section>
@@ -583,22 +583,22 @@
       <p class="section-desc">From a relaxed solo run to a last-one-standing showdown.</p>
       <div class="modes-grid" style="text-align:left">
         <div class="mode compete">
-          <span class="tag">⚔ Live</span>
+          <span class="tag">Live</span>
           <h3>Compete</h3>
-          <p>Create a room, share the code, and battle real players in real time. Highest score wins — no bots, ever.</p>
+          <p>Create a room, share the code, and battle real players in real time. Highest score wins. No bots, ever.</p>
         </div>
         <div class="mode elim">
-          <span class="tag">☠ Last Standing</span>
+          <span class="tag">Last Standing</span>
           <h3>Elimination</h3>
           <p>One wrong answer knocks you out. Outlast every opponent in the room to take the crown.</p>
         </div>
         <div class="mode sudden">
-          <span class="tag">⚡ 2× Score</span>
+          <span class="tag">2× Score</span>
           <h3>Sudden Death</h3>
-          <p>A single mistake ends the run — but every point counts double. Pure accuracy under pressure.</p>
+          <p>A single mistake ends the run, but every point counts double. Pure accuracy under pressure.</p>
         </div>
         <div class="mode daily">
-          <span class="tag">📅 Daily</span>
+          <span class="tag">Daily</span>
           <h3>Daily Challenge</h3>
           <p>A new target score every day across rotating modes. Chase the leaderboard or beat your best.</p>
         </div>
@@ -611,35 +611,35 @@
     <div class="wide center">
       <p class="section-label">What's Inside</p>
       <h2>Serious math, seriously fun</h2>
-      <p class="section-desc">Nine operations — Addition, Subtraction, Multiplication, Division, Algebra, Exponents, Modulo, Derivatives and Factorials — across four difficulty tiers.</p>
+      <p class="section-desc">Nine operations (Addition, Subtraction, Multiplication, Division, Algebra, Exponents, Modulo, Derivatives and Factorials) across four difficulty tiers.</p>
       <div class="features-grid" style="text-align:left">
         <div class="feat-card">
-          <span class="feat-icon">🧠</span>
+          <span class="feat-icon" aria-hidden="true">ƒx</span>
           <div class="feat-title">Adaptive Difficulty</div>
           <div class="feat-desc">The engine tracks your mastery per operation and adjusts in real time. No two sessions are ever the same.</div>
         </div>
         <div class="feat-card">
-          <span class="feat-icon">🎓</span>
+          <span class="feat-icon" aria-hidden="true">×4</span>
           <div class="feat-title">4 Tiers, No Ceiling</div>
-          <div class="feat-desc">Novice → Adept → Expert → Master. The timer shrinks and number ranges expand — there's no level cap.</div>
+          <div class="feat-desc">Novice → Adept → Expert → Master. The timer shrinks, number ranges expand, and there's no level cap.</div>
         </div>
         <div class="feat-card">
-          <span class="feat-icon">🌐</span>
+          <span class="feat-icon" aria-hidden="true">vs</span>
           <div class="feat-title">Real Multiplayer</div>
-          <div class="feat-desc">Firebase-powered live rooms. Same problems, same clock, synced scores — race a friend anywhere.</div>
+          <div class="feat-desc">Firebase-powered live rooms. Same problems, same clock, synced scores. Race a friend anywhere.</div>
         </div>
         <div class="feat-card">
-          <span class="feat-icon">🏆</span>
+          <span class="feat-icon" aria-hidden="true">#1</span>
           <div class="feat-title">Game Center</div>
           <div class="feat-desc">Leaderboards and achievements synced across your devices via Apple Game Center.</div>
         </div>
         <div class="feat-card">
-          <span class="feat-icon">🎟</span>
+          <span class="feat-icon" aria-hidden="true">+1</span>
           <div class="feat-title">A Free Token Daily</div>
-          <div class="feat-desc">Every player earns a free competition token each day — plus bonus tokens for big solo streaks.</div>
+          <div class="feat-desc">Every player earns a free competition token each day, plus bonus tokens for big solo streaks.</div>
         </div>
         <div class="feat-card">
-          <span class="feat-icon">🔒</span>
+          <span class="feat-icon" aria-hidden="true">∅</span>
           <div class="feat-title">Private by Design</div>
           <div class="feat-desc">No account, no ads, no tracking. Anonymous play and only the data needed to run a match.</div>
         </div>
@@ -652,7 +652,7 @@
     <div class="wide center">
       <p class="section-label">Earn Them All</p>
       <h2>Nine achievements to chase</h2>
-      <p class="section-desc">From your first perfect round to a 100-problem Centurion run — every milestone is a badge.</p>
+      <p class="section-desc">From your first perfect round to a 100-problem Centurion run, every milestone is a badge.</p>
       <div class="badges">
         <div class="badge"><img src="achievements/perfect_round.png"  alt="Perfect Round badge"  loading="lazy" /><span>Perfect Round</span></div>
         <div class="badge"><img src="achievements/on_fire.png"       alt="On Fire badge"       loading="lazy" /><span>On Fire</span></div>
@@ -694,7 +694,7 @@
     <div class="cta-card">
       <p class="section-label" style="margin-bottom:12px">Ready?</p>
       <h2>Think you're fast enough?</h2>
-      <p>Download MathFlux free, claim your daily token, and find out. Kindergarten to calculus — the clock is waiting.</p>
+      <p>Download MathFlux free, claim your daily token, and find out. Kindergarten to calculus, the clock is waiting.</p>
       <div class="hero-ctas">
         <a href="https://apps.apple.com/app/id6762221667" target="_blank" rel="noopener" class="btn btn-primary">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
@@ -706,7 +706,7 @@
           <svg class="sb-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
           <span class="sb-text"><span class="sb-top">Download on the</span><span class="sb-name">App Store</span></span>
         </a>
-        <span class="store-badge disabled" aria-label="Google Play — Coming Soon">
+        <span class="store-badge disabled" aria-label="Google Play: Coming Soon">
           <svg class="sb-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3a1 1 0 0 0-.6.9v17.6a1 1 0 0 0 .6.9l9.4-9.7L3.6 2.3zm10.8 7.1 2.4 2.5-2.4 2.5-2.7-2.5 2.7-2.5zM4.9 1.8l9 5.2-1.9 2L4.9 1.8zm0 20.4 7.1-7.3 1.9 2-9 5.3z"/></svg>
           <span class="sb-text"><span class="sb-top">Coming Soon</span><span class="sb-name">Google Play</span></span>
         </span>
@@ -723,7 +723,7 @@
     <a href="https://www.facebook.com/profile.php?id=61589786084012" target="_blank" rel="noopener">Facebook</a>
     <a href="https://apps.apple.com/app/id6762221667" target="_blank" rel="noopener">App Store</a>
   </div>
-  <p>© 2026 <a href="https://samuelfalade.github.io" target="_blank" rel="noopener">Samuel Falade</a> · MathFlux · Math battles, any level.</p>
+  <p>© 2026 <a href="https://samuelfalade.github.io" target="_blank" rel="noopener">Samuel Falade</a>. MathFlux: math battles, any level.</p>
 </footer>
 
 <script>
@@ -749,7 +749,7 @@
     let wantsSound = false;
     function enableSound() {
       wantsSound = true; vid.muted = false; vid.play().catch(function () {});
-      if (btn) { btn.textContent = '🔊 Sound on'; btn.classList.add('hidden'); }
+      if (btn) { btn.textContent = 'Sound on'; btn.classList.add('hidden'); }
     }
     if (btn) btn.addEventListener('click', function (e) { e.stopPropagation(); enableSound(); });
     vid.addEventListener('click', enableSound);

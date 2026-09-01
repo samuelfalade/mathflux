@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1080px;height:1080px;overflow:hidden;background:#04080f;font-family:'Arial',sans-serif;}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(34,211,238,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.05) 1px,transparent 1px);background-size:54px 54px;}
+.glow-l{position:absolute;left:-100px;top:50%;transform:translateY(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(34,211,238,.12) 0%,transparent 65%);}
+.glow-r{position:absolute;right:-100px;top:50%;transform:translateY(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(167,139,250,.1) 0%,transparent 65%);}
+
+.vs-line{position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,rgba(34,211,238,.3),rgba(34,211,238,.3),transparent);}
+
+.content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;padding:60px;}
+
+.label{font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:#22d3ee;}
+
+.players{display:flex;align-items:center;gap:0;width:100%;}
+.player{flex:1;display:flex;flex-direction:column;align-items:center;gap:16px;padding:40px 30px;background:rgba(10,22,40,.7);border-radius:20px;border:1px solid rgba(34,211,238,.12);}
+.player-icon{font-size:48px;}
+.player-name{font-size:20px;font-weight:700;color:#94a3b8;letter-spacing:.04em;}
+.player-score{font-family:'Courier New',monospace;font-size:52px;font-weight:700;color:#22d3ee;}
+.player-score.losing{color:#475569;}
+.player.winning{border-color:rgba(34,211,238,.4);box-shadow:0 0 40px rgba(34,211,238,.08);}
+
+.vs-badge{width:70px;height:70px;border-radius:50%;background:#04080f;border:2px solid rgba(34,211,238,.3);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#22d3ee;flex-shrink:0;z-index:2;}
+
+.headline{font-size:52px;font-weight:900;letter-spacing:-.03em;color:#f0f6ff;text-align:center;line-height:1.1;}
+.headline span{color:#22d3ee;}
+
+.sub{font-size:17px;color:#475569;letter-spacing:.1em;text-transform:uppercase;text-align:center;}
+
+.brand{position:absolute;bottom:48px;left:0;right:0;text-align:center;}
+.brand-name{font-size:24px;font-weight:900;letter-spacing:-.02em;color:#334155;}
+.brand-name span{color:#22d3ee;opacity:.6;}
+</style>
+</head>
+<body>
+<div class="grid"></div>
+<div class="glow-l"></div>
+<div class="glow-r"></div>
+<div class="content">
+  <div class="label">Real players · Real stakes</div>
+  <div class="players">
+    <div class="player winning">
+      <div class="player-icon">🧠</div>
+      <div class="player-name">Samuel</div>
+      <div class="player-score">2,840</div>
+    </div>
+    <div class="vs-badge">VS</div>
+    <div class="player">
+      <div class="player-icon">🎒</div>
+      <div class="player-name">Alex</div>
+      <div class="player-score losing">2,210</div>
+    </div>
+  </div>
+  <div class="headline">Real<span> Competition.</span><br>No Bots.</div>
+  <div class="sub">MathFlux · Coming to App Store</div>
+</div>
+<div class="brand"><div class="brand-name">Math<span>Flux</span></div></div>
+</body>
+</html>

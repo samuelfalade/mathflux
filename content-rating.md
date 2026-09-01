@@ -1,4 +1,4 @@
-# MathFlux — IARC Content Rating Answers
+# MathFlux IARC Content Rating Answers
 
 Use these answers in the Play Console Content Rating questionnaire.
 
@@ -10,15 +10,15 @@ Expected rating: **Everyone (E)** / **PEGI 3** / **ACB G**.
 
 | Question | Answer |
 |----------|--------|
-| **Violence** — Does your app contain any violent imagery or themes? | **No** |
+| **Violence**: Does your app contain any violent imagery or themes? | **No** |
 | **Realistic violence** | No |
 | **Cartoon / fantasy violence** | No |
 | **Sexual content** | **No** |
 | **Nudity** | No |
 | **Sexual themes** | No |
-| **Language** — Profanity or crude humor? | **No** |
-| **Controlled substances** — References to alcohol, tobacco, or drugs? | **No** |
-| **Gambling** — Real-money gambling or simulated gambling? | **No** |
+| **Language**: Profanity or crude humor? | **No** |
+| **Controlled substances**: References to alcohol, tobacco, or drugs? | **No** |
+| **Gambling**: Real-money gambling or simulated gambling? | **No** |
 | **Crude humor** | **No** |
 | **Horror / fear elements** | No |
 
@@ -28,7 +28,7 @@ Expected rating: **Everyone (E)** / **PEGI 3** / **ACB G**.
 
 | Question | Answer |
 |----------|--------|
-| **Users interact with each other** | **Yes — limited** (anonymous score updates only; no chat, no messaging, no profiles, no user-generated text/images) |
+| **Users interact with each other** | **Yes, limited** (anonymous score updates only; no chat, no messaging, no profiles, no user-generated text/images) |
 | **Shares user-generated content** | **No** |
 | **Shares user's location** | **No** |
 | **Allows users to access the internet** | **Yes** (Firebase connection for multiplayer) |
@@ -43,10 +43,10 @@ MathFlux multiplayer is anonymous and structured:
 - Users join rooms via a 6-character code (no friend lists, no usernames)
 - The only data exchanged is: numeric scores, question indices, anonymous Firebase UID
 - There is no chat, voice, or text input
-- Players cannot see each other's identifying info — only their position on the live leaderboard
+- Players cannot see each other's identifying info, only their position on the live leaderboard
 - All multiplayer data auto-deletes when sessions end
 
-Google considers this "**indirect** social interaction" — typically rated **Everyone** in North America and **PEGI 3** in Europe.
+Google considers this "**indirect** social interaction", typically rated **Everyone** in North America and **PEGI 3** in Europe.
 
 ---
 

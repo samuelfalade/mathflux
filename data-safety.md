@@ -1,4 +1,4 @@
-# MathFlux — Play Console Data Safety Answers
+# MathFlux Play Console Data Safety Answers
 
 Paste these into the Data Safety form, section by section.
 
@@ -10,7 +10,7 @@ Paste these into the Data Safety form, section by section.
 |----------|--------|
 | Does your app collect or share any of the required user data types? | **Yes** |
 | Is all of the user data collected by your app encrypted in transit? | **Yes** (Firebase enforces TLS) |
-| Do you provide a way for users to request that their data be deleted? | **Yes** — via email to samuelfalade@gmail.com |
+| Do you provide a way for users to request that their data be deleted? | **Yes**, via email to samuelfalade@gmail.com |
 | Is your app committed to following the Play Families Policy? | **Yes** |
 
 ---
@@ -78,9 +78,9 @@ Paste these into the Data Safety form, section by section.
 | Question | Answer |
 |----------|--------|
 | Is this data collected, shared, or both? | **Collected only** (not shared with third parties) |
-| Is this data processed ephemerally? | **No** — persists for the duration of a multiplayer match, then auto-deleted via Firebase `onDisconnectRemoveValue` |
+| Is this data processed ephemerally? | **No**; persists for the duration of a multiplayer match, then auto-deleted via Firebase `onDisconnectRemoveValue` |
 | Is collecting this data required for your app, or can users choose whether it's collected? | **Optional** (only collected when the user opts into multiplayer) |
-| Why is this user data collected? | • **App functionality** — for matching players in the same room and tracking their scores during a match |
+| Why is this user data collected? | • **App functionality**: for matching players in the same room and tracking their scores during a match |
 
 ---
 
@@ -88,8 +88,8 @@ Paste these into the Data Safety form, section by section.
 
 | Question | Answer |
 |----------|--------|
-| Is your data encrypted in transit? | **Yes** — Firebase Realtime Database enforces TLS 1.2+ |
-| Do you provide a way for users to request their data be deleted? | **Yes** — users email samuelfalade@gmail.com; data is deleted within 7 days |
+| Is your data encrypted in transit? | **Yes**; Firebase Realtime Database enforces TLS 1.2+ |
+| Do you provide a way for users to request their data be deleted? | **Yes**; users email samuelfalade@gmail.com; data is deleted within 7 days |
 | Have you completed the Google Play Families Policy self-assessment? | **Yes** |
 
 ---
@@ -98,8 +98,8 @@ Paste these into the Data Safety form, section by section.
 
 These answers are derived directly from the app code. Verify before submitting:
 
-- **Anonymous auth** — `MathFlux-Flutter/lib/services/multiplayer_service.dart`, `ensureSignedIn()` method (also FluxCore iOS Swift equivalent)
-- **Firebase room schema** — `rooms/{code}/players/{uid}/{score, joinedAt, questionIndex}` (no PII)
-- **Auto-deletion** — `onDisconnectRemoveValue` set on both room and player nodes
-- **No analytics SDKs** — verify `pubspec.yaml` has no firebase_analytics, no google_mobile_ads, no segment, etc.
-- **IAP via Google Play Billing only** — `pubspec.yaml` includes `in_app_purchase` (^3.2.0). Receipts handled by the platform, not stored in our backend.
+- **Anonymous auth**: `MathFlux-Flutter/lib/services/multiplayer_service.dart`, `ensureSignedIn()` method (also FluxCore iOS Swift equivalent)
+- **Firebase room schema**: `rooms/{code}/players/{uid}/{score, joinedAt, questionIndex}` (no PII)
+- **Auto-deletion**: `onDisconnectRemoveValue` set on both room and player nodes
+- **No analytics SDKs**: verify `pubspec.yaml` has no firebase_analytics, no google_mobile_ads, no segment, etc.
+- **IAP via Google Play Billing only**: `pubspec.yaml` includes `in_app_purchase` (^3.2.0). Receipts handled by the platform, not stored in our backend.

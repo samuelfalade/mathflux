@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>MathFlux · Hero</title>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 660px; height: 1434px; overflow: hidden;
+  font-family: -apple-system, 'SF Pro Display', system-ui, sans-serif;
+  background: #080e1c;
+}
+
+.canvas {
+  width: 660px; height: 1434px; overflow: hidden;
+  background: #080e1c;
+  display: flex; flex-direction: column; align-items: center;
+  position: relative;
+}
+
+.bg-glow-tl {
+  position: absolute; top: -140px; left: -140px;
+  width: 560px; height: 560px;
+  background: radial-gradient(circle, rgba(0,212,232,0.2) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+.bg-glow-br {
+  position: absolute; bottom: -140px; right: -140px;
+  width: 560px; height: 560px;
+  background: radial-gradient(circle, rgba(255,187,60,0.13) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+.bg-glow-mid {
+  position: absolute; top: 42%; left: 50%; transform: translate(-50%,-50%);
+  width: 700px; height: 300px;
+  background: radial-gradient(ellipse, rgba(0,212,232,0.04) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+/* Subtle grid texture */
+.bg-grid {
+  position: absolute; inset: 0; z-index: 0; opacity: 0.025;
+  background-image:
+    linear-gradient(rgba(0,212,232,1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,232,1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* ─── TOP SECTION ─── */
+.top {
+  width: 100%; padding: 52px 48px 0;
+  display: flex; flex-direction: column; align-items: center;
+  flex-shrink: 0; position: relative; z-index: 1;
+}
+
+.badge {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(0,212,232,0.1); border: 1px solid rgba(0,212,232,0.25);
+  border-radius: 24px; padding: 7px 18px; margin-bottom: 18px;
+}
+.badge-icon { font-size: 15px; }
+.badge-text {
+  font-size: 11px; font-weight: 800; letter-spacing: 4px;
+  color: #00d4e8; text-transform: uppercase;
+}
+
+.headline {
+  font-size: 40px; font-weight: 800; color: #fff;
+  text-align: center; line-height: 1.14; letter-spacing: -1px;
+}
+.headline .hl { color: #00d4e8; }
+
+/* ─── DEVICE ─── */
+.device-wrap {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 1; padding: 28px 0;
+}
+
+.phone {
+  width: 500px; height: 1020px; position: relative;
+  background: linear-gradient(155deg, #2a2a30, #1c1c22 45%, #121216);
+  border-radius: 60px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.13),
+    0 0 0 1.5px #020205,
+    0 0 0 3.5px rgba(255,255,255,0.04),
+    0 50px 120px rgba(0,0,0,0.92),
+    0 0 120px rgba(0,212,232,0.1);
+}
+.phone-power {
+  position: absolute; right: -4px; top: 260px;
+  width: 4px; height: 80px; background: #252530; border-radius: 0 4px 4px 0;
+}
+.phone-silent {
+  position: absolute; left: -4px; top: 170px;
+  width: 4px; height: 34px; background: #252530; border-radius: 4px 0 0 4px;
+}
+.phone-vol-up {
+  position: absolute; left: -4px; top: 224px;
+  width: 4px; height: 54px; background: #252530; border-radius: 4px 0 0 4px;
+}
+.phone-vol-down {
+  position: absolute; left: -4px; top: 296px;
+  width: 4px; height: 54px; background: #252530; border-radius: 4px 0 0 4px;
+}
+
+.screen {
+  position: absolute; top: 14px; left: 14px; right: 14px; bottom: 14px;
+  border-radius: 48px; overflow: hidden; background: #080e1c;
+}
+
+.di {
+  position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+  width: 140px; height: 38px; background: #000; border-radius: 19px; z-index: 50;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+/* ── APP CONTENT: ONBOARDING ── */
+.app {
+  width: 100%; height: 100%;
+  background: linear-gradient(180deg, #080e1c 0%, #0b1320 100%);
+  display: flex; flex-direction: column; align-items: center;
+  padding: 74px 26px 32px;
+  position: relative; overflow: hidden;
+}
+.app-glow-t {
+  position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, rgba(0,212,232,0.13) 0%, transparent 70%);
+  pointer-events: none;
+}
+.app-glow-b {
+  position: absolute; bottom: -80px; right: -80px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(255,187,60,0.13) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.app-icon {
+  width: 100px; height: 100px; border-radius: 50%;
+  background: rgba(0,212,232,0.1); border: 1.5px solid rgba(0,212,232,0.32);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 46px; flex-shrink: 0;
+  box-shadow: 0 0 40px rgba(0,212,232,0.18), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.app-name {
+  font-size: 28px; font-weight: 800; letter-spacing: 4px;
+  color: #fff; margin-top: 20px;
+}
+.app-sub {
+  font-size: 14px; color: rgba(255,255,255,0.55); text-align: center;
+  line-height: 1.55; margin-top: 10px; padding: 0 10px;
+}
+
+.features {
+  width: 100%; display: flex; flex-direction: column; gap: 12px;
+  margin-top: 36px; flex-shrink: 0;
+}
+.feat {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px; padding: 15px 18px;
+  display: flex; align-items: center; gap: 14px;
+}
+.feat-check {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(0,212,232,0.12); border: 1.5px solid rgba(0,212,232,0.35);
+  display: flex; align-items: center; justify-content: center;
+  color: #00d4e8; font-size: 13px; font-weight: 800;
+}
+.feat-text { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.85); }
+
+/* Session preview mini card */
+.preview-card {
+  width: 100%; margin-top: 28px; flex-shrink: 0;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px; padding: 14px 18px;
+}
+.preview-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px;
+  color: rgba(255,255,255,0.3); text-transform: uppercase; margin-bottom: 10px;
+}
+.preview-stats {
+  display: flex; gap: 0; width: 100%;
+}
+.preview-stat {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+.preview-stat-val {
+  font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums;
+  font-family: 'Courier New', monospace; color: #fff;
+}
+.preview-stat-val.cyan { color: #00d4e8; }
+.preview-stat-val.yellow { color: #facc15; }
+.preview-stat-val.green { color: #22c55e; }
+.preview-stat-lbl { font-size: 10px; color: rgba(255,255,255,0.4); }
+.preview-divider {
+  width: 1px; background: rgba(255,255,255,0.08); align-self: stretch; margin: 0 2px;
+}
+
+.spacer { flex: 1; }
+
+.dots { display: flex; gap: 8px; align-items: center; margin-bottom: 20px; }
+.dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+}
+.dot.on { width: 24px; border-radius: 4px; background: #00d4e8; }
+
+.next-btn {
+  width: 100%; height: 54px;
+  background: linear-gradient(135deg, #00d4e8, #00b8cc);
+  border-radius: 15px; display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 800; color: #000; letter-spacing: 1.5px;
+  box-shadow: 0 0 32px rgba(0,212,232,0.28); flex-shrink: 0;
+}
+.skip { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 13px; }
+
+/* ─── BOTTOM ─── */
+.bottom {
+  width: 100%; flex-shrink: 0; position: relative; z-index: 1;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 0 48px 50px;
+}
+.bottom-line {
+  width: 60px; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0,212,232,0.5), transparent);
+  margin-bottom: 14px;
+}
+.tagline {
+  font-size: 13px; color: rgba(255,255,255,0.35);
+  letter-spacing: 0.4px; text-align: center; font-style: normal;
+}
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="bg-glow-tl"></div>
+  <div class="bg-glow-br"></div>
+  <div class="bg-glow-mid"></div>
+  <div class="bg-grid"></div>
+
+  <div class="top">
+    <div class="badge">
+      <span class="badge-icon" style="display:inline-flex"><svg width="13" height="13" viewBox="0 0 24 24" fill="#00d4e8" style="display:block"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg></span>
+      <span class="badge-text">MathFlux</span>
+    </div>
+    <div class="headline">Math That <span class="hl">Levels&nbsp;Up</span><br>With You</div>
+  </div>
+
+  <div class="device-wrap">
+    <div class="phone">
+      <div class="phone-power"></div>
+      <div class="phone-silent"></div>
+      <div class="phone-vol-up"></div>
+      <div class="phone-vol-down"></div>
+      <div class="screen">
+        <div class="di"></div>
+        <div class="app">
+          <div class="app-glow-t"></div>
+          <div class="app-glow-b"></div>
+
+          <div class="app-icon"><svg width="44" height="44" viewBox="0 0 24 24" fill="#00d4e8"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg></div>
+          <div class="app-name">MATHFLUX</div>
+          <div class="app-sub">A math game that gets smarter<br>as you do.</div>
+
+          <div class="features">
+            <div class="feat">
+              <div class="feat-check">✓</div>
+              <div class="feat-text">Adapts to your skill level</div>
+            </div>
+            <div class="feat">
+              <div class="feat-check">✓</div>
+              <div class="feat-text">Speed bonuses for fast answers</div>
+            </div>
+            <div class="feat">
+              <div class="feat-check">✓</div>
+              <div class="feat-text">Track your progress at every break</div>
+            </div>
+          </div>
+
+          <div class="preview-card">
+            <div class="preview-label">Typical session</div>
+            <div class="preview-stats">
+              <div class="preview-stat">
+                <div class="preview-stat-val green">24</div>
+                <div class="preview-stat-lbl">Correct</div>
+              </div>
+              <div class="preview-divider"></div>
+              <div class="preview-stat">
+                <div class="preview-stat-val cyan">1.8s</div>
+                <div class="preview-stat-lbl">Avg Speed</div>
+              </div>
+              <div class="preview-divider"></div>
+              <div class="preview-stat">
+                <div class="preview-stat-val yellow">×8</div>
+                <div class="preview-stat-lbl">Best Streak</div>
+              </div>
+              <div class="preview-divider"></div>
+              <div class="preview-stat">
+                <div class="preview-stat-val" style="color:#a78bfa">Lv.7</div>
+                <div class="preview-stat-lbl">Level</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="spacer"></div>
+
+          <div class="dots">
+            <div class="dot on"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+          <div class="next-btn">NEXT →</div>
+          <div class="skip">Skip intro</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="bottom-line"></div>
+    <div class="tagline">The math game that gets smarter as you do</div>
+  </div>
+</div>
+</body>
+</html>

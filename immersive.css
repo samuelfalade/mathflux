@@ -20,8 +20,11 @@
 }
 
 /* staggered scroll reveal */
-.irv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1);}
+.irv{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);}
 .irv.in{opacity:1;transform:none;}
+
+/* scroll choreography: hero recede, phone settle, band parallax (driven from JS) */
+.hero-copy,.hero-inner,.hero-art,.features-grid,.shots{will-change:transform;}
 
 /* 3D tilt targets */
 .tiltable{transition:transform .18s ease,border-color .25s,box-shadow .25s;will-change:transform;transform-style:preserve-3d;}

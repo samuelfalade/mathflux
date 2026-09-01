@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1080px;height:1920px;overflow:hidden;background:#04080f;font-family:'Arial',sans-serif;}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(34,211,238,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.05) 1px,transparent 1px);background-size:54px 54px;}
+.glow{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:1000px;height:1000px;border-radius:50%;background:radial-gradient(circle,rgba(251,191,36,.09) 0%,transparent 65%);}
+
+.top{position:absolute;top:120px;left:0;right:0;text-align:center;}
+.label{font-size:16px;letter-spacing:.3em;text-transform:uppercase;color:#fbbf24;}
+
+.center{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:100%;text-align:center;display:flex;flex-direction:column;align-items:center;gap:40px;padding:0 80px;}
+
+.card{background:rgba(10,22,40,.85);border:1px solid rgba(34,211,238,.2);border-radius:28px;padding:60px 80px;width:100%;box-shadow:0 0 80px rgba(34,211,238,.08);}
+.problem{font-family:'Courier New',monospace;font-size:88px;font-weight:700;color:#f0f6ff;}
+.problem span{color:#22d3ee;}
+
+.timer-wrap{width:100%;}
+.timer-label{display:flex;justify-content:space-between;font-size:15px;color:#475569;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;}
+.timer-track{height:8px;background:rgba(255,255,255,.08);border-radius:100px;overflow:hidden;}
+.timer-fill{height:100%;width:35%;background:linear-gradient(to right,#fbbf24,#f97316);border-radius:100px;box-shadow:0 0 16px rgba(251,191,36,.6);}
+
+.think{font-size:88px;font-weight:900;letter-spacing:-.04em;color:#f0f6ff;line-height:1;}
+.think span{color:#fbbf24;text-shadow:0 0 40px rgba(251,191,36,.4);}
+
+.sub{font-size:20px;color:#475569;letter-spacing:.1em;text-transform:uppercase;}
+
+.bottom{position:absolute;bottom:100px;left:0;right:0;text-align:center;}
+.brand-name{font-size:36px;font-weight:900;letter-spacing:-.03em;color:#f0f6ff;}
+.brand-name span{color:#22d3ee;}
+.site{font-family:'Courier New',monospace;font-size:16px;color:#334155;margin-top:8px;}
+</style>
+</head>
+<body>
+<div class="grid"></div>
+<div class="glow"></div>
+<div class="top"><div class="label">Can you answer in time?</div></div>
+<div class="center">
+  <div class="card"><div class="problem">47 <span>+</span> 38 = ?</div></div>
+  <div class="timer-wrap">
+    <div class="timer-label"><span>Time remaining</span><span>1.8s</span></div>
+    <div class="timer-track"><div class="timer-fill"></div></div>
+  </div>
+  <div class="think">Think<br><span>Fast.</span></div>
+  <div class="sub">5 levels · Novice to Master</div>
+</div>
+<div class="bottom">
+  <div class="brand-name">Math<span>Flux</span></div>
+  <div class="site">Coming to App Store</div>
+</div>
+</body>
+</html>

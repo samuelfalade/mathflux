@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1080px;height:1920px;overflow:hidden;background:#04080f;font-family:'Arial',sans-serif;}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(34,211,238,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.06) 1px,transparent 1px);background-size:54px 54px;}
+.glow{position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(34,211,238,.12) 0%,transparent 65%);}
+.ring{position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;border:1px solid rgba(34,211,238,.15);}
+.ring2{position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);width:820px;height:820px;border-radius:50%;border:1px solid rgba(34,211,238,.07);}
+
+.top{position:absolute;top:120px;left:0;right:0;text-align:center;}
+.coming{font-size:16px;letter-spacing:.3em;text-transform:uppercase;color:#22d3ee;}
+
+.center{position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);text-align:center;width:100%;}
+.bolt{font-size:180px;line-height:1;filter:drop-shadow(0 0 60px rgba(34,211,238,.7));}
+.title{font-size:100px;font-weight:900;letter-spacing:-.04em;color:#f0f6ff;line-height:.95;margin-top:20px;}
+.title span{color:#22d3ee;text-shadow:0 0 50px rgba(34,211,238,.5);}
+.line{width:80px;height:2px;background:linear-gradient(to right,transparent,#22d3ee,transparent);margin:32px auto;}
+.sub{font-size:22px;color:#475569;letter-spacing:.12em;text-transform:uppercase;padding:0 60px;line-height:1.6;}
+
+.bottom{position:absolute;bottom:100px;left:0;right:0;text-align:center;}
+.swipe{font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:#334155;margin-bottom:12px;}
+.site{font-family:'Courier New',monospace;font-size:18px;color:#22d3ee;opacity:.5;}
+</style>
+</head>
+<body>
+<div class="grid"></div>
+<div class="glow"></div>
+<div class="ring"></div>
+<div class="ring2"></div>
+<div class="top"><div class="coming">Something is coming</div></div>
+<div class="center">
+  <div class="bolt">⚡</div>
+  <div class="title">Math<span>Flux</span></div>
+  <div class="line"></div>
+  <div class="sub">Real-time math battles for every level</div>
+</div>
+<div class="bottom">
+  <div class="swipe">App Store · Coming Soon</div>
+  <div class="site">samuelfalade.github.io/mathflux</div>
+</div>
+</body>
+</html>

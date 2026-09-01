@@ -48,6 +48,48 @@
 
   if (reduce) return;
 
+  /* ---------- scroll choreography: hero recede, phone settle, band parallax ----------
+     The hero content sinks and fades as you scroll past it, the tilted phone mock
+     straightens and settles as the page starts moving, and the feature/screenshot
+     bands drift a few pixels against the scroll so the layers separate. */
+  var heroSec = document.getElementById("hero");
+  var heroCopy = document.querySelector(".hero-copy") || document.querySelector(".hero-inner");
+  var heroArt = document.querySelector(".hero-art");
+  var wideArt = window.matchMedia("(min-width: 861px)");
+  var bands = Array.prototype.slice.call(document.querySelectorAll(".features-grid,.shots"));
+  var ticking = false;
+
+  function choreo() {
+    ticking = false;
+    var y = window.scrollY || window.pageYOffset || 0;
+    if (heroSec && heroCopy) {
+      var p = Math.min(Math.max(y / Math.max(heroSec.offsetHeight * 0.85, 1), 0), 1);
+      heroCopy.style.transform = "translateY(" + (p * 36).toFixed(1) + "px) scale(" + (1 - p * 0.05).toFixed(4) + ")";
+      heroCopy.style.opacity = (1 - p * 0.6).toFixed(3);
+    }
+    if (heroArt) {
+      if (wideArt.matches) {
+        var s = Math.min(Math.max(y / 300, 0), 1);
+        heroArt.style.transform = "rotate(" + (2.5 - s * 1.5).toFixed(2) + "deg) scale(" + (1.02 - s * 0.02).toFixed(4) + ")";
+      } else {
+        heroArt.style.transform = "";
+      }
+    }
+    var vh = window.innerHeight;
+    bands.forEach(function (b) {
+      var r = b.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > vh) return;
+      var off = (r.top + r.height / 2 - vh / 2) * -0.045;
+      b.style.transform = "translateY(" + Math.max(-16, Math.min(16, off)).toFixed(1) + "px)";
+    });
+  }
+  function queueChoreo() { if (!ticking) { ticking = true; requestAnimationFrame(choreo); } }
+  if (heroCopy || heroArt || bands.length) {
+    window.addEventListener("scroll", queueChoreo, { passive: true });
+    window.addEventListener("resize", queueChoreo, { passive: true });
+    choreo();
+  }
+
   /* ---------- shared: grid spotlight element ---------- */
   function makeSpot() {
     var spot = document.createElement("div");

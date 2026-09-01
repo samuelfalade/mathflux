@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>MathFlux · Promo Video</title>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; font-family: -apple-system, system-ui, sans-serif; }
+
+/* ── SCENES ── */
+.scene {
+  position: absolute; inset: 0; opacity: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: #080e1c; overflow: hidden;
+  transition: opacity 0.6s ease;
+}
+.scene.active { opacity: 1; z-index: 10; }
+.scene.out { opacity: 0; z-index: 5; }
+
+/* shared bg elements */
+.scene::before {
+  content: ''; position: absolute; top: -200px; left: -200px;
+  width: 900px; height: 900px; border-radius: 50%;
+  background: radial-gradient(circle, var(--glow-tl, rgba(0,212,232,0.18)) 0%, transparent 60%);
+  pointer-events: none;
+}
+.scene::after {
+  content: ''; position: absolute; bottom: -200px; right: -200px;
+  width: 900px; height: 900px; border-radius: 50%;
+  background: radial-gradient(circle, var(--glow-br, rgba(255,187,60,0.14)) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* ── SCENE 0: INTRO ── */
+#s0 { --glow-tl: rgba(0,212,232,0.22); --glow-br: rgba(255,187,60,0.13); }
+.intro-icon {
+  width: 160px; height: 160px; border-radius: 50%;
+  background: rgba(0,212,232,0.12); border: 2px solid rgba(0,212,232,0.35);
+  display: flex; align-items: center; justify-content: center; font-size: 80px;
+  box-shadow: 0 0 80px rgba(0,212,232,0.25), 0 0 160px rgba(0,212,232,0.1);
+  margin-bottom: 48px;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 80px rgba(0,212,232,0.25), 0 0 160px rgba(0,212,232,0.1); }
+  50% { box-shadow: 0 0 120px rgba(0,212,232,0.45), 0 0 200px rgba(0,212,232,0.2); }
+}
+.intro-title {
+  font-size: 72px; font-weight: 900; letter-spacing: 8px; color: #fff;
+  text-align: center; margin-bottom: 20px;
+}
+.intro-title span { color: #00d4e8; }
+.intro-tagline {
+  font-size: 24px; color: rgba(255,255,255,0.5); text-align: center;
+  letter-spacing: 0.5px; line-height: 1.5;
+  padding: 0 80px;
+}
+.intro-line {
+  width: 120px; height: 2px; margin: 32px auto 0;
+  background: linear-gradient(90deg, transparent, #00d4e8, transparent);
+}
+
+/* ── SCENES 1-6: PHONE + TEXT ── */
+.scene-inner {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 120px 60px 80px; position: relative; z-index: 1;
+}
+.scene-badge {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(0,212,232,0.1); border: 1px solid rgba(0,212,232,0.3);
+  border-radius: 30px; padding: 10px 24px; margin-bottom: 28px;
+  font-size: 14px; font-weight: 800; letter-spacing: 4px; color: #00d4e8; text-transform: uppercase;
+}
+.scene-headline {
+  font-size: 60px; font-weight: 900; color: #fff;
+  text-align: center; line-height: 1.1; letter-spacing: -1.5px;
+  margin-bottom: 40px;
+}
+.scene-headline .hl { color: var(--hl, #00d4e8); }
+
+/* Phone mockup */
+.phone-wrap { flex: 1; display: flex; align-items: center; justify-content: center; width: 100%; }
+.phone {
+  width: 440px; height: 900px; position: relative;
+  background: linear-gradient(155deg, #2a2a30, #1c1c22 45%, #121216);
+  border-radius: 60px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.14),
+    0 0 0 2px #020205,
+    0 0 0 4px rgba(255,255,255,0.04),
+    0 60px 140px rgba(0,0,0,0.95),
+    0 0 150px var(--phone-glow, rgba(0,212,232,0.12));
+}
+.phone-power { position: absolute; right: -4px; top: 220px; width: 4px; height: 70px; background: #252530; border-radius: 0 4px 4px 0; }
+.phone-silent { position: absolute; left: -4px; top: 150px; width: 4px; height: 30px; background: #252530; border-radius: 4px 0 0 4px; }
+.phone-vol-up { position: absolute; left: -4px; top: 195px; width: 4px; height: 46px; background: #252530; border-radius: 4px 0 0 4px; }
+.phone-vol-down { position: absolute; left: -4px; top: 255px; width: 4px; height: 46px; background: #252530; border-radius: 4px 0 0 4px; }
+.screen { position: absolute; top: 13px; left: 13px; right: 13px; bottom: 13px; border-radius: 48px; overflow: hidden; background: #080e1c; }
+.di { position: absolute; top: 13px; left: 50%; transform: translateX(-50%); width: 120px; height: 33px; background: #000; border-radius: 16px; z-index: 50; }
+.screen img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+
+.scene-tagline {
+  margin-top: 32px; font-size: 20px; color: rgba(255,255,255,0.35);
+  letter-spacing: 0.4px; text-align: center;
+}
+
+/* ── SCENE 7: OUTRO ── */
+#s7 { --glow-tl: rgba(0,212,232,0.22); --glow-br: rgba(255,187,60,0.13); }
+.outro-inner {
+  display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1;
+  padding: 0 80px; text-align: center;
+}
+.outro-icon {
+  width: 140px; height: 140px; border-radius: 50%;
+  background: rgba(0,212,232,0.12); border: 2px solid rgba(0,212,232,0.35);
+  display: flex; align-items: center; justify-content: center; font-size: 68px;
+  margin-bottom: 40px;
+  box-shadow: 0 0 80px rgba(0,212,232,0.25);
+}
+.outro-title { font-size: 72px; font-weight: 900; letter-spacing: 8px; color: #fff; margin-bottom: 16px; }
+.outro-title span { color: #00d4e8; }
+.outro-sub { font-size: 26px; color: rgba(255,255,255,0.5); font-style: normal; line-height: 1.5; margin-bottom: 60px; }
+.cta-btn {
+  background: linear-gradient(135deg, #00d4e8, #0891b2);
+  border-radius: 20px; padding: 24px 64px;
+  font-size: 26px; font-weight: 800; color: #000; letter-spacing: 2px;
+  box-shadow: 0 0 60px rgba(0,212,232,0.4);
+  margin-bottom: 36px;
+}
+.app-store-note { font-size: 18px; color: rgba(255,255,255,0.3); letter-spacing: 1px; }
+
+/* ── progress bar ── */
+#progress-bar {
+  position: fixed; bottom: 0; left: 0; height: 4px;
+  background: linear-gradient(90deg, #00d4e8, #a78bfa);
+  z-index: 1000; transition: width 0.1s linear;
+  width: 0%;
+}
+
+/* ── grid overlay (all scenes) ── */
+.grid-overlay {
+  position: absolute; inset: 0; z-index: 0; opacity: 0.025; pointer-events: none;
+  background-image: linear-gradient(rgba(0,212,232,1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,232,1) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+</style>
+</head>
+<body>
+
+<!-- SCENE 0: INTRO (4s) -->
+<div class="scene active" id="s0">
+  <div class="grid-overlay"></div>
+  <div class="intro-icon"><svg width="80" height="80" viewBox="0 0 24 24" fill="#00d4e8"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg></div>
+  <div class="intro-title">MATH<span>FLUX</span></div>
+  <div class="intro-tagline">The math game that gets smarter as you do</div>
+  <div class="intro-line"></div>
+</div>
+
+<!-- SCENE 1: HERO (5s) -->
+<div class="scene" id="s1" style="--glow-tl:rgba(0,212,232,0.2);--glow-br:rgba(255,187,60,0.14);">
+  <div class="grid-overlay"></div>
+  <div class="scene-inner">
+    <div class="scene-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="#00d4e8"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg> &nbsp;MathFlux</div>
+    <div class="scene-headline" style="--hl:#00d4e8">Math That <span class="hl">Levels Up</span><br>With You</div>
+    <div class="phone-wrap">
+      <div class="phone" style="--phone-glow:rgba(0,212,232,0.14)">
+        <div class="phone-power"></div><div class="phone-silent"></div><div class="phone-vol-up"></div><div class="phone-vol-down"></div>
+        <div class="screen"><div class="di"></div>
+          <img src="screenshots/Simulator Screenshot - iPhone 17 Pro Max - 2026-05-12 at 15.10.40.png" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="scene-tagline">The math game that gets smarter as you do</div>
+  </div>
+</div>
+
+<!-- SCENE 2: HOW TO PLAY (4s) -->
+<div class="scene" id="s2" style="--glow-tl:rgba(0,212,232,0.2);--glow-br:rgba(255,187,60,0.14);">
+  <div class="grid-overlay"></div>
+  <div class="scene-inner">
+    <div class="scene-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="#00d4e8"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg> &nbsp;MathFlux</div>
+    <div class="scene-headline" style="--hl:#00d4e8">Tap Fast.<br><span class="hl">Beat the Clock.</span></div>
+    <div class="phone-wrap">
+      <div class="phone" style="--phone-glow:rgba(0,212,232,0.14)">
+        <div class="phone-power"></div><div class="phone-silent"></div><div class="phone-vol-up"></div><div class="phone-vol-down"></div>
+        <div class="screen"><div class="di"></div>
+          <img src="screenshots/Simulator Screenshot - iPhone 17 Pro Max - 2026-05-12 at 15.10.55.png" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="scene-tagline">The math game that gets smarter as you do</div>
+  </div>
+</div>
+
+<!-- SCENE 3: ADAPTIVE (4s) -->
+<div class="scene" id="s3" style="--glow-tl:rgba(34,197,94,0.18);--glow-br:rgba(0,212,232,0.18);">
+  <div class="grid-overlay"></div>
+  <div class="scene-inner">
+    <div class="scene-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="#00d4e8"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg> &nbsp;MathFlux</div>
+    <div class="scene-headline" style="--hl:#22c55e">It Knows When<br><span class="hl">You're Ready</span></div>
+    <div class="phone-wrap">
+      <div class="phone" style="--phone-glow:rgba(34,197,94,0.12)">
+        <div class="phone-power"></div><div class="phone-silent"></div><div class="phone-vol-up"></div><div class="phone-vol-down"></div>
+        <div class="screen"><div class="di"></div>
+          <img src="screenshots/Simulator Screenshot - iPhone 17 Pro Max - 2026-05-12 at 19.45.12.png" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="scene-tagline">The math game that gets smarter as you do</div>
+  </div>
+</div>
+
+<!-- SCENE 4: MENU / MODES (4s) -->
+<div class="scene" id="s4" style="--glow-tl:rgba(239,68,68,0.15);--glow-br:rgba(249,115,22,0.15);">
+  <div class="grid-overlay"></div>
+  <div class="scene-inner">
+    <div class="scene-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="#00d4e8"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg> &nbsp;MathFlux</div>
+    <div class="scene-headline" style="--hl:#ef4444">Compete.<br><span class="hl">Dominate.</span></div>
+    <div class="phone-wrap">
+      <div class="phone" style="--phone-glow:rgba(239,68,68,0.1)">
+        <div class="phone-power"></div><div class="phone-silent"></div><div class="phone-vol-up"></div><div class="phone-vol-down"></div>
+        <div class="screen"><div class="di"></div>
+          <img src="screenshots/Simulator Screenshot - iPhone 17 Pro Max - 2026-05-12 at 19.46.31.png" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="scene-tagline">The math game that gets smarter as you do</div>
+  </div>
+</div>
+
+<!-- SCENE 5: GAMEPLAY (5s) -->
+<div class="scene" id="s5" style="--glow-tl:rgba(249,115,22,0.18);--glow-br:rgba(250,204,21,0.15);">
+  <div class="grid-overlay"></div>
+  <div class="scene-inner">
+    <div class="scene-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="#00d4e8"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg> &nbsp;MathFlux</div>
+    <div class="scene-headline" style="--hl:#facc15">Answer Fast.<br><span class="hl">Score Big.</span></div>
+    <div class="phone-wrap">
+      <div class="phone" style="--phone-glow:rgba(249,115,22,0.12)">
+        <div class="phone-power"></div><div class="phone-silent"></div><div class="phone-vol-up"></div><div class="phone-vol-down"></div>
+        <div class="screen"><div class="di"></div>
+          <img src="screenshots/Simulator Screenshot - iPhone 17 Pro Max - 2026-05-12 at 19.49.50.png" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="scene-tagline">The math game that gets smarter as you do</div>
+  </div>
+</div>
+
+<!-- SCENE 6: BREAK / STATS (5s) -->
+<div class="scene" id="s6" style="--glow-tl:rgba(255,187,60,0.13);--glow-br:rgba(250,204,21,0.15);">
+  <div class="grid-overlay"></div>
+  <div class="scene-inner">
+    <div class="scene-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="#00d4e8"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg> &nbsp;MathFlux</div>
+    <div class="scene-headline" style="--hl:#a78bfa">Track Every<br><span class="hl">Breakthrough</span></div>
+    <div class="phone-wrap">
+      <div class="phone" style="--phone-glow:rgba(255,187,60,0.14)">
+        <div class="phone-power"></div><div class="phone-silent"></div><div class="phone-vol-up"></div><div class="phone-vol-down"></div>
+        <div class="screen"><div class="di"></div>
+          <img src="screenshots/Simulator Screenshot - iPhone 17 Pro Max - 2026-05-12 at 19.47.46.png" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="scene-tagline">The math game that gets smarter as you do</div>
+  </div>
+</div>
+
+<!-- SCENE 7: OUTRO (5s) -->
+<div class="scene" id="s7">
+  <div class="grid-overlay"></div>
+  <div class="outro-inner">
+    <div class="outro-icon"><svg width="66" height="66" viewBox="0 0 24 24" fill="#00d4e8"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg></div>
+    <div class="outro-title">MATH<span>FLUX</span></div>
+    <div class="outro-sub">The math game that gets smarter as you do</div>
+    <div class="cta-btn">DOWNLOAD FREE</div>
+    <div class="app-store-note">Available on the App Store</div>
+  </div>
+</div>
+
+<div id="progress-bar"></div>
+
+<script>
+const scenes = [
+  { id: 's0', dur: 4000 },
+  { id: 's1', dur: 5000 },
+  { id: 's2', dur: 4000 },
+  { id: 's3', dur: 4000 },
+  { id: 's4', dur: 4000 },
+  { id: 's5', dur: 5000 },
+  { id: 's6', dur: 5000 },
+  { id: 's7', dur: 5000 },
+];
+const total = scenes.reduce((a, s) => a + s.dur, 0);
+let current = 0, elapsed = 0, sceneStart = 0;
+
+function activate(idx) {
+  document.querySelectorAll('.scene').forEach(s => { s.classList.remove('active','out'); });
+  const el = document.getElementById(scenes[idx].id);
+  if (el) el.classList.add('active');
+}
+
+function tick() {
+  const now = performance.now();
+  if (!tick.start) tick.start = now;
+  elapsed = now - tick.start;
+  const pct = Math.min((elapsed / total) * 100, 100);
+  document.getElementById('progress-bar').style.width = pct + '%';
+
+  const sinceScene = now - sceneStart;
+  if (sinceScene >= scenes[current].dur) {
+    current = (current + 1) % scenes.length;
+    sceneStart = now;
+    if (current === 0) { tick.start = now; elapsed = 0; }
+    activate(current);
+  }
+  requestAnimationFrame(tick);
+}
+
+sceneStart = performance.now();
+activate(0);
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>

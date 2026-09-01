@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1640px;height:624px;overflow:hidden;background:#04080f;font-family:'Arial',sans-serif;}
+
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(34,211,238,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.06) 1px,transparent 1px);background-size:48px 48px;}
+
+.glow-left{position:absolute;left:-80px;top:-80px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(34,211,238,.18) 0%,transparent 70%);}
+.glow-right{position:absolute;right:80px;top:-60px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(251,191,36,.12) 0%,transparent 70%);}
+
+.nums{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.num{position:absolute;font-family:'Courier New',monospace;font-size:22px;color:rgba(34,211,238,.07);}
+
+.content{position:absolute;inset:0;display:flex;align-items:center;padding:0 100px;gap:70px;}
+
+.logo-block{display:flex;flex-direction:column;gap:8px;flex-shrink:0;}
+.logo{font-size:80px;font-weight:900;letter-spacing:-.04em;color:#f0f6ff;line-height:1;}
+.logo span{color:#22d3ee;text-shadow:0 0 40px rgba(34,211,238,.4);}
+.tagline{font-size:18px;color:#64748b;letter-spacing:.12em;text-transform:uppercase;font-weight:500;}
+
+.divider{width:2px;height:140px;background:linear-gradient(to bottom,transparent,rgba(34,211,238,.5),transparent);flex-shrink:0;}
+
+.features{display:flex;gap:50px;align-items:center;}
+.feat{text-align:center;}
+.feat-val{font-size:28px;font-weight:700;color:#22d3ee;font-family:'Courier New',monospace;margin-bottom:6px;}
+.feat-label{font-size:13px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;line-height:1.4;}
+
+.divider2{width:2px;height:140px;background:linear-gradient(to bottom,transparent,rgba(34,211,238,.3),transparent);flex-shrink:0;}
+
+.right{margin-left:auto;text-align:right;display:flex;flex-direction:column;gap:10px;align-items:flex-end;}
+.coming{font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:#22d3ee;}
+.platform{font-size:16px;color:#475569;letter-spacing:.06em;}
+.bolt{font-size:48px;filter:drop-shadow(0 0 20px rgba(34,211,238,.6));}
+</style>
+</head>
+<body>
+<div class="grid"></div>
+<div class="glow-left"></div>
+<div class="glow-right"></div>
+<div class="nums">
+  <span class="num" style="right:540px;top:60px">47+29</span>
+  <span class="num" style="right:400px;top:100px">∫x²dx</span>
+  <span class="num" style="right:620px;bottom:80px">8×9=?</span>
+  <span class="num" style="right:460px;bottom:50px">√144</span>
+  <span class="num" style="right:320px;top:70px">d/dx</span>
+  <span class="num" style="left:60px;bottom:60px">x²+3x</span>
+  <span class="num" style="left:200px;top:50px">∑n²</span>
+</div>
+<div class="content">
+  <div class="logo-block">
+    <div class="logo">Math<span>Flux</span></div>
+    <div class="tagline">Math Battles · Any Level</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="features">
+    <div class="feat">
+      <div class="feat-val">5</div>
+      <div class="feat-label">Subject<br>Modes</div>
+    </div>
+    <div class="feat">
+      <div class="feat-val">4</div>
+      <div class="feat-label">Difficulty<br>Tiers</div>
+    </div>
+    <div class="feat">
+      <div class="feat-val">∞</div>
+      <div class="feat-label">Live<br>Matches</div>
+    </div>
+    <div class="feat">
+      <div class="feat-val">9</div>
+      <div class="feat-label">Math<br>Operations</div>
+    </div>
+  </div>
+
+  <div class="divider2"></div>
+
+  <div class="right">
+    <div class="bolt">⚡</div>
+    <div class="coming">Coming to App Store</div>
+    <div class="platform">iOS · iPhone</div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:1584px;height:396px;overflow:hidden;background:#04080f;font-family:'Arial',sans-serif;}
+
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(34,211,238,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.06) 1px,transparent 1px);background-size:40px 40px;}
+
+.glow-left{position:absolute;left:-60px;top:-60px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(34,211,238,.18) 0%,transparent 70%);}
+.glow-right{position:absolute;right:100px;top:-80px;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(251,191,36,.12) 0%,transparent 70%);}
+
+.content{position:absolute;inset:0;display:flex;align-items:center;padding:0 80px;gap:60px;}
+
+.logo-block{display:flex;flex-direction:column;gap:4px;flex-shrink:0;}
+.logo{font-size:64px;font-weight:900;letter-spacing:-.04em;color:#f0f6ff;line-height:1;}
+.logo span{color:#22d3ee;}
+.tagline{font-size:16px;color:#64748b;letter-spacing:.12em;text-transform:uppercase;font-weight:500;}
+
+.divider{width:2px;height:100px;background:linear-gradient(to bottom,transparent,rgba(34,211,238,.5),transparent);flex-shrink:0;}
+
+.features{display:flex;gap:40px;align-items:center;}
+.feat{text-align:center;}
+.feat-icon{font-size:26px;margin-bottom:6px;}
+.feat-label{font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;line-height:1.4;}
+.feat-val{font-size:22px;font-weight:700;color:#22d3ee;font-family:'Courier New',monospace;margin-bottom:4px;}
+
+.divider2{width:2px;height:100px;background:linear-gradient(to bottom,transparent,rgba(34,211,238,.3),transparent);flex-shrink:0;}
+
+.right{margin-left:auto;text-align:right;}
+.coming{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#22d3ee;margin-bottom:8px;}
+.platform{font-size:15px;color:#475569;letter-spacing:.06em;}
+
+/* Floating numbers */
+.nums{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.num{position:absolute;font-family:'Courier New',monospace;font-size:18px;color:rgba(34,211,238,.08);}
+</style>
+</head>
+<body>
+<div class="grid"></div>
+<div class="glow-left"></div>
+<div class="glow-right"></div>
+<div class="nums">
+  <span class="num" style="right:520px;top:30px">47+29</span>
+  <span class="num" style="right:380px;top:60px">∫x²dx</span>
+  <span class="num" style="right:600px;bottom:40px">8×9=?</span>
+  <span class="num" style="right:440px;bottom:20px">√144</span>
+  <span class="num" style="right:300px;top:40px">d/dx</span>
+</div>
+<div class="content">
+  <div class="logo-block">
+    <div class="logo">Math<span>Flux</span></div>
+    <div class="tagline">Math Battles · Any Level</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="features">
+    <div class="feat">
+      <div class="feat-val">5</div>
+      <div class="feat-label">Subject<br>Modes</div>
+    </div>
+    <div class="feat">
+      <div class="feat-val">4</div>
+      <div class="feat-label">Difficulty<br>Tiers</div>
+    </div>
+    <div class="feat">
+      <div class="feat-val">∞</div>
+      <div class="feat-label">Live<br>Matches</div>
+    </div>
+    <div class="feat">
+      <div class="feat-val">9</div>
+      <div class="feat-label">Math<br>Operations</div>
+    </div>
+  </div>
+
+  <div class="divider2"></div>
+
+  <div class="right">
+    <div class="coming">Coming to App Store</div>
+    <div class="platform">iOS 26 · iPhone</div>
+  </div>
+</div>
+</body>
+</html>
