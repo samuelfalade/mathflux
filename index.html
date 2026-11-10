@@ -36,8 +36,8 @@
       overflow-x: hidden;
     }
 
-    /* ── GRID BACKGROUND ── */
-    body::before {
+    /* (grid background removed) */
+    body::before { display: none;
       content: '';
       position: fixed;
       inset: 0;
@@ -116,7 +116,9 @@
       padding-top: 120px;
       padding-bottom: 80px;
     }
-    .hero-inner { text-align: center; }
+    .hero-inner { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 56px; align-items: center; }
+    .hero-note { margin-top: 18px; font-size: .9rem; color: var(--muted); }
+    @media (max-width: 760px) { .hero-inner { grid-template-columns: 1fr; gap: 36px; } }
 
     .hero-badge {
       display: inline-flex; align-items: center; gap: 8px;
@@ -165,7 +167,7 @@
       font-size: clamp(1rem, 2.5vw, 1.25rem);
       color: var(--muted);
       max-width: 500px;
-      margin: 0 auto 52px;
+      margin: 0 0 36px;
       font-weight: 300;
     }
 
@@ -185,12 +187,8 @@
     .btn-primary {
       background: var(--cyan);
       color: var(--bg);
-      box-shadow: 0 0 40px rgba(34,211,238,.3);
     }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 60px rgba(34,211,238,.5);
-    }
+    .btn-primary:hover { background: #67e8f9; }
     .btn-ghost {
       border: 1px solid var(--border);
       color: var(--white);
@@ -198,7 +196,7 @@
     }
     .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
 
-    .hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
 
     /* disabled / coming-soon CTA */
     .btn-disabled {
@@ -292,10 +290,9 @@
     /* next section sits closer; the video already provides its own breathing room */
     #in-action + #features { padding-top: 36px; }
     .app-video {
-      height: 66vh; width: auto; display: block;
+      height: min(72vh, 640px); width: auto; display: block;
       border-radius: 30px;
       border: 1px solid var(--border);
-      box-shadow: 0 0 70px rgba(34,211,238,.22), 0 40px 90px rgba(0,0,0,.55);
       background: #000;
     }
     .sound-btn {
@@ -310,24 +307,6 @@
     .sound-btn:hover { background: rgba(34,211,238,.16); }
     .sound-btn.hidden { opacity: 0; pointer-events: none; }
 
-    /* Smooth, compositor-driven grow → peak → shrink, tied 1:1 to scroll. */
-    @media (min-width: 701px) and (prefers-reduced-motion: no-preference) {
-      @supports (animation-timeline: view()) {
-        .video-frame { padding: 0; }
-        .video-wrap {
-          animation: vidScale linear both;
-          animation-timeline: view();
-          animation-range: cover 0% cover 100%;
-          margin: 6vh 0 7vh;
-        }
-        @keyframes vidScale {
-          0%   { transform: scale(.86); }
-          45%  { transform: scale(1.2); }
-          55%  { transform: scale(1.2); }
-          100% { transform: scale(.86); }
-        }
-      }
-    }
     @media (max-width: 700px) {
       .video-frame { padding: 18px 20px 28px; }
       .video-wrap { transform: none; }
@@ -336,6 +315,16 @@
 
     /* ── FEATURES GRID ── */
     #features { background: var(--bg-1); }
+    .feat-lead { display: grid; grid-template-columns: minmax(0,1fr) 360px; gap: 48px; align-items: center;
+      background: var(--bg-2); border: 1px solid var(--border); border-radius: 12px; padding: 0 0 0 40px; overflow: hidden; margin-bottom: 56px; }
+    .feat-lead video { width: 100%; aspect-ratio: 440/540; display: block; background: var(--bg-2); }
+    .feat-lead .feat-title { font-size: 1.5rem; }
+    .feat-lead .feat-desc { font-size: 1.05rem; max-width: 44ch; }
+    @media (max-width: 760px) { .feat-lead { grid-template-columns: 1fr; padding: 28px 0 0; gap: 20px; }
+      .feat-lead > div { padding: 0 24px; } .feat-lead video { max-width: 360px; margin: 0 auto; } }
+    .feat-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px 48px; }
+    .feat-list dt { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 6px; }
+    .feat-list dd { color: var(--muted); font-size: .98rem; line-height: 1.6; }
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -484,13 +473,10 @@
       .stat-strip { gap: 28px; }
     }
   </style>
-  <link rel="stylesheet" href="immersive.css" />
-</head>
+  </head>
 
 <body>
 
-<!-- Floating math symbols -->
-<div class="symbols" aria-hidden="true"></div>
 
 <nav>
   <a href="#" class="nav-logo">Math<span class="nav-accent">Flux</span></a>
@@ -506,83 +492,25 @@
 
   <!-- ── HERO ── -->
   <section id="hero">
-    <div class="container hero-inner">
-      <div class="hero-badge">Launching soon on iOS 26</div>
-
-      <h1>
-        Math<span class="accent">Flux</span>
-      </h1>
-      <p class="hero-tagline" id="hero-tagline">
-        <span id="tagline-left">Math Battles</span><span class="sep">/</span><span id="tagline-right">Any Level.</span>
-      </p>
-
-      <p class="hero-sub">
-        Real-time competitive math from kindergarten to calculus.
-        Race the clock. Challenge real players. Master every operation.
-      </p>
-
-      <div class="hero-ctas">
-        <a href="https://apps.apple.com/app/id6762221667" target="_blank" rel="noopener" class="btn btn-primary">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          Download on App Store
-        </a>
-        <span class="btn btn-disabled" role="button" aria-disabled="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3a1 1 0 0 0-.6.9v17.6a1 1 0 0 0 .6.9l9.4-9.7L3.6 2.3zm10.8 7.1 2.4 2.5-2.4 2.5-2.7-2.5 2.7-2.5zM4.9 1.8l9 5.2-1.9 2L4.9 1.8zm0 20.4 7.1-7.3 1.9 2-9 5.3z"/></svg>
-          Android: Coming Soon
-        </span>
+    <div class="wide hero-inner">
+      <div class="hero-copy">
+        <h1>Math<span class="accent">Flux</span></h1>
+        <p class="hero-tagline">Math battles at any level</p>
+        <p class="hero-sub">
+          Real-time competitive math from kindergarten to calculus. Answer before the timer runs out,
+          play friends in a live room, and let the game raise the difficulty as you improve.
+        </p>
+        <div class="hero-ctas">
+          <a href="https://apps.apple.com/app/id6762221667" target="_blank" rel="noopener" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            Download on the App Store
+          </a>
+        </div>
+        <p class="hero-note">For iPhone and iPad. Android is in the works.</p>
       </div>
-
-      <div class="stat-strip">
-        <div class="stat">
-          <span class="stat-num">4</span>
-          <span class="stat-label">Progression Tiers</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num">9</span>
-          <span class="stat-label">Math Operations</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num">∞</span>
-          <span class="stat-label">Live Matches</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num">4+</span>
-          <span class="stat-label">Age Rating</span>
-        </div>
-      </div>
-
-      <!-- Available on -->
-      <div class="available-on">
-        <a href="https://apps.apple.com/app/id6762221667" target="_blank" rel="noopener" class="store-badge" aria-label="Download on the App Store">
-          <svg class="sb-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          <span class="sb-text">
-            <span class="sb-top">Download on the</span>
-            <span class="sb-name">App Store</span>
-          </span>
-        </a>
-        <span class="store-badge disabled" aria-label="Google Play: Coming Soon">
-          <svg class="sb-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3a1 1 0 0 0-.6.9v17.6a1 1 0 0 0 .6.9l9.4-9.7L3.6 2.3zm10.8 7.1 2.4 2.5-2.4 2.5-2.7-2.5 2.7-2.5zM4.9 1.8l9 5.2-1.9 2L4.9 1.8zm0 20.4 7.1-7.3 1.9 2-9 5.3z"/></svg>
-          <span class="sb-text">
-            <span class="sb-top">Coming Soon</span>
-            <span class="sb-name">Google Play</span>
-          </span>
-        </span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── IN ACTION ── -->
-  <section id="in-action">
-    <div class="container intro">
-      <p class="section-label">See It In Action</p>
-      <h2>Watch the Flux</h2>
-      <p class="section-desc" style="margin: 0 auto;">One quick run, recorded straight from the app.</p>
-    </div>
-    <div class="video-frame">
       <div class="video-wrap">
-        <video id="appVideo" class="app-video" autoplay muted loop playsinline preload="auto">
+        <video id="appVideo" class="app-video" autoplay muted loop playsinline preload="auto" aria-label="A recorded round of MathFlux">
           <source src="assets/mathflux_marketing.mp4" type="video/mp4" />
-          Your browser doesn't support embedded video. <a href="assets/mathflux_marketing.mp4">Download the clip</a>.
         </video>
         <button class="sound-btn" id="soundBtn" type="button">Tap for sound</button>
       </div>
@@ -592,50 +520,33 @@
   <!-- ── FEATURES ── -->
   <section id="features">
     <div class="wide">
-      <p class="section-label">What's Inside</p>
-      <h2>Built for Serious<br>Math Players</h2>
+      <h2>What's in the game</h2>
       <p class="section-desc">Nine operations (Addition, Subtraction, Multiplication, Division, Algebra, Exponents, Modulo, Derivatives, and Factorials) across four difficulty tiers, from a first counting drill to a timed derivative.</p>
 
-      <div class="features-grid">
-        <div class="feat-card">
-          <span class="feat-icon" aria-hidden="true">vs</span>
-          <div class="feat-title">Live Competition</div>
-          <div class="feat-desc">Create a room, share the code, and battle real players in real time. Race for the high score, or play Elimination, where one wrong answer knocks you out and the last player standing wins.</div>
+      <div class="feat-lead">
+        <div>
+          <h3 class="feat-title">Adaptive difficulty</h3>
+          <p class="feat-desc">The game tracks how well you know each operation and adjusts as you play.
+          Get a streak of right answers and the next level brings bigger numbers and less time.</p>
         </div>
-        <div class="feat-card">
-          <span class="feat-icon" aria-hidden="true">ƒx</span>
-          <div class="feat-title">Adaptive Difficulty</div>
-          <div class="feat-desc">The engine tracks your mastery per operation type and adjusts in real time. No two sessions are the same.</div>
-        </div>
-        <div class="feat-card">
-          <span class="feat-icon" aria-hidden="true">×4</span>
-          <div class="feat-title">4 Tiers, Endless Levels</div>
-          <div class="feat-desc">Climb from Novice through Adept and Expert to Master. The timer shrinks and number ranges expand as the engine keeps pushing your ceiling. No level cap.</div>
-        </div>
-        <div class="feat-card">
-          <span class="feat-icon" aria-hidden="true">!</span>
-          <div class="feat-title">Sudden Death</div>
-          <div class="feat-desc">One wrong answer and it's over. Sudden Death mode is the ultimate test of accuracy under pressure.</div>
-        </div>
-        <div class="feat-card">
-          <span class="feat-icon" aria-hidden="true">24h</span>
-          <div class="feat-title">Daily Challenge</div>
-          <div class="feat-desc">A new target score every day across rotating modes. Chase the leaderboard or just beat your personal best.</div>
-        </div>
-        <div class="feat-card">
-          <span class="feat-icon" aria-hidden="true">#1</span>
-          <div class="feat-title">Game Center</div>
-          <div class="feat-desc">Leaderboards and achievements synced across your devices via Apple Game Center.</div>
-        </div>
+        <video src="assets/mathflux-adaptive.mp4" poster="assets/mathflux-adaptive-poster.png" autoplay muted playsinline preload="metadata"
+               aria-label="A player answers correctly, reaches level 3, and gets a harder subtraction problem"></video>
       </div>
+
+      <dl class="feat-list">
+        <div><dt>Live competition</dt><dd>Create a room, share the code, and play real people in real time. Race for the high score, or play Elimination, where one wrong answer knocks you out and the last player standing wins.</dd></div>
+        <div><dt>Four tiers, no level cap</dt><dd>Climb from Novice through Adept and Expert to Master. The timer shrinks and the numbers grow as you go.</dd></div>
+        <div><dt>Sudden Death</dt><dd>One wrong answer and the run is over.</dd></div>
+        <div><dt>Daily Challenge</dt><dd>A new target score every day across rotating modes. Chase the leaderboard or just beat your own best.</dd></div>
+        <div><dt>Game Center</dt><dd>Leaderboards and achievements synced across your devices.</dd></div>
+      </dl>
     </div>
   </section>
 
   <!-- ── SUPPORT ── -->
   <section id="support">
     <div class="container">
-      <p class="section-label">Help &amp; Support</p>
-      <h2>Frequently Asked<br>Questions</h2>
+      <h2>Questions</h2>
       <p class="section-desc">Can't find your answer here? Email us directly. We respond within 24 hours.</p>
 
       <div class="faq-list">
@@ -717,7 +628,6 @@
   <!-- ── PRIVACY POLICY ── -->
   <section id="privacy">
     <div class="container">
-      <p class="section-label">Legal</p>
       <h2>Privacy Policy</h2>
       <p class="section-desc">Last updated: May 2026</p>
 
@@ -771,9 +681,8 @@
   <!-- ── CONTACT ── -->
   <section id="contact">
     <div class="container">
-      <p class="section-label">Get In Touch</p>
-      <h2>We're Here to Help</h2>
-      <p class="section-desc" style="margin: 0 auto;">Bug report, feature request, or just a question: reach out and we'll get back to you within 24 hours.</p>
+      <h2>Contact</h2>
+      <p class="section-desc">Bug report, feature request, or just a question: reach out and we'll get back to you within 24 hours.</p>
 
       <div class="contact-card">
         <a href="mailto:samuelfalade@gmail.com" class="contact-email">samuelfalade@gmail.com</a>
@@ -793,44 +702,6 @@
 </footer>
 
 <script>
-  // ── Floating math symbols
-  const SYMS = ['+','-','×','÷','=','∑','∫','√','π','∞','≠','≤','!','^','%','∂','∇'];
-  const container = document.querySelector('.symbols');
-  for (let i = 0; i < 28; i++) {
-    const el = document.createElement('span');
-    el.className = 'sym';
-    el.textContent = SYMS[Math.floor(Math.random() * SYMS.length)];
-    el.style.left     = Math.random() * 100 + 'vw';
-    el.style.animationDuration  = (18 + Math.random() * 22) + 's';
-    el.style.animationDelay     = -(Math.random() * 30) + 's';
-    el.style.fontSize = (0.8 + Math.random() * 1.4) + 'rem';
-    container.appendChild(el);
-  }
-
-  // ── Rotating hero tagline
-  const TAGLINES = [
-    ['Math Battles',    'Any Level.'],
-    ['Elimination',     'Last One Standing.'],
-    ['Sudden Death',    'One Wrong Move.'],
-    ['Daily Challenge', 'Beat Your Best.'],
-    ['Race the Clock',  'Every Second.'],
-    ['Adaptive Engine', 'No Ceiling.'],
-  ];
-  let tagIdx = 0;
-  const tagEl    = document.getElementById('hero-tagline');
-  const tagLeft  = document.getElementById('tagline-left');
-  const tagRight = document.getElementById('tagline-right');
-
-  setInterval(() => {
-    tagEl.style.opacity = '0';
-    setTimeout(() => {
-      tagIdx = (tagIdx + 1) % TAGLINES.length;
-      tagLeft.textContent  = TAGLINES[tagIdx][0];
-      tagRight.textContent = TAGLINES[tagIdx][1];
-      tagEl.style.opacity  = '1';
-    }, 400);
-  }, 3500);
-
   // ── FAQ accordion
   document.querySelectorAll('.faq-q').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -852,7 +723,7 @@
     });
   });
 
-  // ── In-action video: scroll-scaling + tap-to-unmute
+  // ── Hero recording: tap to unmute
   (function () {
     const wrap = document.querySelector('.video-wrap');
     const vid  = document.getElementById('appVideo');
@@ -873,31 +744,6 @@
     vid.addEventListener('click', enableSound);
     document.addEventListener('pointerdown', function armOnce() { wantsSound = true; }, { once: true });
 
-    // Smoothness: modern browsers run the pure-CSS scroll-driven animation
-    // (animation-timeline: view()), compositor-driven with no main-thread jank. Only
-    // browsers without it fall back to this rAF version, which maps scale LINEARLY
-    // to how centered the clip is (no easing surprises).
-    const hasSDA = window.CSS && CSS.supports && CSS.supports('animation-timeline: view()');
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = function () { return window.matchMedia('(max-width: 700px)').matches; };
-
-    if (!hasSDA && !reduce) {
-      let ticking = false;
-      function update() {
-        ticking = false;
-        if (isMobile()) { wrap.style.transform = ''; return; }
-        const r = wrap.getBoundingClientRect();
-        const cmid = r.top + r.height / 2;
-        const dist = Math.min(1, Math.abs(cmid - window.innerHeight / 2) / (window.innerHeight * 0.62));
-        const scale = 0.86 + (1 - dist) * 0.34;        // 0.86 at edges → 1.20 centered
-        wrap.style.transform = 'scale(' + scale.toFixed(3) + ')';
-      }
-      function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', update);
-      update();
-    }
-
     // Only play sound while the clip is on screen; mute when scrolled away.
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver(function (entries) {
@@ -914,6 +760,5 @@
     }
   })();
 </script>
-<script src="immersive.js" defer></script>
 </body>
 </html>
